@@ -67,13 +67,16 @@ pipeline {
     SHOULD_DEPLOY_BRANCH = 'true'
     REPO = "europe-central2-docker.pkg.dev/smg-genitorpino-project/papaia"
     IMAGE_NAME = "booking-management-service"
+    WORKING_DIR = "IT/BE/EMSP/BookingManagementService"
   }
 
   stages {
     stage('Compile') {
       steps {
         container('maven') {
-          sh 'mvn compile'
+          dir("${WORKING_DIR}"){
+            sh 'mvn compile'
+          }
         }
       }
     }
@@ -81,7 +84,9 @@ pipeline {
     stage('Run Unit Tests') {
       steps {
         container('maven') {
-          sh 'mvn test'
+          dir("${WORKING_DIR}"){
+            sh 'mvn test'
+          }
         }
       }
     }
@@ -89,7 +94,9 @@ pipeline {
     stage('Package') {
       steps {
         container('maven') {
-          sh 'mvn package -Dmaven.test.skip=true'
+          dir("${WORKING_DIR}"){
+            sh 'mvn package -Dmaven.test.skip=true'
+          }
         }
       }
     }
@@ -100,10 +107,12 @@ pipeline {
       }
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
-          sh '''
-            #!/busybox/sh
-            /kaniko/executor -f `pwd`/ci-cd/Dockerfile -c `pwd` --cache=true --destination=${REPO}/${IMAGE_NAME}:${ITEM_VERSION_TAG} --destination=${REPO}/${IMAGE_NAME}:${BRANCH_NAME_ESCAPED}-latest
-          '''
+          dir("${WORKING_DIR}"){
+            sh '''
+              #!/busybox/sh
+              /kaniko/executor -f `pwd`/ci-cd/Dockerfile -c `pwd` --cache=true --destination=${REPO}/${IMAGE_NAME}:${ITEM_VERSION_TAG} --destination=${REPO}/${IMAGE_NAME}:${BRANCH_NAME_ESCAPED}-latest
+            '''
+          }
         }
       }
     }
@@ -121,20 +130,22 @@ pipeline {
         K8S_MANIFEST_PATH = 'ci-cd/k8s-staging-deployment.yaml'
       }
       steps{
-        sh '''
-          mkdir k8s-manifests-compiled
-          envsubst < $K8S_MANIFEST_PATH > k8s-manifests-compiled/compiled.yaml
-        '''
-        step([
-          $class: 'KubernetesEngineBuilder',
-          projectId: env.PROJECT_ID,
-          clusterName: env.CLUSTER_NAME,
-          location: env.LOCATION,
-          manifestPattern: 'k8s-manifests-compiled/compiled.yaml',
-          credentialsId: env.CREDENTIALS_ID,
-          namespace: env.NAMESPACE,
-          verifyDeployments: true
-        ])
+        dir("${WORKING_DIR}"){
+          sh '''
+            mkdir k8s-manifests-compiled
+            envsubst < $K8S_MANIFEST_PATH > k8s-manifests-compiled/compiled.yaml
+          '''
+          step([
+            $class: 'KubernetesEngineBuilder',
+            projectId: env.PROJECT_ID,
+            clusterName: env.CLUSTER_NAME,
+            location: env.LOCATION,
+            manifestPattern: 'k8s-manifests-compiled/compiled.yaml',
+            credentialsId: env.CREDENTIALS_ID,
+            namespace: env.NAMESPACE,
+            verifyDeployments: true
+          ])
+        }
       }
     }
 
