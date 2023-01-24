@@ -62,7 +62,7 @@ pipeline {
 
   environment {
     CREDENTIALS_ID ='smg-genitorpino-project'
-    BRANCH_NAME_ESCAPED = "$BRANCH_NAME".replace("/", "-")
+    BRANCH_NAME_ESCAPED = 'main'
     ITEM_VERSION_TAG = "${BRANCH_NAME_ESCAPED}-${BUILD_NUMBER}"
     SHOULD_DEPLOY_BRANCH = 'true'
     REPO = "europe-central2-docker.pkg.dev/smg-genitorpino-project/papaia"
@@ -166,7 +166,7 @@ L'ambiente di staging è stato aggiornato
 """
           } else {
             message = message + """
-Il deploy in ambiente staging è disabilitato per la branch $BRANCH_NAME
+Il deploy in ambiente staging è disabilitato per la branch $BRANCH_NAME_ESCAPED
 """
           }
           reqBody = """
