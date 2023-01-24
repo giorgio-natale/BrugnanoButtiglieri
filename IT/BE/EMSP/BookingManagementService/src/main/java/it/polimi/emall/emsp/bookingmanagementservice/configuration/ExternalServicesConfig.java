@@ -12,7 +12,7 @@ public class ExternalServicesConfig {
     @Bean
     public BookingApi bookingApiEndPoint(
             ObjectMapper jsonObjectMapper,
-            @Value("${endpoints.booking-service.base-path}") String basePath
+            @Value("${endpoints.booking-service.base-path:#{null}}") String basePath
     ){
         ApiClient apiClient = new ApiClient(jsonObjectMapper, ApiClient.createDefaultDateFormat());
         if(basePath != null)
