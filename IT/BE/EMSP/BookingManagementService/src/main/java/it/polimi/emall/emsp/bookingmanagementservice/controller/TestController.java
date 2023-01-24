@@ -10,6 +10,7 @@ import it.polimi.emall.emsp.bookingmanagementservice.generated.http.model.TestCo
 
 @RestController
 public class TestController implements TestApi {
+
     @Override
     public ResponseEntity<TestComponentDto> getTestComponent() {
         return new ResponseEntity<>(
