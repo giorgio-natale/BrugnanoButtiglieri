@@ -156,13 +156,8 @@
 							<library>spring-boot</library>
 							<modelNameSuffix>Dto</modelNameSuffix>
 							<generateApis>true</generateApis>
-							<generateApiTests>true</generateApiTests>
-							<generateApiDocumentation>true</generateApiDocumentation>
 							<generateModels>true</generateModels>
-							<generateModelTests>true</generateModelTests>
-							<generateModelDocumentation>true</generateModelDocumentation>
-							<generateSupportingFiles>true</generateSupportingFiles>
-							<templateDirectory>${project.basedir}/templates</templateDirectory>
+							<templateDirectory>${project.basedir}/../../templates</templateDirectory>
 
 							<environmentVariables>
 								<supportingFiles>
@@ -173,10 +168,8 @@
 							<configOptions>
 								<useSpringBoot3>true</useSpringBoot3>
 								<interfaceOnly>true</interfaceOnly>∂
-								<useBeanValidation>true</useBeanValidation>
-								<performBeanValidation>true</performBeanValidation>
-								<modelPackage>${project.groupId}.${componentBasePackage}.generated.http.model</modelPackage>
-								<apiPackage>${project.groupId}.${componentBasePackage}.generated.http.controller</apiPackage>
+								<modelPackage>${project.groupId}.${componentBasePackage}.generated.http.server.model</modelPackage>
+								<apiPackage>${project.groupId}.${componentBasePackage}.generated.http.server.controller</apiPackage>
 								<sourceFolder>/src/main/java</sourceFolder>
 								<implFolder>/src/main/java</implFolder>
 								<serializableModel>true</serializableModel>
@@ -194,23 +187,18 @@
 							<inputSpec>${project.basedir}/HttpApiSpecification.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<generateApis>true</generateApis>
-							<generateApiTests>true</generateApiTests>
-							<generateApiDocumentation>true</generateApiDocumentation>
 							<generateModels>true</generateModels>
-							<generateModelTests>true</generateModelTests>
-							<generateModelDocumentation>true</generateModelDocumentation>
-							<!--<generateSupportingFiles>true</generateSupportingFiles>-->
-							<!--<templateDirectory>${project.basedir}/templates</templateDirectory>-->
+							<generateModelTests>false</generateModelTests>
+							<generateApiTests>false</generateApiTests>
+							<modelNameSuffix>ClientDto</modelNameSuffix>
 
 
 							<configOptions>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
-								<useBeanValidation>true</useBeanValidation>
 								<useJakartaEe>true</useJakartaEe>
 								<library>webclient</library>
-								<performBeanValidation>true</performBeanValidation>
-								<modelPackage>${project.groupId}.${componentBasePackage}.generated.client.http.model</modelPackage>
-								<apiPackage>${project.groupId}.${componentBasePackage}.generated.client.http.controller</apiPackage>
+								<modelPackage>${project.groupId}.${componentBasePackage}.generated.http.client.service-name.model</modelPackage>
+								<apiPackage>${project.groupId}.${componentBasePackage}.generated.http.client.service-name.endpoints</apiPackage>
 								<sourceFolder>/src/main/java</sourceFolder>
 								<implFolder>/src/main/java</implFolder>
 								<serializableModel>true</serializableModel>
