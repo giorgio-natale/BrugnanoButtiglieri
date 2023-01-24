@@ -67,6 +67,7 @@ pipeline {
     SHOULD_DEPLOY_BRANCH = 'true'
     REPO = "europe-central2-docker.pkg.dev/smg-genitorpino-project/papaia"
     IMAGE_NAME = "booking-service"
+    WORKING_DIR = "IT/BE/CPMS/BookingService"
   }
 
   stages {
