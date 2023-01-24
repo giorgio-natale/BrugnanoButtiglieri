@@ -1,18 +1,26 @@
 openapi: 3.0.2
 info:
-  title: eMSP-BookingManagementService
+  title: CPMS-BookingManagementService
   version: 1.0.0
-  description: A brand new API with no content.  Go nuts!
+  description: Http Api for CPMS-BookingManagementService
+servers:
+  - url: 'http://booking-service'
+    description: ''
+tags:
+  - name: booking
+    description: Booking operations
 paths:
-  /test:
+  '/booking':
     get:
       responses:
-        '201':
-          description: Created
+        '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TestComponent'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+          description: ''
         '401':
           $ref: '#/components/responses/ErrorResponse'
         '404':
@@ -21,30 +29,45 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       security:
         - Authenticated: []
-      operationId: getTestComponent
+      tags:
+        - booking
+      operationId: getAllBookings
     post:
-      summary: ''
-      operationId: post-test
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TestComponent'
-      description: Create a TestComponent
-      security:
-        - Authenticated: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TestComponent'
-  /health/ready:
+              $ref: '#/components/schemas/BookingRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '409':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      tags:
+        - booking
+      operationId: postBooking
+  '/booking/{bookingCode}':
     get:
       responses:
         '200':
-          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
         '401':
           $ref: '#/components/responses/ErrorResponse'
         '404':
@@ -53,30 +76,257 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       security:
         - Authenticated: []
-      operationId: isReady
+      tags:
+        - booking
+      operationId: getBooking
+    parameters:
+      - name: bookingCode
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
+  '/booking/{bookingCode}/status':
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingStatus'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      tags:
+        - booking
+      description: ''
+      operationId: getBookingStatus
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingStatus'
+        required: true
+      responses:
+        '200':
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '409':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      tags:
+        - booking
+      operationId: putBookingStatus
+    parameters:
+      - name: bookingCode
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
 components:
   schemas:
-    TestComponent:
-      title: MyTestComponent
+    Timeframe:
+      required:
+        - startInstant
       type: object
-      x-stoplight:
-        id: b36a75377da8e
       properties:
-        welcomeMesage:
+        startInstant:
+          format: date-time
           type: string
-        fee:
-          type: object
-          properties:
-            value:
-              type: integer
-              format: int64
-            currency:
-              type: string
-        status:
-          $ref: '#/components/schemas/Status'
-    Error:
-      title: Root Type for Error
+        endInstant:
+          format: date-time
+          type: string
+      example:
+        startInstant: '2018-11-13T20:20:39+00:00'
+        endInstant: '2018-11-13T20:20:39+00:00'
+      x-examples:
+        Example 1:
+          startInstant: '2018-11-13T20:20:39+00:00'
+          endInstant: '2018-11-13T20:20:39+00:00'
+    SocketType:
+      type: string
+      enum:
+        - SLOW
+        - FAST
+        - RAPID
+      x-examples:
+        Example 1: SLOW
+    BookingType:
+      type: string
+      enum:
+        - IN_ADVANCE
+        - ON_THE_FLY
+      example: IN_ADVANCE
+      x-examples:
+        Example 1: IN_ADVANCE
+    BookingRequest:
+      type: object
+      required:
+        - chargingStationId
+        - customerId
+      properties:
+        customerId:
+          format: int64
+          type: integer
+        chargingStationId:
+          format: int64
+          type: integer
+      oneOf:
+        - $ref: '#/components/schemas/BookingInAdvance'
+        - $ref: '#/components/schemas/BookingOnTheFly'
+      discriminator:
+        propertyName: bookingType
       description: ''
+      x-examples:
+        Example 2:
+          bookingType: BookingInAdvance
+          socketType: SLOW
+          timeframe:
+            startInstant: '2018-11-13T20:20:39+00:00'
+            endInstant: '2018-11-13T20:20:39+00:00'
+    BookingInAdvance:
+      required:
+        - socketType
+        - timeframe
+        - bookingType
+      type: object
+      properties:
+        bookingType:
+          type: string
+          x-discriminator: BookingInAdvance
+        socketType:
+          $ref: '#/components/schemas/SocketType'
+        timeframe:
+          $ref: '#/components/schemas/Timeframe'
+      example:
+        bookingType: BookingInAdvance
+        socketType: SLOW
+        timeframe:
+          startInstant: '2018-11-13T20:20:39+00:00'
+          endInstant: '2018-11-13T20:20:39+00:00'
+      x-examples:
+        Example 1:
+          bookingType: BookingInAdvance
+          socketType: SLOW
+          timeframe:
+            startInstant: '2018-11-13T20:20:39+00:00'
+            endInstant: '2018-11-13T20:20:39+00:00'
+    BookingOnTheFly:
+      required:
+        - bookingType
+        - chargingPointId
+        - socketId
+      type: object
+      properties:
+        bookingType:
+          type: string
+          x-discriminator: BookingOnTheFly
+        chargingPointId:
+          format: int64
+          description: ''
+          type: integer
+        socketId:
+          format: int64
+          description: ''
+          type: integer
+      example:
+        bookingType: BookingOnTheFly
+        chargingPointId: 1
+        socketId: 1
+      x-examples:
+        Example 1:
+          bookingType: BookingOnTheFly
+          chargingPointId: 1
+          socketId: 1
+    BookingStatusCancelled:
+      type: object
+      required:
+        - bookingStatus
+      properties:
+        bookingStatus:
+          type: string
+          x-discriminator: BookingStatusCancelled
+      example:
+        bookingStatus: BookingStatusCancelled
+      x-examples:
+        Example 1:
+          bookingStatus: BookingStatusCancelled
+    BookingStatusCompleted:
+      type: object
+      properties:
+        bookingStatus:
+          type: string
+          x-discriminator: BookingStatusCompleted
+      example:
+        bookingStatus: BookingStatusCompleted
+      x-examples:
+        Example 1:
+          bookingStatus: BookingStatusCompleted
+    BookingStatusExpired:
+      type: object
+      example:
+        bookingStatus: BookingStatusExpired
+      required:
+        - bookingStatus
+      properties:
+        bookingStatus:
+          type: string
+          x-discriminator: BookingStatusExpired
+      x-examples:
+        Example 1:
+          bookingStatus: BookingStatusExpired
+    BookingStatusInProgress:
+      type: object
+      properties:
+        bookingStatus:
+          type: string
+          x-discriminator: BookingStatusInProgress
+        expectedMinutesLeft:
+          format: int32
+          type: integer
+      example:
+        bookingStatus: BookingStatusInProgress
+        expectedMinutesLeft: 1
+      x-examples:
+        Example 1:
+          bookingStatus: BookingStatusInProgress
+          expectedMinutesLeft: 1
+    BookingStatusPlanned:
+      type: object
+      properties:
+        bookingStatus:
+          x-discriminator: BookingStatusPlanned
+          type: string
+      example:
+        bookingStatus: BookingStatusPlanned
+      x-examples:
+        Example 1:
+          bookingStatus: BookingStatusPlanned
+    BookingStatus:
+      oneOf:
+        - $ref: '#/components/schemas/BookingStatusInProgress'
+        - $ref: '#/components/schemas/BookingStatusPlanned'
+        - $ref: '#/components/schemas/BookingStatusExpired'
+        - $ref: '#/components/schemas/BookingStatusCancelled'
+        - $ref: '#/components/schemas/BookingStatusCompleted'
+      discriminator:
+        propertyName: bookingStatus
+      type: object
+    Error:
       type: object
       properties:
         type:
@@ -86,7 +336,6 @@ components:
         status:
           format: int32
           type: integer
-          readOnly: true
         detail:
           type: string
         instance:
@@ -97,40 +346,51 @@ components:
         status: 409
         detail: The requested booking timeframe overlaps with another planned booking.
         instance: /booking
-    ReadyStatus:
-      title: ReadyStatus
+    Booking:
       required:
-        - status
-      x-stoplight:
-        id: g4m3tyyi871e3
+        - bookingCode
+        - bookingType
+        - chargingPointId
+        - chargingStationId
+        - customerId
+        - socketId
+        - socketType
+        - timeframe
       type: object
       properties:
-        status:
-          type: string
-          x-discriminator: ReadyStatus
-    DeliveringStatus:
-      title: DeliveringStatus
-      required:
-        - status
-        - minutesLeft
-      x-stoplight:
-        id: 0xxhfd5zi3zdo
-      type: object
-      properties:
-        status:
-          type: string
-          x-discriminator: DeliveringStatus
-        minutesLeft:
+        bookingCode:
+          format: int64
           type: integer
-    Status:
-      oneOf:
-        - $ref: '#/components/schemas/ReadyStatus'
-        - $ref: '#/components/schemas/DeliveringStatus'
-      discriminator:
-        propertyName: status
-        mapping:
-          ready: '#/components/schemas/ReadyStatus'
-          delivering: '#/components/schemas/DeliveringStatus'
+          readOnly: true
+        customerId:
+          format: int64
+          type: integer
+        chargingStationId:
+          format: int64
+          type: integer
+        chargingPointId:
+          format: int64
+          type: integer
+        socketId:
+          format: int64
+          type: integer
+        socketType:
+          $ref: '#/components/schemas/SocketType'
+        timeframe:
+          $ref: '#/components/schemas/Timeframe'
+        bookingType:
+          $ref: '#/components/schemas/BookingType'
+      example:
+        bookingCode: 1
+        customerId: 1
+        chargingStationId: 1
+        bookingType: IN_ADVANCE
+        chargingPointId: 1
+        socketId: 1
+        socketType: SLOW
+        timeframe:
+          startInstant: '2018-11-13T20:20:39+00:00'
+          endInstant: '2018-11-13T20:20:39+00:00'
   responses:
     ErrorResponse:
       content:

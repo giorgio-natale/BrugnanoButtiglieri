@@ -157,7 +157,7 @@
 							<modelNameSuffix>Dto</modelNameSuffix>
 							<generateApis>true</generateApis>
 							<generateModels>true</generateModels>
-							<templateDirectory>${project.basedir}/../../templates</templateDirectory>
+							<templateDirectory>${project.basedir}/../../templates/server</templateDirectory>
 
 							<environmentVariables>
 								<supportingFiles>
@@ -187,8 +187,10 @@
 							<inputSpec>${project.basedir}/HttpApiSpecification.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<generateApis>true</generateApis>
-							<generateModelTests>true</generateModelTests>
+							<generateModelTests>false</generateModelTests>
+							<generateApiTests>false</generateApiTests>
 							<modelNameSuffix>ClientDto</modelNameSuffix>
+							<templateDirectory>${project.basedir}/../../templates/client</templateDirectory>
 
 
 							<configOptions>
