@@ -156,8 +156,6 @@ paths:
 components:
   schemas:
     Timeframe:
-      title: Root Type for Timeframe
-      description: ''
       required:
         - startInstant
       type: object
@@ -194,14 +192,9 @@ components:
     BookingRequest:
       type: object
       required:
-        - bookingCode
         - chargingStationId
         - customerId
       properties:
-        bookingCode:
-          format: int64
-          type: integer
-          readOnly: true
         customerId:
           format: int64
           type: integer
@@ -228,8 +221,6 @@ components:
             startInstant: '2018-11-13T20:20:39+00:00'
             endInstant: '2018-11-13T20:20:39+00:00'
     BookingInAdvance:
-      title: Root Type for BookingInAdvance
-      description: ''
       required:
         - socketType
         - timeframe
@@ -356,12 +347,8 @@ components:
         - $ref: '#/components/schemas/BookingStatusCompleted'
       discriminator:
         propertyName: bookingStatus
-      title: Root Type for BookingStatus
-      description: ''
       type: object
     Error:
-      title: Root Type for Error
-      description: ''
       type: object
       properties:
         type:
@@ -382,8 +369,6 @@ components:
         detail: The requested booking timeframe overlaps with another planned booking.
         instance: /booking
     Booking:
-      title: Root Type for Booking
-      description: ''
       required:
         - bookingCode
         - bookingType
