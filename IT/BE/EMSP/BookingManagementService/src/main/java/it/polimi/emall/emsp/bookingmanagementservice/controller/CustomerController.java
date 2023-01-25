@@ -1,27 +1,23 @@
 package it.polimi.emall.emsp.bookingmanagementservice.controller;
 
-import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.endpoints.BookingApi;
-import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.BookingClientDto;
-import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.BookingRequestClientDto;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.controller.CustomerApi;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.*;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import it.polimi.emall.emsp.bookingmanagementservice.usecases.BookAChargeUseCase;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @RestController
 public class CustomerController implements CustomerApi {
 
-    private final BookingApi bookingApiEndPoint;
+    private final BookAChargeUseCase bookAChargeUseCase;
 
-
-    @Autowired
-    public CustomerController(BookingApi bookingApiEndPoint) {
-        this.bookingApiEndPoint = bookingApiEndPoint;
+    public CustomerController(BookAChargeUseCase bookAChargeUseCase) {
+        this.bookAChargeUseCase = bookAChargeUseCase;
     }
 
     @Override
@@ -41,18 +37,13 @@ public class CustomerController implements CustomerApi {
 
     @Override
     public ResponseEntity<BookingDto> postBooking(Long customerId, BookingRequestDto bookingRequestDto) {
-        BookingRequestClientDto bookingRequestClientDto = new BookingRequestClientDto();
-        BeanUtils.copyProperties(bookingRequestDto, bookingRequestClientDto);
-        BookingClientDto booking = bookingApiEndPoint.postBooking(bookingRequestClientDto).block();
-        BookingDto result = new BookingDto(null, null, null, null, null, null, null, null);
-        assert booking != null;
-        BeanUtils.copyProperties(booking, result);
-        result.setSocketType(SocketTypeDto.fromValue(booking.getSocketType().getValue()));
-        result.setBookingType(BookingTypeDto.fromValue(booking.getBookingType().getValue()));
-        TimeframeDto timeframeDto = new TimeframeDto(null);
-        BeanUtils.copyProperties(booking.getTimeframe(), timeframeDto);
-        result.setTimeframe(timeframeDto);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            if(!BeanUtils.getProperty(bookingRequestDto, "customerId").equals(String.valueOf(customerId)))
+                throw new IllegalArgumentException("Customer id mismatch between path parameter and request");
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            throw new IllegalArgumentException("Request does not contain customerId");
+        }
+        return new ResponseEntity<>(bookAChargeUseCase.createBooking(bookingRequestDto), HttpStatus.OK);
     }
 
     @Override
