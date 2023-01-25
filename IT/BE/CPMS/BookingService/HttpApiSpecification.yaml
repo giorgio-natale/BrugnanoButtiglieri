@@ -348,6 +348,7 @@ components:
         instance: /booking
     Booking:
       required:
+        - bookingId
         - bookingCode
         - bookingType
         - chargingPointId
@@ -358,6 +359,10 @@ components:
         - timeframe
       type: object
       properties:
+        bookingId:
+          format: int64
+          type: integer
+          readOnly: true
         bookingCode:
           format: int64
           type: integer
@@ -365,15 +370,19 @@ components:
         customerId:
           format: int64
           type: integer
+          readOnly: true
         chargingStationId:
           format: int64
           type: integer
+          readOnly: true
         chargingPointId:
           format: int64
           type: integer
+          readOnly: true
         socketId:
           format: int64
           type: integer
+          readOnly: true
         socketType:
           $ref: '#/components/schemas/SocketType'
         timeframe:

@@ -39,6 +39,7 @@ public class BookingController implements BookingApi {
             throw new IllegalArgumentException("Booking request can only be in advance or on the fly");
 
         return new ResponseEntity<>(new BookingDto(
+                123L,
                 1L,
                 bookingInAdvanceDto != null ? bookingInAdvanceDto.getCustomerId() : bookingOnTheFlyDto.getCustomerId(),
                 bookingInAdvanceDto != null ? bookingInAdvanceDto.getChargingStationId() : bookingOnTheFlyDto.getChargingStationId(),
