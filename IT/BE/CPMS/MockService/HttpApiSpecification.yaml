@@ -1,0 +1,185 @@
+openapi: 3.0.2
+info:
+  title: MockApi
+  version: 1.0.0
+  description: Mock api
+paths:
+  '/chargingStation/{chargingStationId}':
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargingStation'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      operationId: getChargingStationConfiguration
+      summary: ChargingStationConfiguration
+      description: ''
+    parameters:
+      - name: chargingStationId
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
+  /chargingStation:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChargingStation'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      summary: ChargingStationConfigurationList
+      operationId: getChargingStationConfigurationList
+components:
+  schemas:
+    Error:
+      title: Root Type for Error
+      description: ''
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          format: int32
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+      example:
+        type: /errors/charging-station-not-found
+        title: Charging station not found
+        status: 404
+        detail: Charging station not found
+        instance: /charging-station
+    SocketType:
+      enum:
+        - SLOW
+        - FAST
+        - RAPID
+      type: string
+      example: SLOW
+    ChargingPointMode:
+      type: string
+      enum:
+        - IN_ADVANCE
+        - ON_THE_FLY
+      example: IN_ADVANCE
+    ChargingPoint:
+      required:
+        - chargingPointId
+        - chargingPointCode
+        - mode
+        - socketList
+      type: object
+      properties:
+        id:
+          type: string
+        mode:
+          $ref: '#/components/schemas/ChargingPointMode'
+        socketList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Socket'
+      example:
+        chargingPointId: 3
+        chargingPointCode: A
+        mode: IN_ADVANCE
+        socketList:
+          - socketId: 1
+            socketCode: '2'
+            type: SLOW
+    ChargingStation:
+      required:
+        - chargingStationId
+        - name
+        - city
+        - address
+        - chargingPointList
+      type: object
+      properties:
+        chargingStationId:
+          format: int64
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        address:
+          type: string
+          readOnly: true
+        city:
+          type: string
+          readOnly: true
+        chargingPointList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargingPoint'
+      example:
+        chargingStationId: 1
+        name: Go Electric Station
+        address: 'Via Vittorio Veneto, 8'
+        city: Milan
+        chargingPointList:
+          - chargingPointId: 3
+            chargingPointCode: A
+            mode: IN_ADVANCE
+            socketList:
+              - socketId: 3
+                socketCode: '2'
+                type: SLOW
+    Socket:
+      title: Root Type for Socket
+      description: ''
+      required:
+        - socketId
+        - socketCode
+        - type
+      type: object
+      properties:
+        socketId:
+          type: integer
+          format: int64
+        type:
+          $ref: '#/components/schemas/SocketType'
+      example:
+        socketId: 1
+        socketCode: B
+        type: SLOW
+  responses:
+    ErrorResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: ''
+  securitySchemes:
+    Authenticated:
+      scheme: bearer
+      type: http
+servers:
+  - url: 'http://mock-service'

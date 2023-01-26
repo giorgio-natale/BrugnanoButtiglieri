@@ -1,0 +1,201 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          namespace: jenkins
+          name: jenkins-agent
+          labels:
+            app: jenkins-agent
+            mvn-local-cache: enabled
+        spec:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: "mvn-local-cache"
+                    operator: In
+                    values:
+                    - enabled
+                topologyKey: "kubernetes.io/hostname"
+          containers:
+          - name: jnlp
+            image: 'europe-central2-docker.pkg.dev/smg-genitorpino-project/smg-main-repo/smg-jenkins-agent'
+            args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
+          - name: maven
+            image: maven:3-openjdk-18
+            env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: jenkins-CICD
+            volumeMounts:
+            - mountPath: /root/.m2
+              name: mvn-cache
+            command:
+            - cat
+            tty: true
+          - name: kaniko
+            image: gcr.io/kaniko-project/executor:debug
+            command:
+            - /busybox/cat
+            tty: true
+            volumeMounts:
+            - name: kaniko-secret
+              mountPath: /secret
+            env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /secret/clusterino-sa-secret.json
+          volumes:
+          - name: mvn-cache
+            hostPath:
+              path: /var/cache/maven/jenkins-agent
+              type: DirectoryOrCreate
+          - name: kaniko-secret
+            secret:
+              secretName: clusterino-sa-secret
+
+      '''
+    }
+  }
+
+  environment {
+    CREDENTIALS_ID ='smg-genitorpino-project'
+    BRANCH_NAME_ESCAPED = 'main'
+    ITEM_VERSION_TAG = "${BRANCH_NAME_ESCAPED}-${BUILD_NUMBER}"
+    SHOULD_DEPLOY_BRANCH = 'true'
+    REPO = "europe-central2-docker.pkg.dev/smg-genitorpino-project/papaia"
+    IMAGE_NAME = "mock-service"
+    WORKING_DIR = "IT/BE/CPMS/MockService"
+  }
+
+  stages {
+      stage('Compile') {
+        steps {
+          container('maven') {
+            dir("${WORKING_DIR}"){
+              sh 'mvn compile'
+            }
+          }
+        }
+      }
+
+      stage('Run Unit Tests') {
+        steps {
+          container('maven') {
+            dir("${WORKING_DIR}"){
+              sh 'mvn test'
+            }
+          }
+        }
+      }
+
+      stage('Package') {
+        steps {
+          container('maven') {
+            dir("${WORKING_DIR}"){
+              sh 'mvn package -Dmaven.test.skip=true'
+            }
+          }
+        }
+      }
+
+      stage('Build image (KANIKO)') {
+        environment {
+          PATH = "/busybox:/kaniko:$PATH"
+        }
+        steps {
+          container(name: 'kaniko', shell: '/busybox/sh') {
+            dir("${WORKING_DIR}"){
+              sh '''
+                #!/busybox/sh
+                /kaniko/executor -f `pwd`/ci-cd/Dockerfile -c `pwd` --cache=true --destination=${REPO}/${IMAGE_NAME}:${ITEM_VERSION_TAG} --destination=${REPO}/${IMAGE_NAME}:${BRANCH_NAME_ESCAPED}-latest
+              '''
+            }
+          }
+        }
+      }
+
+      stage('Deploy BE to GKE') {
+        when {
+          environment name: 'SHOULD_DEPLOY_BRANCH', value: 'true'
+        }
+        environment {
+          PROJECT_ID = 'smg-genitorpino-project'
+          CLUSTER_NAME = 'clusterino'
+          LOCATION = 'europe-central2-a'
+          CREDENTIALS_ID = 'clusterino-sa-secret'
+          NAMESPACE = 'papaia'
+          K8S_MANIFEST_PATH = 'ci-cd/k8s-staging-deployment.yaml'
+        }
+        steps{
+          dir("${WORKING_DIR}"){
+            sh '''
+              mkdir k8s-manifests-compiled
+              envsubst < $K8S_MANIFEST_PATH > k8s-manifests-compiled/compiled.yaml
+            '''
+            step([
+              $class: 'KubernetesEngineBuilder',
+              projectId: env.PROJECT_ID,
+              clusterName: env.CLUSTER_NAME,
+              location: env.LOCATION,
+              manifestPattern: 'k8s-manifests-compiled/compiled.yaml',
+              credentialsId: env.CREDENTIALS_ID,
+              namespace: env.NAMESPACE,
+              verifyDeployments: true
+            ])
+          }
+        }
+      }
+
+   }
+
+  post {
+    success {
+      script {
+        withCredentials([string(credentialsId: 'TelegramToken', variable: 'telegram_token')]) {
+          chat_id = -1001585536504
+          message = """
+La pipeline CI/CD back-end è stata eseguita con successo (BE ${ITEM_VERSION_TAG})
+É stata creata una nuova immagine: ${REPO}/${IMAGE_NAME}:${ITEM_VERSION_TAG}
+"""
+          if ( env.SHOULD_DEPLOY_BRANCH == 'true') {
+            message = message + """
+L'ambiente di staging è stato aggiornato
+"""
+          } else {
+            message = message + """
+Il deploy in ambiente staging è disabilitato per la branch $BRANCH_NAME_ESCAPED
+"""
+          }
+          reqBody = """
+{
+  "chat_id": $chat_id,
+  "text": "$message"
+}
+"""
+          httpRequest consoleLogResponseBody: true, contentType: 'APPLICATION_JSON_UTF8', httpMode: 'POST', requestBody: reqBody, responseHandle: 'NONE', url: "https://api.telegram.org/bot${telegram_token}/sendMessage", wrapAsMultipart: false
+        }
+      }
+    }
+    unsuccessful {
+      script {
+        withCredentials([string(credentialsId: 'TelegramToken', variable: 'telegram_token')]) {
+          chat_id = -1001585536504
+          message = """
+La pipeline CI/CD back-end è fallita (BE ${ITEM_VERSION_TAG}) :(
+"""
+          reqBody = """
+{
+  "chat_id": $chat_id,
+  "text": "$message"
+}
+"""
+          httpRequest consoleLogResponseBody: true, contentType: 'APPLICATION_JSON_UTF8', httpMode: 'POST', requestBody: reqBody, responseHandle: 'NONE', url: "https://api.telegram.org/bot${telegram_token}/sendMessage", wrapAsMultipart: false
+        }
+      }
+    }
+  }
+
+}

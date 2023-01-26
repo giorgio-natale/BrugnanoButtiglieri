@@ -82,7 +82,7 @@ public class {{classname}}{{#parent}} extends {{{parent}}}{{/parent}}{{^parent}}
 
 {{! begin feature: constructor with required fields}}
 @JsonCreator
-public {{classname}} ({{#requiredVars}}{{^vendorExtensions.x-discriminator}}{{datatypeWithEnum}} {{name}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-discriminator}}{{/requiredVars}}){
+public {{classname}} ({{#requiredVars}}{{^vendorExtensions.x-discriminator}}{{{datatypeWithEnum}}} {{name}}{{^-last}}, {{/-last}}{{/vendorExtensions.x-discriminator}}{{/requiredVars}}){
 {{#requiredVars}}
     {{#vendorExtensions.x-discriminator}}
         this.{{name}} = "{{{.}}}";

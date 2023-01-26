@@ -1,0 +1,22 @@
+[
+  {
+    "chargingStationId": 1,
+    "name": "Go Electric Station",
+    "address": "Via Vittorio Veneto, 8",
+    "city": "Milan",
+    "chargingPointList": [
+      {
+        "chargingPointId": 3,
+        "chargingPointCode": "A",
+        "mode": "IN_ADVANCE",
+        "socketList": [
+          {
+            "socketId": 3,
+            "socketCode": "2",
+            "type": "SLOW"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -411,7 +411,8 @@ components:
         bookingType:
           $ref: '#/components/schemas/BookingType'
       example:
-        bookingCode: 1
+        bookingId: 127
+        bookingCode: "1"
         customerId: 1
         chargingStationId: 1
         bookingType: IN_ADVANCE
