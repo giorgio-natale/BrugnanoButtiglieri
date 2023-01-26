@@ -182,23 +182,23 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
-						<id>buildClient</id>
+						<id>buildMockClient</id>
 						<configuration>
-							<inputSpec>${project.basedir}/HttpApiSpecification.yaml</inputSpec>
+							<inputSpec>${project.basedir}/../../CPMS/MockService/HttpApiSpecification.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<generateApis>true</generateApis>
+							<generateModels>true</generateModels>
 							<generateModelTests>false</generateModelTests>
 							<generateApiTests>false</generateApiTests>
 							<modelNameSuffix>ClientDto</modelNameSuffix>
 							<templateDirectory>${project.basedir}/../../templates/client</templateDirectory>
 
-
 							<configOptions>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>true</useJakartaEe>
 								<library>webclient</library>
-								<modelPackage>${project.groupId}.${componentBasePackage}.generated.http.client.service-name.model</modelPackage>
-								<apiPackage>${project.groupId}.${componentBasePackage}.generated.client.client.service-name.endpoints</apiPackage>
+								<modelPackage>${project.groupId}.${componentBasePackage}.generated.http.client.cpms_bookingservice.model</modelPackage>
+								<apiPackage>${project.groupId}.${componentBasePackage}.generated.http.client.cpms_bookingservice.endpoints</apiPackage>
 								<sourceFolder>/src/main/java</sourceFolder>
 								<implFolder>/src/main/java</implFolder>
 								<serializableModel>true</serializableModel>

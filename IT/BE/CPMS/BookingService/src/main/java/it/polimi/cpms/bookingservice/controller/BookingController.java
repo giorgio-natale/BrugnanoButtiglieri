@@ -18,12 +18,12 @@ public class BookingController implements BookingApi {
     }
 
     @Override
-    public ResponseEntity<BookingDto> getBooking(Long bookingCode) {
+    public ResponseEntity<BookingDto> getBooking(String bookingCode) {
         return BookingApi.super.getBooking(bookingCode);
     }
 
     @Override
-    public ResponseEntity<BookingStatusDto> getBookingStatus(Long bookingCode) {
+    public ResponseEntity<BookingStatusDto> getBookingStatus(String bookingCode) {
         return BookingApi.super.getBookingStatus(bookingCode);
     }
 
@@ -40,7 +40,7 @@ public class BookingController implements BookingApi {
 
         return new ResponseEntity<>(new BookingDto(
                 123L,
-                1L,
+                "1",
                 bookingInAdvanceDto != null ? bookingInAdvanceDto.getCustomerId() : bookingOnTheFlyDto.getCustomerId(),
                 bookingInAdvanceDto != null ? bookingInAdvanceDto.getChargingStationId() : bookingOnTheFlyDto.getChargingStationId(),
                 bookingInAdvanceDto != null ? 100L : bookingOnTheFlyDto.getChargingPointId(),
@@ -53,7 +53,7 @@ public class BookingController implements BookingApi {
     }
 
     @Override
-    public ResponseEntity<Void> putBookingStatus(Long bookingCode, BookingStatusDto bookingStatusDto) {
+    public ResponseEntity<Void> putBookingStatus(String bookingCode, BookingStatusDto bookingStatusDto) {
         return BookingApi.super.putBookingStatus(bookingCode, bookingStatusDto);
     }
 }

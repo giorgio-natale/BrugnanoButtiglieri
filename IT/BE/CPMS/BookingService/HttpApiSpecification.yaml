@@ -82,8 +82,7 @@ paths:
     parameters:
       - name: bookingCode
         schema:
-          format: int64
-          type: integer
+          type: string
         in: path
         required: true
   '/booking/{bookingCode}/status':
@@ -133,8 +132,7 @@ paths:
     parameters:
       - name: bookingCode
         schema:
-          format: int64
-          type: integer
+          type: string
         in: path
         required: true
 components:
@@ -267,6 +265,8 @@ components:
           bookingStatus: BookingStatusCancelled
     BookingStatusCompleted:
       type: object
+      required:
+        - bookingStatus
       properties:
         bookingStatus:
           type: string
@@ -277,11 +277,12 @@ components:
         Example 1:
           bookingStatus: BookingStatusCompleted
     BookingStatusExpired:
+      required:
+        - bookingStatus
       type: object
       example:
         bookingStatus: BookingStatusExpired
-      required:
-        - bookingStatus
+
       properties:
         bookingStatus:
           type: string
@@ -291,6 +292,8 @@ components:
           bookingStatus: BookingStatusExpired
     BookingStatusInProgress:
       type: object
+      required:
+        - bookingStatus
       properties:
         bookingStatus:
           type: string
@@ -306,6 +309,8 @@ components:
           bookingStatus: BookingStatusInProgress
           expectedMinutesLeft: 1
     BookingStatusPlanned:
+      required:
+        - bookingStatus
       type: object
       properties:
         bookingStatus:
@@ -364,8 +369,7 @@ components:
           type: integer
           readOnly: true
         bookingCode:
-          format: int64
-          type: integer
+          type: string
           readOnly: true
         customerId:
           format: int64
@@ -390,7 +394,8 @@ components:
         bookingType:
           $ref: '#/components/schemas/BookingType'
       example:
-        bookingCode: 1
+        bookingId: 1
+        bookingCode: "1"
         customerId: 1
         chargingStationId: 1
         bookingType: IN_ADVANCE
