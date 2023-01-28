@@ -61,6 +61,96 @@ paths:
       operationId: getChargingStationConfigurationList
       tags:
         - mock
+  /chargingStationOverview:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChargingStationOverview'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      operationId: getChargingStationOverviewList
+  '/chargingStationOverview/{chargingStationId}':
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargingStationOverview'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      operationId: getChargingStationOverview
+    parameters:
+      - name: chargingStationId
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
+  '/chargingStation/{chargingStationId}/pricing':
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pricing'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      operationId: getPricing
+    parameters:
+      - name: chargingStationId
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
+  /chargingStation/pricing:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pricing'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      operationId: getPricingList
 components:
   schemas:
     Error:
@@ -165,6 +255,79 @@ components:
               - socketId: 3
                 socketCode: '2'
                 type: SLOW
+    Price:
+      title: Root Type for Price
+      description: ''
+      type: object
+      properties:
+        currency:
+          type: string
+        amount:
+          format: double
+          type: number
+      example:
+        currency: EUR
+        amount: 1
+    Pricing:
+      title: Root Type for Pricing
+      description: ''
+      required:
+        - price
+        - percentageOffer
+        - chargingStationId
+      type: object
+      properties:
+        price:
+          $ref: '#/components/schemas/Price'
+        percentageOffer:
+          format: double
+          type: number
+        chargingStationId:
+          format: int64
+          description: ''
+          type: integer
+      example:
+        chargingStationId: 1
+        price:
+          currency: EUR
+          amount: 1
+        percentageOffer: 0.1
+    ChargingStationOverview:
+      title: Root Type for ChargingStation
+      description: ''
+      required:
+        - chargingStationId
+        - pricePerKWh
+        - offerPercentage
+        - name
+        - city
+        - address
+      type: object
+      properties:
+        id:
+          format: int64
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        pricePerKWh:
+          $ref: '#/components/schemas/Price'
+        offerPercentage:
+          format: double
+          type: number
+      example:
+        chargingStationId: 1
+        name: Go Electric Station
+        address: 'Via Vittorio Veneto, 8'
+        city: Milan
+        pricePerKWh:
+          currency: EUR
+          amount: 1
+        offerPercentage: 0.1
     Socket:
       title: Root Type for Socket
       description: ''
