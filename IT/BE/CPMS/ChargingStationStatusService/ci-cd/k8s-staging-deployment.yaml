@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: charging-station-status-service
+  namespace: papaia
+spec:
+  selector:
+    app-component: charging-station-status-service
+  ports:
+    - port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: charging-station-status-service
+  namespace: papaia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpms
+      app-component: charging-station-status-service
+  template:
+    metadata:
+      labels:
+        app: cpms
+        app-component: charging-station-status-service
+    spec:
+      containers:
+        - name: charging-station-status-service
+          image: ${REPO}/${IMAGE_NAME}:$ITEM_VERSION_TAG
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: staging
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: charging-station-status-service-db
+  namespace: papaia
+spec:
+  selector:
+    app-component: charging-station-status-service-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: charging-station-status-service-db
+  namespace: papaia
+spec:
+  selector:
+    matchLabels:
+      app: cpms
+      app-component: charging-station-status-service-db
+  serviceName: charging-station-status-service-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cpms
+        app-component: charging-station-status-service-db
+    spec:
+      containers:
+        - name: charging-station-status-service-db
+          image: postgres
+          env:
+            - name: POSTGRES_USER
+              value: root
+            - name: POSTGRES_PASSWORD
+              value: my-secret-password
+            - name: PGDATA
+              value: /var/lib/postgresql/data/db_data
+            - name: POSTGRES_DB
+              value: ChargingStationStatus
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: vc
+              mountPath: /var/lib/postgresql/data
+  volumeClaimcharging-station-status-services:
+    - metadata:
+        name: vc
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi

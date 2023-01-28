@@ -1,0 +1,268 @@
+openapi: 3.0.2
+info:
+  title: CPMS-ChargingStationStatusService
+  version: 1.0.0
+  description: A brand new API with no content.  Go nuts!
+paths:
+  '/chargingStation/{chargingStationId}/status':
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargingStationStatus'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      operationId: getChargingStationStatus
+    parameters:
+      - name: chargingStationId
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
+components:
+  schemas:
+    Error:
+      title: Root Type for Error
+      description: ''
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          format: int32
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+      example:
+        type: /errors/charging-station-not-found
+        title: Charging station not found
+        status: 404
+        detail: Charging station not found
+        instance: /charging-station
+    ChargingStationStatus:
+      title: Root Type for ChargingStationStatus
+      description: ''
+      required:
+        - overview
+        - chargingPointList
+      type: object
+      properties:
+        overview:
+          $ref: '#/components/schemas/AvailabilityOverview'
+        chargingPointList:
+          description: ''
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargingPoint'
+      example:
+        overview:
+          slow:
+            totalSocketNumber: 1
+            availableSocketNumber: 1
+            nearestExpectedMinutesLeft: 1
+          fast:
+            totalSocketNumber: 1
+            availableSocketNumber: 1
+            nearestExpectedMinutesLeft: 1
+          rapid:
+            totalSocketNumber: 1
+            availableSocketNumber: 1
+            nearestExpectedMinutesLeft: 1
+        chargingPointList: []
+    SocketTypeAvailabilityOverview:
+      title: Root Type for SocketTypeAvailabilityOverview
+      description: ''
+      required:
+        - availableSocketNumber
+        - nearestExpectedMinutesLeft
+        - totalSocketNumber
+      type: object
+      properties:
+        totalSocketNumber:
+          format: int32
+          type: integer
+        availableSocketNumber:
+          format: int32
+          type: integer
+        nearestExpectedMinutesLeft:
+          format: int32
+          type: integer
+      example:
+        totalSocketNumber: 1
+        availableSocketNumber: 1
+        nearestExpectedMinutesLeft: 1
+    SocketType:
+      title: Root Type for SocketType
+      description: ''
+      required:
+        - socketType
+      type: object
+      properties:
+        socketType:
+          enum:
+            - SLOW
+            - FAST
+            - RAPID
+          type: string
+      example:
+        socketType: SLOW
+    AvailabilityOverview:
+      title: Root Type for AvailabilityOverview
+      description: ''
+      required:
+        - fast
+        - rapid
+        - slow
+      type: object
+      properties:
+        slow:
+          $ref: '#/components/schemas/SocketTypeAvailabilityOverview'
+        fast:
+          $ref: '#/components/schemas/SocketTypeAvailabilityOverview'
+        rapid:
+          $ref: '#/components/schemas/SocketTypeAvailabilityOverview'
+      example:
+        slow:
+          totalSocketNumber: 1
+          availableSocketNumber: 1
+          nearestExpectedMinutesLeft: 1
+        fast:
+          totalSocketNumber: 1
+          availableSocketNumber: 1
+          nearestExpectedMinutesLeft: 1
+        rapid:
+          totalSocketNumber: 1
+          availableSocketNumber: 1
+          nearestExpectedMinutesLeft: 1
+    ChargingPointMode:
+      type: string
+      enum:
+        - IN_ADVANCE
+        - ON_THE_FLY
+      example: IN_ADVANCE
+    ChargingPoint:
+      title: Root Type for ChargingPoint
+      description: ''
+      required:
+        - chargingPointId
+        - chargingPointCode
+        - mode
+        - socketList
+      type: object
+      properties:
+        chargingPointId:
+          type: integer
+          format: int64
+        chargingPointCode:
+          type: string
+        mode:
+          $ref: '#/components/schemas/ChargingPointMode'
+        socketList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketStatus'
+      example:
+        chargingPointId: 1
+        chargingPointCode: A
+        mode: IN_ADVANCE
+        socketList: []
+    SocketDeliveringStatus:
+      required:
+        - expectedMinutesLeft
+        - kWhAbsorbed
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: SocketDeliveringStatus
+        kWhAbsorbed:
+          format: double
+          type: number
+        expectedMinutesLeft:
+          format: int32
+          type: integer
+      example:
+        status: SocketDeliveringStatus
+        kWhAbsorbed: 1
+        expectedMinutesLeft: 1
+    SocketStoppedStatus:
+      title: Root Type for SocketStoppedStatus
+      description: ''
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: SocketStoppedStatus
+      example:
+        status: SocketStoppedStatus
+    SocketAvailableStatus:
+      title: Root Type for SocketAvailableStatus
+      description: ''
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: SocketAvailableStatus
+      example:
+        status: SocketAvailableStatus
+    SocketReadyStatus:
+      title: Root Type for SocketReadyStatus
+      description: ''
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: SocketReadyStatus
+      example:
+        status: SocketReadyStatus
+    SocketStatus:
+      required:
+        - socketId
+        - socketCode
+      properties:
+        socketId:
+          type: integer
+          format: int64
+        socketCode:
+          type: string
+      oneOf:
+        - $ref: '#/components/schemas/SocketStoppedStatus'
+        - $ref: '#/components/schemas/SocketDeliveringStatus'
+        - $ref: '#/components/schemas/SocketAvailableStatus'
+        - $ref: '#/components/schemas/SocketReadyStatus'
+      type: object
+  responses:
+    ErrorResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: ''
+  securitySchemes:
+    Authenticated:
+      scheme: bearer
+      type: http
+servers:
+  - url: 'http://charging-station-status-service'
+    description: ''
