@@ -6,14 +6,46 @@
     "city": "Milan",
     "chargingPointList": [
       {
-        "chargingPointId": 3,
+        "chargingPointId": 1,
         "chargingPointCode": "A",
         "mode": "IN_ADVANCE",
         "socketList": [
           {
-            "socketId": 3,
-            "socketCode": "2",
+            "socketId": 1,
+            "socketCode": "1",
             "type": "SLOW"
+          },
+          {
+            "socketId": 2,
+            "socketCode": "2",
+            "type": "FAST"
+          },
+          {
+            "socketId": 3,
+            "socketCode": "3",
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 2,
+        "chargingPointCode": "B",
+        "mode": "ON_THE_FLY",
+        "socketList": [
+          {
+            "socketId": 4,
+            "socketCode": "1",
+            "type": "SLOW"
+          },
+          {
+            "socketId": 5,
+            "socketCode": "2",
+            "type": "FAST"
+          },
+          {
+            "socketId": 6,
+            "socketCode": "3",
+            "type": "RAPID"
           }
         ]
       }
