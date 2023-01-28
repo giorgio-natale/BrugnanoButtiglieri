@@ -13,24 +13,21 @@ import java.util.Objects;
 @NoArgsConstructor
 public class BookingStatus implements Identifiable<Long> {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_booking_status")
     private Long id;
 
-    @PrimaryKeyJoinColumn(name = "booking")
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private Booking booking;
+    @Enumerated(EnumType.STRING)
     private BookingStatusEnum bookingStatus;
     @Convert(converter = ProgressInformationConverter.class)
+    @Lob
     private ProgressInformation progressInformation;
 
-    public BookingStatus(Booking booking){
-        this.booking = booking;
+    public BookingStatus(Long id){
+        this.id = id;
         this.bookingStatus = BookingStatusEnum.BookingStatusPlanned;
-        this.progressInformation = null;
     }
 
     void changeStatus(BookingStatusEnum desiredStatus){
-        if(!bookingStatus.getParents().contains(desiredStatus))
+        if(desiredStatus != bookingStatus && desiredStatus.getParents().contains(bookingStatus))
             throw new IllegalArgumentException(String.format(
                     "Cannot put a booking in %s if it was %s",
                     desiredStatus,

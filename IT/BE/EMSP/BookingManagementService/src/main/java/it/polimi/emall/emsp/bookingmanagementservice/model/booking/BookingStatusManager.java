@@ -1,19 +1,15 @@
 package it.polimi.emall.emsp.bookingmanagementservice.model.booking;
 
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.*;
+import it.polimi.emall.emsp.bookingmanagementservice.utils.IdAssignedManager;
 import it.polimi.emall.emsp.bookingmanagementservice.utils.IdGeneratedManager;
 import org.springframework.stereotype.Service;
 
 @Service
-class BookingStatusManager extends IdGeneratedManager<BookingStatus, Long, BookingStatusDto> {
+class BookingStatusManager extends IdAssignedManager<BookingStatus, Long, BookingStatusDto> {
 
     public BookingStatusManager(BookingStatusRepository bookingStatusRepository) {
         super(bookingStatusRepository);
-    }
-
-    @Override
-    protected BookingStatus createDefault() {
-        return new BookingStatus();
     }
 
     @Override
@@ -36,5 +32,10 @@ class BookingStatusManager extends IdGeneratedManager<BookingStatus, Long, Booki
         currentState.changeStatus(bookingStatus);
         currentState.changeProgressInformation(progressInformation);
         return currentState;
+    }
+
+    @Override
+    protected BookingStatus createDefault(Long key) {
+        return new BookingStatus(key);
     }
 }

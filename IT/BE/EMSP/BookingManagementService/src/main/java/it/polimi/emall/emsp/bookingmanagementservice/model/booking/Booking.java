@@ -27,15 +27,12 @@ public class Booking implements Identifiable<Long> {
     @Embedded
     private TimeFrame timeFrame;
 
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private BookingStatus bookingStatus;
+
     Booking(Long id){
         this.id = id;
-    }
-    Booking(
-            Long id, String bookingCode, BookingTypeDto bookingType, Long chargingStationId,
-            Long customerId, Long chargingPointId, Long socketId, SocketTypeDto socketType, TimeFrame timeFrame
-    ){
-        this.id = id;
-        updateBooking(bookingCode, bookingType, chargingStationId, customerId, chargingPointId, socketId, socketType, timeFrame);
     }
 
     void updateBooking(String bookingCode, BookingTypeDto bookingType, Long chargingStationId,
@@ -48,6 +45,10 @@ public class Booking implements Identifiable<Long> {
         this.socketId = socketId;
         this.socketType = socketType;
         this.timeFrame = timeFrame;
+    }
+
+    void setBookingStatus(BookingStatus bookingStatus){
+        this.bookingStatus = bookingStatus;
     }
 
     @Override

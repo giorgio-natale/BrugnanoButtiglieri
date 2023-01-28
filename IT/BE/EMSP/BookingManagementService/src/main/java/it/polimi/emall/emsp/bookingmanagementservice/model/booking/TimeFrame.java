@@ -14,7 +14,7 @@ public class TimeFrame {
 
     protected TimeFrame() {}
     public static TimeFrame getOpenTimeFrame(OffsetDateTime startInstant){
-        if(Duration.between(OffsetDateTime.now(), startInstant).toSeconds() >= 60){
+        if(Duration.between(startInstant, OffsetDateTime.now()).toSeconds() >= 60){
             throw new IllegalArgumentException("Check again the selected time frame");
         }
         TimeFrame tf = new TimeFrame();
@@ -22,7 +22,7 @@ public class TimeFrame {
         return tf;
     }
     public static TimeFrame getClosedTimeFrame(OffsetDateTime startInstant, OffsetDateTime endInstant){
-        if(Duration.between(OffsetDateTime.now(), startInstant).toSeconds() >= 60 || Duration.between(startInstant, endInstant).toSeconds() <= 60){
+        if(Duration.between(startInstant, OffsetDateTime.now()).toSeconds() >= 60 || Duration.between(startInstant, endInstant).toSeconds() <= 60){
             throw new IllegalArgumentException("Check again the selected time frame");
         }
         TimeFrame tf = new TimeFrame();

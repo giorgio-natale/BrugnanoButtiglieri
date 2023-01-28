@@ -289,6 +289,8 @@ components:
           bookingStatus: BookingStatusCancelled
     BookingStatusCompleted:
       type: object
+      required:
+        - bookingStatus
       properties:
         bookingStatus:
           type: string
@@ -313,6 +315,8 @@ components:
           bookingStatus: BookingStatusExpired
     BookingStatusInProgress:
       type: object
+      required:
+        - bookingStatus
       properties:
         bookingStatus:
           type: string
@@ -329,6 +333,8 @@ components:
           expectedMinutesLeft: 1
     BookingStatusPlanned:
       type: object
+      required:
+        - bookingStatus
       properties:
         bookingStatus:
           x-discriminator: BookingStatusPlanned

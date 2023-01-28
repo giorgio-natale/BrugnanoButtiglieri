@@ -39,6 +39,7 @@ public class BookAChargeUseCase {
         BookingDto bookingDto = BookingDtoMapper.buildBookingDto(receivedBookingDto);
         return transactionTemplate.execute(status -> {
             Booking booking = bookingManager.createNewAndUpdate(bookingDto.getBookingId(), bookingDto);
+
             return BookingDtoMapper.buildBookingDto(booking);
         });
     }
