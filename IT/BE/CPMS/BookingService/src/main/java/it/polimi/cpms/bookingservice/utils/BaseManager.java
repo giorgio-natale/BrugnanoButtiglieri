@@ -29,6 +29,13 @@ public abstract class BaseManager <T extends Identifiable<K>, K, D>{
         crudRepository.deleteAll();
     }
 
+    public T getById(K key){
+        return crudRepository.findById(key).orElseThrow();
+    }
+
+    public Optional<T> getByIdOpt(K key){
+        return crudRepository.findById(key);
+    }
     public T update(K key, D dto){
         return updateEntity(getEntityByKey(key), dto);
     }
