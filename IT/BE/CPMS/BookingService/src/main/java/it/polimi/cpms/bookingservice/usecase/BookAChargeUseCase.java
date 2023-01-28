@@ -4,20 +4,25 @@ import it.polimi.cpms.bookingservice.mappers.BookingMapper;
 import it.polimi.cpms.bookingservice.mappers.CommonMapper;
 import it.polimi.cpms.bookingservice.model.booking.Booking;
 import it.polimi.cpms.bookingservice.model.booking.BookingManager;
-import it.polimi.emall.cpms.bookingservice.generated.http.server.model.BookingDto;
-import it.polimi.emall.cpms.bookingservice.generated.http.server.model.BookingInAdvanceDto;
-import it.polimi.emall.cpms.bookingservice.generated.http.server.model.BookingTypeDto;
+import it.polimi.cpms.bookingservice.model.booking.NoAvailableSocketException;
+import it.polimi.cpms.bookingservice.model.chargingstation.ChargingStation;
+import it.polimi.cpms.bookingservice.model.chargingstation.ChargingStationManager;
+import it.polimi.emall.cpms.bookingservice.generated.http.server.model.*;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.OffsetDateTime;
+
 @Service
 public class BookAChargeUseCase {
     private final BookingManager bookingManager;
+    private final ChargingStationManager chargingStationManager;
 
-    public BookAChargeUseCase(BookingManager bookingManager) {
+    public BookAChargeUseCase(BookingManager bookingManager, ChargingStationManager chargingStationManager) {
         this.bookingManager = bookingManager;
+        this.chargingStationManager = chargingStationManager;
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
@@ -34,6 +39,7 @@ public class BookAChargeUseCase {
 
         BookingDto newBookingDto = new BookingDto(
                 null,
+                //TODO: generate booking code
                 "#TODO: genera",
                 bookingInAdvanceRequestDto.getCustomerId(),
                 bookingInAdvanceRequestDto.getChargingStationId(),
@@ -48,4 +54,35 @@ public class BookAChargeUseCase {
         return BookingMapper.buildBookingDto(newBooking);
 
     }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public BookingDto createBookingOnTheFly(BookingOnTheFlyDto bookingOnTheFlyRequestDto){
+        //TODO: get from the token the emsp id and user id. Check if user id from token matches with the one in the request
+        if(bookingManager.confirmAvailabilityForBookingOnTheFly(
+                bookingOnTheFlyRequestDto.getChargingStationId(),
+                bookingOnTheFlyRequestDto.getChargingPointId(),
+                bookingOnTheFlyRequestDto.getSocketId())
+        ){
+            ChargingStation chargingStation = chargingStationManager.getById(bookingOnTheFlyRequestDto.getChargingStationId());
+
+            BookingDto newBookingDto = new BookingDto(
+                    null,
+                    //TODO: generate booking code
+                    "#TODO: genera",
+                    bookingOnTheFlyRequestDto.getCustomerId(),
+                    bookingOnTheFlyRequestDto.getChargingStationId(),
+                    bookingOnTheFlyRequestDto.getChargingPointId(),
+                    bookingOnTheFlyRequestDto.getChargingPointId(),
+                    chargingStationManager.getSocket(chargingStation, bookingOnTheFlyRequestDto.getSocketId()).getType(),
+                    new TimeframeDto(OffsetDateTime.now()),
+                    BookingTypeDto.ON_THE_FLY
+            );
+            Booking newBooking = bookingManager.createNewAndUpdate(newBookingDto);
+
+            return BookingMapper.buildBookingDto(newBooking);
+        }else{
+            throw new NoAvailableSocketException("The socket you have selected is not available. Please select another one");
+        }
+    }
+
 }

@@ -12,16 +12,25 @@ import java.util.stream.Collectors;
 @Service
 public class ChargingStationManager extends IdAssignedManager<ChargingStation, Long, ChargingStationClientDto> {
     private final ChargingPointManager chargingPointManager;
+
+    private final SocketManager socketManager;
     private final ChargingStationRepository chargingStationRepository;
 
-    protected ChargingStationManager(ChargingStationRepository chargingStationRepository, ChargingPointManager chargingPointManager) {
+    protected ChargingStationManager(ChargingStationRepository chargingStationRepository, ChargingPointManager chargingPointManager, SocketManager socketManager) {
         super(chargingStationRepository);
         this.chargingPointManager = chargingPointManager;
         this.chargingStationRepository = chargingStationRepository;
+        this.socketManager = socketManager;
     }
 
-    public ChargingPoint getChargingPoint(ChargingStation chargingStation, Long chargingPointId){
-        return chargingStation.getChargingPoints().stream().filter(chargingPoint -> chargingPoint.getId().equals(chargingPointId)).findFirst().orElseThrow();
+    public Socket getSocket(ChargingStation chargingStation, Long socketId){
+        return chargingStation.getChargingPoints()
+                .stream()
+                .flatMap(chargingPoint -> chargingPoint.getSockets().stream())
+                .filter(socket -> socket.getId().equals(socketId))
+                .findFirst()
+                .orElseThrow();
+
     }
 
     public ChargingPoint findChargingPointOwningSocket(Socket socket){

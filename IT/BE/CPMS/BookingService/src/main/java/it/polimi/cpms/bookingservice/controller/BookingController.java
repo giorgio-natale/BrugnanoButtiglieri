@@ -38,6 +38,9 @@ public class BookingController implements BookingApi {
         if(bookingRequestDto instanceof BookingInAdvanceDto) {
             BookingDto newBooking = bookAChargeUseCase.createBookingInAdvance(((BookingInAdvanceDto) bookingRequestDto));
             return new ResponseEntity<>(newBooking, HttpStatus.OK);
+        }else if (bookingRequestDto instanceof BookingOnTheFlyDto){
+            BookingDto newBooking = bookAChargeUseCase.createBookingOnTheFly(((BookingOnTheFlyDto) bookingRequestDto));
+            return new ResponseEntity<>(newBooking, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         }

@@ -1,5 +1,6 @@
 package it.polimi.cpms.bookingservice.model.booking;
 
+import it.polimi.cpms.bookingservice.model.chargingstation.ChargingPoint;
 import it.polimi.cpms.bookingservice.model.chargingstation.ChargingStation;
 import it.polimi.cpms.bookingservice.model.chargingstation.ChargingStationManager;
 import it.polimi.cpms.bookingservice.model.chargingstation.Socket;
@@ -12,6 +13,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -59,6 +61,29 @@ public class BookingManager extends IdGeneratedManager<Booking, Long, BookingDto
         Long selectedChargingPointId = chargingStationManager.findChargingPointOwningSocket(availableSockets.get(selectedSocketId)).getId();
         return Pair.of(selectedChargingPointId, selectedSocketId);
 
+    }
+
+    public boolean confirmAvailabilityForBookingOnTheFly(
+            Long chargingStationId,
+            Long chargingPointId,
+            Long socketId
+    ){
+        boolean occupied = bookingRepository.isBookingOnTheFlyOccupied(
+                chargingStationId,
+                chargingPointId,
+                socketId
+        );
+        try{
+            ChargingStation chargingStation = chargingStationManager.getById(chargingStationId);
+            Socket socket = chargingStationManager.getSocket(chargingStation, socketId);
+            ChargingPoint chargingPoint = chargingStationManager.findChargingPointOwningSocket(socket);
+            if(!chargingPoint.getId().equals(chargingPointId))
+                throw new IllegalArgumentException();
+        }catch(NoSuchElementException e){
+            throw new IllegalArgumentException("Charging point and/or socket ids are not valid");
+        }
+
+        return !occupied;
     }
 
     @Override
