@@ -1,0 +1,14 @@
+{
+  "inputs": [
+    {
+      "inputFile": "../../../BE/EMSP/BookingManagementService/HttpApiSpecification.yaml"
+    },
+    {
+      "inputFile": "../../../BE/CPMS/MockService/HttpApiSpecification.yaml",
+      "operationSelection": {
+        "includeTags": ["emsp-charging-station"]
+      }
+    }
+  ],
+  "output": "./gateway-api-specifications.yaml"
+}

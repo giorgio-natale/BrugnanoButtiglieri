@@ -63,3 +63,4 @@ buck-out/
 .expo/*
 web-build/
 /generated/
+/api-specifications/gateway-api-specifications.yaml
