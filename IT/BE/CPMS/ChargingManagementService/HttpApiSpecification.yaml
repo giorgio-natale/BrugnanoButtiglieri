@@ -1,0 +1,162 @@
+openapi: 3.0.2
+info:
+  title: CPMS-ChargingManagementService
+  version: 1.0.0
+  description: ChargingManagementService
+tags:
+  - name: ChargingManagement
+    description: ''
+paths:
+  '/chargingStation/{chargingStationId}/chargingPoint/{chargingPointId}/socket/{socketId}/status':
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocketStatus'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      operationId: getSocketStatus
+      summary: GetSocketStatus
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SocketStatus'
+        required: true
+      responses:
+        '200':
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '409':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: putSocketStatus
+      summary: PutSocketStatus
+    parameters:
+      - name: chargingStationId
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
+      - name: chargingPointId
+        schema:
+          type: string
+        in: path
+        required: true
+      - name: socketId
+        schema:
+          type: string
+        in: path
+        required: true
+components:
+  schemas:
+    Error:
+      title: Root Type for Error
+      description: ''
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          format: int32
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+      example:
+        type: /errors/charging-station-not-found
+        title: Charging station not found
+        status: 404
+        detail: Charging station not found
+        instance: /charging-station
+    SocketDeliveringStatus:
+      required:
+        - status
+        - expectedMinutesLeft
+        - kWhAbsorbed
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: SocketDeliveringStatus
+        kWhAbsorbed:
+          format: double
+          type: number
+        expectedMinutesLeft:
+          format: int32
+          type: integer
+      example:
+        status: SocketDeliveringStatus
+        kWhAbsorbed: 1
+        expectedMinutesLeft: 1
+    SocketStoppedStatus:
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: SocketStoppedStatus
+      example:
+        status: SocketStoppedStatus
+    SocketAvailableStatus:
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: SocketAvailableStatus
+      example:
+        status: SocketAvailableStatus
+    SocketReadyStatus:
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+          x-discriminator: SocketReadyStatus
+      example:
+        status: SocketReadyStatus
+    SocketStatus:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/SocketAvailableStatus'
+        - $ref: '#/components/schemas/SocketDeliveringStatus'
+        - $ref: '#/components/schemas/SocketReadyStatus'
+        - $ref: '#/components/schemas/SocketStoppedStatus'
+      discriminator:
+        propertyName: status
+  responses:
+    ErrorResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: ''
+  securitySchemes:
+    Authenticated:
+      scheme: bearer
+      type: http
+servers:
+  - url: 'http://charging-management-service'
+    description: ''
