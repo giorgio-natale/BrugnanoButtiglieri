@@ -34,7 +34,7 @@ public class CustomerController implements CustomerApi {
 
     @Override
     public ResponseEntity<BookingStatusDto> getBookingStatus(Long customerId, Long bookingCode) {
-        return CustomerApi.super.getBookingStatus(customerId, bookingCode);
+        return new ResponseEntity<>(bookAChargeUseCase.getBookingStatusForCustomer(customerId, bookingCode), HttpStatus.OK);
     }
 
     @Override

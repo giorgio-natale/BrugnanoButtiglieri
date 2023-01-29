@@ -30,6 +30,9 @@ public class BookingManager extends IdAssignedManager<Booking, Long, BookingDto>
         return bookingRepository.findAllByCustomerId(customerId);
     }
 
+    public BookingStatus getBookingStatus(Long bookingId){
+        return bookingStatusManager.getEntityByKey(bookingId);
+    }
     @Override
     public Booking createNewAndUpdate(Long key, BookingDto dto) {
         Booking booking = super.createNewAndUpdate(key, dto);

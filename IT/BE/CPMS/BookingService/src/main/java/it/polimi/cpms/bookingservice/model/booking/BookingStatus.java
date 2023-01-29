@@ -17,7 +17,6 @@ public class BookingStatus implements Identifiable<Long> {
     @Enumerated(EnumType.STRING)
     private BookingStatusEnum bookingStatus;
     @Convert(converter = ProgressInformationConverter.class)
-    @Lob
     private ProgressInformation progressInformation;
 
     public BookingStatus(Long id){

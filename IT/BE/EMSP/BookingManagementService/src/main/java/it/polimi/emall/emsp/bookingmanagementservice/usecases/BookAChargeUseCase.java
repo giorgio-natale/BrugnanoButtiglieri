@@ -5,9 +5,11 @@ import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.BookingRequestClientDto;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.BookingDto;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.BookingRequestDto;
+import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.BookingStatusDto;
 import it.polimi.emall.emsp.bookingmanagementservice.mappers.BookingDtoMapper;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.Booking;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingManager;
+import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingStatus;
 import it.polimi.emall.emsp.bookingmanagementservice.model.cpocatalog.CpoManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,5 +67,13 @@ public class BookAChargeUseCase {
                 .sorted(Comparator.comparingLong(Booking::getId))
                 .map(BookingDtoMapper::buildBookingDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public BookingStatusDto getBookingStatusForCustomer(Long customerId, Long bookingId){
+        Booking booking = bookingManager.getEntityByKey(bookingId);
+        if(!booking.getCustomerId().equals(customerId))
+            throw new NoSuchElementException(String.format("Cannot find booking #%d", bookingId));
+        return BookingDtoMapper.buildBookingStatusDto(booking.getBookingStatus());
     }
 }

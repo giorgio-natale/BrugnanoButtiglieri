@@ -8,6 +8,7 @@ import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.TimeframeClientDto;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.*;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.Booking;
+import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingStatus;
 
 public class BookingDtoMapper {
     static ObjectMapper objectMapper =  new JacksonObjectMapperConfig().jsonObjectMapper();
@@ -53,6 +54,29 @@ public class BookingDtoMapper {
                     "Booking type %s is not supported",
                     bookingRequestDto.getBookingType()
             ));
+        }
+    }
+
+    public static BookingStatusDto buildBookingStatusDto(BookingStatus bookingStatus){
+        switch (bookingStatus.getBookingStatus()){
+            case BookingStatusPlanned -> {
+                return new BookingStatusPlannedDto();
+            }
+            case BookingStatusInProgress -> {
+                return new BookingStatusInProgressDto()
+                                .expectedMinutesLeft(bookingStatus.getProgressInformation()
+                                .expectedMinutesLeft());
+            }
+            case BookingStatusCancelled -> {
+                return new BookingStatusCancelledDto();
+            }
+            case BookingStatusCompleted -> {
+                return new BookingStatusCompletedDto();
+            }
+            case BookingStatusExpired -> {
+                return new BookingStatusExpiredDto();
+            }
+            default -> throw new IllegalArgumentException(String.format("Booking status %s not supported", bookingStatus.getBookingStatus()));
         }
     }
 }
