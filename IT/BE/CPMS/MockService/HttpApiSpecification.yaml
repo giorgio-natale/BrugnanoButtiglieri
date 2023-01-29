@@ -6,8 +6,9 @@ info:
 servers:
   - url: 'http://mock-service'
 tags:
-  - name: mock
-    description: Mock operations
+  - name: cpms-charging-station-configuration
+  - name: cpms-pricing
+  - name: emsp-charging-station
 paths:
   '/chargingStation/{chargingStationId}':
     get:
@@ -30,7 +31,7 @@ paths:
       summary: ChargingStationConfiguration
       description: ''
       tags:
-        - mock
+        - cpms-charging-station-configuration
     parameters:
       - name: chargingStationId
         schema:
@@ -60,7 +61,7 @@ paths:
       summary: ChargingStationConfigurationList
       operationId: getChargingStationConfigurationList
       tags:
-        - mock
+        - cpms-charging-station-configuration
   /chargingStationOverview:
     get:
       responses:
@@ -81,6 +82,8 @@ paths:
       security:
         - Authenticated: []
       operationId: getChargingStationOverviewList
+      tags:
+        - emsp-charging-station
   '/chargingStationOverview/{chargingStationId}':
     get:
       responses:
@@ -99,6 +102,8 @@ paths:
       security:
         - Authenticated: []
       operationId: getChargingStationOverview
+      tags:
+        - emsp-charging-station
     parameters:
       - name: chargingStationId
         schema:
@@ -124,6 +129,8 @@ paths:
       security:
         - Authenticated: []
       operationId: getPricing
+      tags:
+        - cpms-pricing
     parameters:
       - name: chargingStationId
         schema:
@@ -151,6 +158,9 @@ paths:
       security:
         - Authenticated: []
       operationId: getPricingList
+      tags:
+        - cpms-pricing
+      summary: ''
 components:
   schemas:
     Error:
