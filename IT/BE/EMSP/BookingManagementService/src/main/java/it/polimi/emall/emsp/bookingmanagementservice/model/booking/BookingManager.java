@@ -4,11 +4,11 @@ import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.BookingStatusDto;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.BookingTypeDto;
 import it.polimi.emall.emsp.bookingmanagementservice.utils.IdAssignedManager;
-import it.polimi.emall.emsp.bookingmanagementservice.utils.IdGeneratedManager;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingManager extends IdAssignedManager<Booking, Long, BookingDto> {
@@ -28,6 +28,13 @@ public class BookingManager extends IdAssignedManager<Booking, Long, BookingDto>
 
     public Set<Booking> getAllBookingForCustomer(Long customerId){
         return bookingRepository.findAllByCustomerId(customerId);
+    }
+
+    public Set<BookingStatus> getAllBookingStatusesForCustomer(Long customerId){
+        return getAllBookingForCustomer(customerId)
+                .stream()
+                .map(Booking::getBookingStatus)
+                .collect(Collectors.toSet());
     }
 
     public BookingStatus getBookingStatus(Long bookingId){

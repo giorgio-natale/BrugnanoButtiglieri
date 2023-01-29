@@ -63,6 +63,35 @@ paths:
           type: integer
         in: path
         required: true
+  '/customer/{customerId}/booking/status':
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookingStatus'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: [ ]
+      tags:
+        - booking
+      operationId: getAllBookingStatuses
+      parameters:
+      - name: customerId
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
   '/customer/{customerId}/booking/{bookingCode}':
     get:
       responses:
@@ -345,6 +374,12 @@ components:
         Example 1:
           bookingStatus: BookingStatusPlanned
     BookingStatus:
+      required:
+        - bookingId
+      properties:
+        bookingId:
+          type: integer
+          format: int64
       oneOf:
         - $ref: '#/components/schemas/BookingStatusInProgress'
         - $ref: '#/components/schemas/BookingStatusPlanned'

@@ -75,4 +75,13 @@ public class BookAChargeUseCase {
             throw new NoSuchElementException(String.format("Cannot find booking #%d", bookingId));
         return BookingDtoMapper.buildBookingStatusDto(booking.getBookingStatus());
     }
+
+    @Transactional
+    public List<BookingStatusDto> getAllBookingStatusForCustomer(Long customerId){
+        return bookingManager.getAllBookingStatusesForCustomer(customerId)
+                .stream()
+                .sorted(Comparator.comparingLong(BookingStatus::getId))
+                .map(BookingDtoMapper::buildBookingStatusDto)
+                .collect(Collectors.toList());
+    }
 }

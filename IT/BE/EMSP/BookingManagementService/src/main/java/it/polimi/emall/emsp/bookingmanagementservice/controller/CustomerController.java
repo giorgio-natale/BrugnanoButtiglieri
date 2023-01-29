@@ -49,6 +49,11 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
+    public ResponseEntity<List<BookingStatusDto>> getAllBookingStatuses(Long customerId) {
+        return new ResponseEntity<>(bookAChargeUseCase.getAllBookingStatusForCustomer(customerId), HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<Void> putBookingStatus(Long customerId, Long bookingCode, BookingStatusDto bookingStatusDto) {
         return CustomerApi.super.putBookingStatus(customerId, bookingCode, bookingStatusDto);
     }

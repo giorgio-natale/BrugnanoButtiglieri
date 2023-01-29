@@ -60,21 +60,22 @@ public class BookingDtoMapper {
     public static BookingStatusDto buildBookingStatusDto(BookingStatus bookingStatus){
         switch (bookingStatus.getBookingStatus()){
             case BookingStatusPlanned -> {
-                return new BookingStatusPlannedDto();
+                return new BookingStatusPlannedDto().bookingId(bookingStatus.getId());
             }
             case BookingStatusInProgress -> {
                 return new BookingStatusInProgressDto()
                                 .expectedMinutesLeft(bookingStatus.getProgressInformation()
-                                .expectedMinutesLeft());
+                                .expectedMinutesLeft())
+                                .bookingId(bookingStatus.getId());
             }
             case BookingStatusCancelled -> {
-                return new BookingStatusCancelledDto();
+                return new BookingStatusCancelledDto().bookingId(bookingStatus.getId());
             }
             case BookingStatusCompleted -> {
-                return new BookingStatusCompletedDto();
+                return new BookingStatusCompletedDto().bookingId(bookingStatus.getId());
             }
             case BookingStatusExpired -> {
-                return new BookingStatusExpiredDto();
+                return new BookingStatusExpiredDto().bookingId(bookingStatus.getId());
             }
             default -> throw new IllegalArgumentException(String.format("Booking status %s not supported", bookingStatus.getBookingStatus()));
         }
