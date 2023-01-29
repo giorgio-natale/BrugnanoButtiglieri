@@ -1,0 +1,10 @@
+[
+  {
+    "chargingStationId": 1,
+    "price": {
+      "currency": "EUR",
+      "amount": 1
+    },
+    "percentageOffer": 0.1
+  }
+]
