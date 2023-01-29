@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+//TODO: check authorization token in all endpoints
 @RestController
 public class CustomerController implements CustomerApi {
 
@@ -22,12 +23,13 @@ public class CustomerController implements CustomerApi {
 
     @Override
     public ResponseEntity<List<BookingDto>> getAllBookings(Long customerId) {
-        return CustomerApi.super.getAllBookings(customerId);
+        return new ResponseEntity<>(bookAChargeUseCase.getAllBookingsForCustomer(customerId), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<BookingDto> getBooking(Long customerId, Long bookingCode) {
-        return CustomerApi.super.getBooking(customerId, bookingCode);
+        return new ResponseEntity<>(bookAChargeUseCase.getBookingForCustomer(customerId, bookingCode), HttpStatus.OK);
+
     }
 
     @Override

@@ -7,6 +7,9 @@ import it.polimi.emall.emsp.bookingmanagementservice.utils.IdAssignedManager;
 import it.polimi.emall.emsp.bookingmanagementservice.utils.IdGeneratedManager;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.Set;
+
 @Service
 public class BookingManager extends IdAssignedManager<Booking, Long, BookingDto> {
 
@@ -21,6 +24,10 @@ public class BookingManager extends IdAssignedManager<Booking, Long, BookingDto>
 
     public void updateStatus(Booking booking, BookingStatusDto bookingStatusDto){
         bookingStatusManager.update(booking.getBookingStatus().getId(), bookingStatusDto);
+    }
+
+    public Set<Booking> getAllBookingForCustomer(Long customerId){
+        return bookingRepository.findAllByCustomerId(customerId);
     }
 
     @Override

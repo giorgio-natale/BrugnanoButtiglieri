@@ -12,7 +12,13 @@ import it.polimi.emall.emsp.bookingmanagementservice.model.cpocatalog.CpoManager
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class BookAChargeUseCase {
@@ -42,5 +48,22 @@ public class BookAChargeUseCase {
 
             return BookingDtoMapper.buildBookingDto(booking);
         });
+    }
+
+    @Transactional
+    public BookingDto getBookingForCustomer(Long customerId, Long bookingId){
+        Booking booking = bookingManager.getEntityByKey(bookingId);
+        if(!booking.getCustomerId().equals(customerId))
+            throw new NoSuchElementException(String.format("Cannot find booking #%d", bookingId));
+        return BookingDtoMapper.buildBookingDto(booking);
+    }
+
+    @Transactional
+    public List<BookingDto> getAllBookingsForCustomer(Long customerId){
+        return bookingManager.getAllBookingForCustomer(customerId)
+                .stream()
+                .sorted(Comparator.comparingLong(Booking::getId))
+                .map(BookingDtoMapper::buildBookingDto)
+                .collect(Collectors.toList());
     }
 }
