@@ -24,7 +24,7 @@ public class ExternalServicesConfig {
     @Bean
     public ChargingManagementApi chargingManagementEndpoint(
             ObjectMapper jsonObjectMapper,
-            @Value("${endpoints.charging-management-service.base-path}:#{null}") String basePath
+            @Value("${endpoints.charging-management-service.base-path:#{null}}") String basePath
     ){
         it.polimi.emall.cpms.bookingservice.generated.http.client.chargingmanagementservice.ApiClient apiClient = new it.polimi.emall.cpms.bookingservice.generated.http.client.chargingmanagementservice.ApiClient(jsonObjectMapper, ApiClient.createDefaultDateFormat());
         if(basePath != null)
