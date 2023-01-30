@@ -4,15 +4,27 @@ import it.polimi.emall.cpms.chargingmanagementservice.model.booking.dto.BookingK
 import it.polimi.emall.cpms.chargingmanagementservice.utils.IdAssignedManager;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
+
 
 @Service
 public class BookingManager extends IdAssignedManager<Booking, Long, BookingKafkaDto> {
 
+    private final BookingRepository bookingRepository;
 
     public BookingManager(BookingRepository crudRepository) {
         super(crudRepository);
+        this.bookingRepository = crudRepository;
     }
 
+    public Booking getCurrentBooking(Long chargingStationId, Long chargingPointId, Long socketId){
+        return bookingRepository.findCurrentBookingForDate(
+                chargingStationId,
+                chargingPointId,
+                socketId,
+                OffsetDateTime.now()
+        ).orElseThrow();
+    }
 
 
     @Override
@@ -23,6 +35,8 @@ public class BookingManager extends IdAssignedManager<Booking, Long, BookingKafk
                 desiredState.customerId,
                 desiredState.chargingPointId,
                 desiredState.socketId,
+                desiredState.timeFrame,
+                desiredState.bookingType,
                 desiredState.status
         );
         return currentState;

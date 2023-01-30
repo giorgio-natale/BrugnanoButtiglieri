@@ -20,6 +20,12 @@ public class Booking implements Identifiable<Long> {
     private Long chargingPointId;
     private Long socketId;
 
+    @Embedded
+    private TimeFrame timeFrame;
+
+    @Enumerated(EnumType.STRING)
+    private BookingTypeEnum bookingType;
+
     @Enumerated(EnumType.STRING)
     private BookingStatusEnum bookingStatus;
 
@@ -29,6 +35,7 @@ public class Booking implements Identifiable<Long> {
 
     void updateBooking(String bookingCode, Long chargingStationId,
                        Long customerId, Long chargingPointId, Long socketId,
+                       TimeFrame timeFrame, BookingTypeEnum bookingType,
                        BookingStatusEnum bookingStatus
     ){
         this.bookingCode = bookingCode;
@@ -36,6 +43,8 @@ public class Booking implements Identifiable<Long> {
         this.customerId = customerId;
         this.chargingPointId = chargingPointId;
         this.socketId = socketId;
+        this.timeFrame = timeFrame;
+        this.bookingType = bookingType;
         this.bookingStatus = bookingStatus;
     }
 

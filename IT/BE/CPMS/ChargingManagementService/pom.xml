@@ -175,6 +175,35 @@
 							</configOptions>
 						</configuration>
 					</execution>
+
+					<!-- client generation -->
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<id>buildMockClient</id>
+						<configuration>
+							<inputSpec>${project.basedir}/../../CPMS/MockService/HttpApiSpecification.yaml</inputSpec>
+							<generatorName>java</generatorName>
+							<generateApis>true</generateApis>
+							<generateModels>true</generateModels>
+							<generateModelTests>false</generateModelTests>
+							<generateApiTests>false</generateApiTests>
+							<modelNameSuffix>ClientDto</modelNameSuffix>
+							<templateDirectory>${project.basedir}/../../templates/client</templateDirectory>
+
+							<configOptions>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<useJakartaEe>true</useJakartaEe>
+								<library>webclient</library>
+								<modelPackage>${project.groupId}.${componentBasePackage}.generated.http.client.cpms_mockingservice.model</modelPackage>
+								<apiPackage>${project.groupId}.${componentBasePackage}.generated.http.client.cpms_mockingservice.endpoints</apiPackage>
+								<sourceFolder>/src/main/java</sourceFolder>
+								<implFolder>/src/main/java</implFolder>
+								<serializableModel>true</serializableModel>
+							</configOptions>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
