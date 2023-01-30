@@ -26,7 +26,7 @@ public class BookingStatus implements Identifiable<Long> {
     }
 
     void changeStatus(BookingStatusEnum desiredStatus){
-        if(desiredStatus != bookingStatus && desiredStatus.getParents().contains(bookingStatus))
+        if(desiredStatus != bookingStatus && !desiredStatus.getParents().contains(bookingStatus))
             throw new IllegalArgumentException(String.format(
                     "Cannot put a booking in %s if it was %s",
                     desiredStatus,
