@@ -7,6 +7,7 @@ import it.polimi.cpms.bookingservice.model.chargingstation.Socket;
 import it.polimi.cpms.bookingservice.utils.IdGeneratedManager;
 import it.polimi.emall.cpms.bookingservice.generated.http.client.cpms_bookingservice.model.ChargingPointModeClientDto;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.BookingDto;
+import it.polimi.emall.cpms.bookingservice.generated.http.server.model.BookingStatusDto;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.BookingTypeDto;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.SocketTypeDto;
 import org.springframework.data.util.Pair;
@@ -61,6 +62,11 @@ public class BookingManager extends IdGeneratedManager<Booking, Long, BookingDto
         Long selectedChargingPointId = chargingStationManager.findChargingPointOwningSocket(availableSockets.get(selectedSocketId)).getId();
         return Pair.of(selectedChargingPointId, selectedSocketId);
 
+    }
+
+    public Booking updateStatus(Booking booking, BookingStatusDto bookingStatusDto){
+        bookingStatusManager.updateEntity(booking.getBookingStatus(), bookingStatusDto);
+        return booking;
     }
 
     public boolean confirmAvailabilityForBookingOnTheFly(

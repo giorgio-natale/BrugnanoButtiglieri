@@ -82,7 +82,8 @@ paths:
     parameters:
       - name: bookingCode
         schema:
-          type: string
+          type: integer
+          format: int64
         in: path
         required: true
   '/booking/{bookingCode}/status':
@@ -132,7 +133,8 @@ paths:
     parameters:
       - name: bookingCode
         schema:
-          type: string
+          type: integer
+          format: int64
         in: path
         required: true
 components:

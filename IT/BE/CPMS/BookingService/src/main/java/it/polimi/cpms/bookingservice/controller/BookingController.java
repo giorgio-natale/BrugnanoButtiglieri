@@ -1,6 +1,7 @@
 package it.polimi.cpms.bookingservice.controller;
 
 import it.polimi.cpms.bookingservice.usecase.BookAChargeUseCase;
+import it.polimi.cpms.bookingservice.usecase.StartAChargeUseCase;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.controller.BookingApi;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.*;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,11 @@ import java.util.List;
 public class BookingController implements BookingApi {
 
     private final BookAChargeUseCase bookAChargeUseCase;
+    private final StartAChargeUseCase startAChargeUseCase;
 
-    public BookingController(BookAChargeUseCase bookAChargeUseCase) {
+    public BookingController(BookAChargeUseCase bookAChargeUseCase, StartAChargeUseCase startAChargeUseCase) {
         this.bookAChargeUseCase = bookAChargeUseCase;
+        this.startAChargeUseCase = startAChargeUseCase;
     }
 
     @Override
@@ -24,12 +27,12 @@ public class BookingController implements BookingApi {
     }
 
     @Override
-    public ResponseEntity<BookingDto> getBooking(String bookingCode) {
+    public ResponseEntity<BookingDto> getBooking(Long bookingCode) {
         return BookingApi.super.getBooking(bookingCode);
     }
 
     @Override
-    public ResponseEntity<BookingStatusDto> getBookingStatus(String bookingCode) {
+    public ResponseEntity<BookingStatusDto> getBookingStatus(Long bookingCode) {
         return BookingApi.super.getBookingStatus(bookingCode);
     }
 
@@ -47,7 +50,12 @@ public class BookingController implements BookingApi {
     }
 
     @Override
-    public ResponseEntity<Void> putBookingStatus(String bookingCode, BookingStatusDto bookingStatusDto) {
-        return BookingApi.super.putBookingStatus(bookingCode, bookingStatusDto);
+    public ResponseEntity<Void> putBookingStatus(Long bookingCode, BookingStatusDto bookingStatusDto) {
+        if(bookingStatusDto instanceof BookingStatusInProgressDto) {  //TODO: check also that the update comes from emsp
+            startAChargeUseCase.startACharge(bookingCode);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            return BookingApi.super.putBookingStatus(bookingCode, bookingStatusDto);
+        }
     }
 }

@@ -28,7 +28,7 @@ public class BookingKafkaDto {
     @JsonProperty("socketType")
     public final SocketTypeDto socketType;
 
-    @JsonProperty("timeframe")
+    @JsonProperty("timeFrame")
     public final TimeframeDto timeframe;
 
     @JsonProperty("bookingType")
@@ -37,7 +37,12 @@ public class BookingKafkaDto {
     @JsonProperty("status")
     public final BookingStatusEnum status;
 
-    public BookingKafkaDto(Long bookingId, String bookingCode, Long customerId, Long chargingStationId, Long chargingPointId, Long socketId, SocketTypeDto socketType, TimeframeDto timeframe, BookingTypeDto bookingType, BookingStatusEnum status) {
+    public BookingKafkaDto(
+            Long bookingId, String bookingCode, Long customerId,
+            Long chargingStationId, Long chargingPointId, Long socketId,
+            SocketTypeDto socketType, TimeframeDto timeframe, BookingTypeDto bookingType,
+            BookingStatusEnum status
+    ) {
         this.bookingId = bookingId;
         this.bookingCode = bookingCode;
         this.customerId = customerId;

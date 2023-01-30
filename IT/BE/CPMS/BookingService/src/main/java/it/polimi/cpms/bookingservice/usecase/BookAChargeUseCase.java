@@ -5,9 +5,11 @@ import it.polimi.cpms.bookingservice.mappers.CommonMapper;
 import it.polimi.cpms.bookingservice.model.booking.Booking;
 import it.polimi.cpms.bookingservice.model.booking.BookingManager;
 import it.polimi.cpms.bookingservice.model.booking.NoAvailableSocketException;
+import it.polimi.cpms.bookingservice.model.booking.event.BookingUpdatedEvent;
 import it.polimi.cpms.bookingservice.model.chargingstation.ChargingStation;
 import it.polimi.cpms.bookingservice.model.chargingstation.ChargingStationManager;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.*;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -20,9 +22,12 @@ public class BookAChargeUseCase {
     private final BookingManager bookingManager;
     private final ChargingStationManager chargingStationManager;
 
-    public BookAChargeUseCase(BookingManager bookingManager, ChargingStationManager chargingStationManager) {
+    private final ApplicationEventPublisher applicationEventPublisher;
+
+    public BookAChargeUseCase(BookingManager bookingManager, ChargingStationManager chargingStationManager, ApplicationEventPublisher applicationEventPublisher) {
         this.bookingManager = bookingManager;
         this.chargingStationManager = chargingStationManager;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
@@ -50,6 +55,9 @@ public class BookAChargeUseCase {
                 BookingTypeDto.IN_ADVANCE
         );
         Booking newBooking = bookingManager.createNewAndUpdate(newBookingDto);
+        applicationEventPublisher.publishEvent(new BookingUpdatedEvent(
+                BookingMapper.buildBookingKafkaDto(newBooking)
+        ));
 
         return BookingMapper.buildBookingDto(newBooking);
 
@@ -79,6 +87,9 @@ public class BookAChargeUseCase {
             );
             Booking newBooking = bookingManager.createNewAndUpdate(newBookingDto);
 
+            applicationEventPublisher.publishEvent(new BookingUpdatedEvent(
+                    BookingMapper.buildBookingKafkaDto(newBooking)
+            ));
             return BookingMapper.buildBookingDto(newBooking);
         }else{
             throw new NoAvailableSocketException("The socket you have selected is not available. Please select another one");

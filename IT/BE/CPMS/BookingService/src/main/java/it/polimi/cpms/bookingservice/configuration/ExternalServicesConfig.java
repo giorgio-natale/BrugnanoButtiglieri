@@ -1,6 +1,7 @@
 package it.polimi.cpms.bookingservice.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.polimi.emall.cpms.bookingservice.generated.http.client.chargingmanagementservice.endpoints.ChargingManagementApi;
 import it.polimi.emall.cpms.bookingservice.generated.http.client.cpms_bookingservice.ApiClient;
 import it.polimi.emall.cpms.bookingservice.generated.http.client.cpms_bookingservice.endpoints.CpmsChargingStationConfigurationApi;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,5 +19,16 @@ public class ExternalServicesConfig {
         if(basePath != null)
             apiClient.setBasePath(basePath);
         return new CpmsChargingStationConfigurationApi(apiClient);
+    }
+
+    @Bean
+    public ChargingManagementApi chargingManagementEndpoint(
+            ObjectMapper jsonObjectMapper,
+            @Value("${endpoints.charging-management-service.base-path}") String basePath
+    ){
+        it.polimi.emall.cpms.bookingservice.generated.http.client.chargingmanagementservice.ApiClient apiClient = new it.polimi.emall.cpms.bookingservice.generated.http.client.chargingmanagementservice.ApiClient(jsonObjectMapper, ApiClient.createDefaultDateFormat());
+        if(basePath != null)
+            apiClient.setBasePath(basePath);
+        return new ChargingManagementApi(apiClient);
     }
 }
