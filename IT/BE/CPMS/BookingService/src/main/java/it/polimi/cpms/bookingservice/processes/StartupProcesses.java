@@ -5,7 +5,7 @@ import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryRegistry;
 import it.polimi.cpms.bookingservice.model.chargingstation.ChargingStationManager;
-import it.polimi.emall.cpms.bookingservice.generated.http.client.cpms_bookingservice.endpoints.MockApi;
+import it.polimi.emall.cpms.bookingservice.generated.http.client.cpms_bookingservice.endpoints.CpmsChargingStationConfigurationApi;
 import it.polimi.emall.cpms.bookingservice.generated.http.client.cpms_bookingservice.model.ChargingStationClientDto;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class StartupProcesses {
 
-    private final MockApi mockApi;
+    private final CpmsChargingStationConfigurationApi mockApi;
     private final ChargingStationManager chargingStationManager;
     private final TransactionTemplate transactionTemplate;
     private final CircuitBreakerRegistry circuitBreakerRegistry;
@@ -28,7 +28,7 @@ public class StartupProcesses {
 
 
     public StartupProcesses(
-            MockApi mockApi,
+            CpmsChargingStationConfigurationApi mockApi,
             ChargingStationManager chargingStationManager,
             PlatformTransactionManager platformTransactionManager,
             CircuitBreakerRegistry circuitBreakerRegistry, RetryRegistry retryRegistry) {
