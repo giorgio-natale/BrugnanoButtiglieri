@@ -9,6 +9,8 @@ tags:
 paths:
   '/chargingStation/{chargingStationId}/chargingPoint/{chargingPointId}/socket/{socketId}/status':
     get:
+      tags:
+        - ChargingManagement
       responses:
         '200':
           content:
@@ -27,6 +29,8 @@ paths:
       operationId: getSocketStatus
       summary: GetSocketStatus
     put:
+      tags:
+        - ChargingManagement
       requestBody:
         content:
           application/json:
@@ -55,12 +59,14 @@ paths:
         required: true
       - name: chargingPointId
         schema:
-          type: string
+          format: int64
+          type: integer
         in: path
         required: true
       - name: socketId
         schema:
-          type: string
+          format: int64
+          type: integer
         in: path
         required: true
 components:
