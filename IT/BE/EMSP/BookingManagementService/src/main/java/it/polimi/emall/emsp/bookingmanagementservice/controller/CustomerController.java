@@ -3,6 +3,7 @@ package it.polimi.emall.emsp.bookingmanagementservice.controller;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.controller.CustomerApi;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.*;
 import it.polimi.emall.emsp.bookingmanagementservice.usecases.BookAChargeUseCase;
+import it.polimi.emall.emsp.bookingmanagementservice.usecases.StartABookingUseCase;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,11 @@ import java.util.List;
 public class CustomerController implements CustomerApi {
 
     private final BookAChargeUseCase bookAChargeUseCase;
+    private final StartABookingUseCase startABookingUseCase;
 
-    public CustomerController(BookAChargeUseCase bookAChargeUseCase) {
+    public CustomerController(BookAChargeUseCase bookAChargeUseCase, StartABookingUseCase startABookingUseCase) {
         this.bookAChargeUseCase = bookAChargeUseCase;
+        this.startABookingUseCase = startABookingUseCase;
     }
 
     @Override
@@ -55,6 +58,11 @@ public class CustomerController implements CustomerApi {
 
     @Override
     public ResponseEntity<Void> putBookingStatus(Long customerId, Long bookingCode, BookingStatusDto bookingStatusDto) {
-        return CustomerApi.super.putBookingStatus(customerId, bookingCode, bookingStatusDto);
+        if(bookingStatusDto instanceof BookingStatusInProgressDto) {
+            startABookingUseCase.startBooking(customerId, bookingCode);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        }
     }
 }

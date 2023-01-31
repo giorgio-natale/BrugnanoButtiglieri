@@ -33,5 +33,14 @@ public class TimeFrame {
         this.endInstant = endInstant;
     }
 
+    @Override
+    public String toString(){
+        return String.format(
+                "[%s, %s]",
+                startInstant,
+                endInstant == null ? "-" : endInstant
+        );
+    }
+
 
 }
