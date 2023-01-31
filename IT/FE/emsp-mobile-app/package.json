@@ -11,6 +11,7 @@
     "axios": "^1.2.6",
     "deepmerge": "^4.2.2",
     "expo": "^47.0.0",
+    "expo-location": "~15.0.1",
     "openapi-typescript-codegen": "^0.23.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -38,7 +39,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "merge-openapi": "npx openapi-merge-cli --config api-specifications/openapi-merge.json",
-    "generate": "openapi --input api-specifications/gateway-api-specifications.yaml --output ./generated --client axios"
+    "generate": "openapi --input api-specifications/gateway-api-specifications.yaml --output ./generated --client axios --postfix Api"
   },
   "version": "1.0.0",
   "private": true,
