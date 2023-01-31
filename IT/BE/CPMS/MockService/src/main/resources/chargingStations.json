@@ -4,6 +4,8 @@
     "name": "Go Electric Station",
     "address": "Via Vittorio Veneto, 8",
     "city": "Milan",
+    "latitude": 45.475786,
+    "longitude": 9.202887,
     "chargingPointList": [
       {
         "chargingPointId": 1,
@@ -44,6 +46,61 @@
           },
           {
             "socketId": 6,
+            "socketCode": "3",
+            "type": "RAPID"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "chargingStationId": 2,
+    "name": "stazione diversa",
+    "address": "Via diversa",
+    "city": "Milan",
+    "latitude": 45.498615,
+    "longitude": 9.167541,
+    "chargingPointList": [
+      {
+        "chargingPointId": 3,
+        "chargingPointCode": "A",
+        "mode": "IN_ADVANCE",
+        "socketList": [
+          {
+            "socketId": 7,
+            "socketCode": "1",
+            "type": "SLOW"
+          },
+          {
+            "socketId": 8,
+            "socketCode": "2",
+            "type": "FAST"
+          },
+          {
+            "socketId": 9,
+            "socketCode": "3",
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 4,
+        "chargingPointCode": "B",
+        "mode": "ON_THE_FLY",
+        "socketList": [
+          {
+            "socketId": 10,
+            "socketCode": "1",
+            "type": "SLOW"
+          },
+          {
+            "socketId": 11,
+            "socketCode": "2",
+            "type": "FAST"
+          },
+          {
+            "socketId": 12,
             "socketCode": "3",
             "type": "RAPID"
           }

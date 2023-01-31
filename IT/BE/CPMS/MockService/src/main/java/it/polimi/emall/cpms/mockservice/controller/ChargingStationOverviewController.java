@@ -34,6 +34,8 @@ public class ChargingStationOverviewController implements ChargingStationOvervie
                         chargingStationDto.getName(),
                         chargingStationDto.getAddress(),
                         chargingStationDto.getCity(),
+                        chargingStationDto.getLatitude(),
+                        chargingStationDto.getLongitude(),
                         pricingDto.getPrice(),
                         pricingDto.getPercentageOffer()
                 ), HttpStatus.OK
@@ -67,6 +69,8 @@ public class ChargingStationOverviewController implements ChargingStationOvervie
                                     entry.getValue().getName(),
                                     entry.getValue().getAddress(),
                                     entry.getValue().getCity(),
+                                    entry.getValue().getLatitude(),
+                                    entry.getValue().getLongitude(),
                                     pricingDto.getPrice(),
                                     pricingDto.getPercentageOffer()
                             );
