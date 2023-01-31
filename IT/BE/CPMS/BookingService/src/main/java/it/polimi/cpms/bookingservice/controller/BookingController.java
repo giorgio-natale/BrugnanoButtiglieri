@@ -2,6 +2,7 @@ package it.polimi.cpms.bookingservice.controller;
 
 import it.polimi.cpms.bookingservice.usecase.BookAChargeUseCase;
 import it.polimi.cpms.bookingservice.usecase.StartAChargeUseCase;
+import it.polimi.cpms.bookingservice.usecase.SynchronizeBookingUseCase;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.controller.BookingApi;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.*;
 import org.springframework.http.HttpStatus;
@@ -16,24 +17,32 @@ public class BookingController implements BookingApi {
     private final BookAChargeUseCase bookAChargeUseCase;
     private final StartAChargeUseCase startAChargeUseCase;
 
-    public BookingController(BookAChargeUseCase bookAChargeUseCase, StartAChargeUseCase startAChargeUseCase) {
+    private final SynchronizeBookingUseCase synchronizeBookingUseCase;
+
+    public BookingController(BookAChargeUseCase bookAChargeUseCase, StartAChargeUseCase startAChargeUseCase, SynchronizeBookingUseCase synchronizeBookingUseCase) {
         this.bookAChargeUseCase = bookAChargeUseCase;
         this.startAChargeUseCase = startAChargeUseCase;
+        this.synchronizeBookingUseCase = synchronizeBookingUseCase;
     }
 
     @Override
     public ResponseEntity<List<BookingDto>> getAllBookings() {
-        return BookingApi.super.getAllBookings();
+        return new ResponseEntity<>(synchronizeBookingUseCase.getAllBookings(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<BookingDto> getBooking(Long bookingCode) {
-        return BookingApi.super.getBooking(bookingCode);
+        return new ResponseEntity<>(synchronizeBookingUseCase.getBookingDto(bookingCode), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<BookingStatusDto> getBookingStatus(Long bookingCode) {
-        return BookingApi.super.getBookingStatus(bookingCode);
+        return new ResponseEntity<>(synchronizeBookingUseCase.getBookingStatusDto(bookingCode), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<BookingStatusDto>> getAllStatuses() {
+        return new ResponseEntity<>(synchronizeBookingUseCase.getAllBookingStatuses(), HttpStatus.OK);
     }
 
     @Override

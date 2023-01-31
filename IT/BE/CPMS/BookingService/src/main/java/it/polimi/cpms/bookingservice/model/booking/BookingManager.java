@@ -92,6 +92,10 @@ public class BookingManager extends IdGeneratedManager<Booking, Long, BookingDto
         return !occupied;
     }
 
+    public Set<BookingStatus> getAllBookingStatuses(){
+        return bookingStatusManager.getAll();
+    }
+
     @Override
     public Booking createNewAndUpdate(BookingDto dto) {
         Booking booking = super.createNewAndUpdate(dto);

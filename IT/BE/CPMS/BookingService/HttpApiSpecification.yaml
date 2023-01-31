@@ -10,7 +10,7 @@ tags:
   - name: booking
     description: Booking operations
 paths:
-  '/booking':
+  /booking:
     get:
       responses:
         '200':
@@ -32,6 +32,7 @@ paths:
       tags:
         - booking
       operationId: getAllBookings
+      parameters: []
     post:
       requestBody:
         content:
@@ -137,6 +138,23 @@ paths:
           format: int64
         in: path
         required: true
+  /booking/status:
+    get:
+      summary: Get All Statuses
+      tags:
+        - booking
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookingStatus'
+        '201':
+          description: Created
+      operationId: getAllStatuses
 components:
   schemas:
     Timeframe:
@@ -253,6 +271,7 @@ components:
           chargingPointId: 1
           socketId: 1
     BookingStatusCancelled:
+      x-extends: BookingStatusClientDto
       type: object
       required:
         - bookingStatus
@@ -266,6 +285,7 @@ components:
         Example 1:
           bookingStatus: BookingStatusCancelled
     BookingStatusCompleted:
+      x-extends: BookingStatusClientDto
       type: object
       required:
         - bookingStatus
@@ -279,12 +299,12 @@ components:
         Example 1:
           bookingStatus: BookingStatusCompleted
     BookingStatusExpired:
+      x-extends: BookingStatusClientDto
       required:
         - bookingStatus
       type: object
       example:
         bookingStatus: BookingStatusExpired
-
       properties:
         bookingStatus:
           type: string
@@ -293,6 +313,7 @@ components:
         Example 1:
           bookingStatus: BookingStatusExpired
     BookingStatusInProgress:
+      x-extends: BookingStatusClientDto
       type: object
       required:
         - bookingStatus
@@ -311,6 +332,7 @@ components:
           bookingStatus: BookingStatusInProgress
           expectedMinutesLeft: 1
     BookingStatusPlanned:
+      x-extends: BookingStatusClientDto
       required:
         - bookingStatus
       type: object
@@ -324,6 +346,12 @@ components:
         Example 1:
           bookingStatus: BookingStatusPlanned
     BookingStatus:
+      required:
+        - bookingId
+      properties:
+        bookingId:
+          type: integer
+          format: int64
       oneOf:
         - $ref: '#/components/schemas/BookingStatusInProgress'
         - $ref: '#/components/schemas/BookingStatusPlanned'
@@ -397,7 +425,7 @@ components:
           $ref: '#/components/schemas/BookingType'
       example:
         bookingId: 1
-        bookingCode: "1"
+        bookingCode: '1'
         customerId: 1
         chargingStationId: 1
         bookingType: IN_ADVANCE
