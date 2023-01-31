@@ -3,7 +3,9 @@ package it.polimi.emall.emsp.bookingmanagementservice.utils;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public abstract class BaseManager <T extends Identifiable<K>, K, D>{
@@ -14,6 +16,11 @@ public abstract class BaseManager <T extends Identifiable<K>, K, D>{
     }
     public T getEntityByKey(K key){
         return crudRepository.findById(key).orElseThrow();
+    }
+
+
+    public Set<T> getAll(){
+        return StreamSupport.stream(crudRepository.findAll().spliterator(), false).collect(Collectors.toSet());
     }
 
     public void delete(K key){

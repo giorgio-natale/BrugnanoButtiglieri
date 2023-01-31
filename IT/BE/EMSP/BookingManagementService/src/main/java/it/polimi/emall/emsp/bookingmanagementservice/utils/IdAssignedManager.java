@@ -15,6 +15,12 @@ public abstract class IdAssignedManager<T extends Identifiable<K>, K, D> extends
             ));
         return crudRepository.save(createDefault(key));
     }
+
+    public T getOrCreateNewAndUpdate(K key, D dto){
+        return crudRepository.findById(key)
+                .map(entity -> updateEntity(entity, dto))
+                .orElseGet(() -> updateEntity(createNew(key), dto));
+    }
     public T createNewAndUpdate(K key, D dto){
         return updateEntity(createNew(key), dto);
     }

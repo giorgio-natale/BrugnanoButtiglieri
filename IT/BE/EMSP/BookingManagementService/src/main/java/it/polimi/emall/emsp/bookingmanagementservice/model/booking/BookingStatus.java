@@ -26,17 +26,9 @@ public class BookingStatus implements Identifiable<Long> {
     }
 
     void changeStatus(BookingStatusEnum desiredStatus){
-        if(desiredStatus != bookingStatus && !desiredStatus.getParents().contains(bookingStatus))
-            throw new IllegalArgumentException(String.format(
-                    "Cannot put a booking in %s if it was %s",
-                    desiredStatus,
-                    bookingStatus)
-            );
         bookingStatus = desiredStatus;
     }
     void changeProgressInformation(ProgressInformation progressInformation){
-        if(bookingStatus != BookingStatusEnum.BookingStatusInProgress)
-            throw new IllegalArgumentException("Cannot update progress information if the booking is not in progress");
         this.progressInformation = progressInformation;
     }
 

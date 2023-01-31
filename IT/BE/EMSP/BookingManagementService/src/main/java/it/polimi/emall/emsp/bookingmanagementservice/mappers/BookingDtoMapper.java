@@ -2,10 +2,7 @@ package it.polimi.emall.emsp.bookingmanagementservice.mappers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.emall.emsp.bookingmanagementservice.configuration.JacksonObjectMapperConfig;
-import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.BookingClientDto;
-import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.BookingRequestClientDto;
-import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.SocketTypeClientDto;
-import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.TimeframeClientDto;
+import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_bookingservice.model.*;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.*;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.Booking;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingStatus;
@@ -79,5 +76,9 @@ public class BookingDtoMapper {
             }
             default -> throw new IllegalArgumentException(String.format("Booking status %s not supported", bookingStatus.getBookingStatus()));
         }
+    }
+
+    public static BookingStatusDto buildBookingStatusDto(BookingStatusClientDto bookingStatusClientDto){
+        return objectMapper.convertValue(bookingStatusClientDto, BookingStatusDto.class);
     }
 }
