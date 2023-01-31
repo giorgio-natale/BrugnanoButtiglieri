@@ -25,4 +25,22 @@ public interface BookingRepository extends CrudRepository<Booking, Long>, Reposi
             @Param("socketId") Long socketId,
             @Param("targetDateTime") OffsetDateTime targetDateTime);
 
+    @Query(
+            """
+            SELECT booking
+            FROM Booking booking
+            WHERE booking.chargingStationId = :chargingStationId
+            AND   booking.chargingPointId = :chargingPointId
+            AND   booking.socketId = :socketId
+            AND   booking.bookingStatus = :bookingStatus
+            """
+    )
+    Optional<Booking> findCurrentBookingForState(
+            @Param("chargingStationId") Long chargingStationId,
+            @Param("chargingPointId") Long chargingPointId,
+            @Param("socketId") Long socketId,
+            @Param("bookingStatus") BookingStatusEnum bookingStatus);
+
+
+
 }

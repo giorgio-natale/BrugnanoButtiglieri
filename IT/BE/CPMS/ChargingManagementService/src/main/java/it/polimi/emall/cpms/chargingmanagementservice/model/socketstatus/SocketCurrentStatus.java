@@ -34,7 +34,7 @@ public class SocketCurrentStatus implements Identifiable<Long> {
 
     void updateStatus(SocketStatusEnum socketStatusEnum, ProgressInformation progressInformation){
         if(socketStatusEnum != this.socketStatusEnum && socketStatusEnum.getParent() != this.socketStatusEnum)
-            throw new IllegalArgumentException(String.format(
+            throw new IllegalStateException(String.format(
                     "Cannot transition from status %s to status %s",
                     this.socketStatusEnum,
                     socketStatusEnum

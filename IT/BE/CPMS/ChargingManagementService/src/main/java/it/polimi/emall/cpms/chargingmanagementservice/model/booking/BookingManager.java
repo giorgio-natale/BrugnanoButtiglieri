@@ -17,12 +17,21 @@ public class BookingManager extends IdAssignedManager<Booking, Long, BookingKafk
         this.bookingRepository = crudRepository;
     }
 
-    public Booking getCurrentBooking(Long chargingStationId, Long chargingPointId, Long socketId){
+    public Booking getCurrentBookingByTime(Long chargingStationId, Long chargingPointId, Long socketId){
         return bookingRepository.findCurrentBookingForDate(
                 chargingStationId,
                 chargingPointId,
                 socketId,
                 OffsetDateTime.now()
+        ).orElseThrow();
+    }
+
+    public Booking getCurrentBookingByBookingStatus(Long chargingStationId, Long chargingPointId, Long socketId, BookingStatusEnum bookingStatus){
+        return bookingRepository.findCurrentBookingForState(
+                chargingStationId,
+                chargingPointId,
+                socketId,
+                bookingStatus
         ).orElseThrow();
     }
 
