@@ -1911,22 +1911,22 @@
   resolved "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.24.51.tgz"
   integrity sha512-1P1OROm/rdubP5aFDSZQILU0vrLCJ4fvHt6EoqHEM+2D/G5MK3bIaymUKLit8Js9gbns5UyJnkP/TZROLw4tUA==
 
-"@tanstack/query-core@4.22.4":
-  version "4.22.4"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.22.4.tgz#aca622d2f8800a147ece5520d956a076ab92f0ea"
-  integrity sha512-t79CMwlbBnj+yL82tEcmRN93bL4U3pae2ota4t5NN2z3cIeWw74pzdWrKRwOfTvLcd+b30tC+ciDlfYOKFPGUw==
+"@tanstack/query-core@4.24.4":
+  version "4.24.4"
+  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-4.24.4.tgz"
+  integrity sha512-9dqjv9eeB6VHN7lD3cLo16ZAjfjCsdXetSAD5+VyKqLUvcKTL0CklGQRJu+bWzdrS69R6Ea4UZo8obHYZnG6aA==
 
 "@tanstack/react-query@^4.23.0":
-  version "4.23.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.23.0.tgz#0b9e14269a48cf5a4ffe46c8525cdb9df2ebd9cf"
-  integrity sha512-cfQsrecZQjYYueiow4WcK8ItokXJnv+b2OrK8Lf5kF7lM9uCo1ilyygFB8wo4MfxchUBVM6Cs8wq4Ed7fouwkA==
+  version "4.24.4"
+  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-4.24.4.tgz"
+  integrity sha512-RpaS/3T/a3pHuZJbIAzAYRu+1nkp+/enr9hfRXDS/mojwx567UiMksoqW4wUFWlwIvWTXyhot2nbIipTKEg55Q==
   dependencies:
-    "@tanstack/query-core" "4.22.4"
+    "@tanstack/query-core" "4.24.4"
     use-sync-external-store "^1.2.0"
 
 "@types/geojson@^7946.0.8":
   version "7946.0.10"
-  resolved "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.10.tgz"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.10.tgz#6dfbf5ea17142f7f9a043809f1cd4c448cb68249"
   integrity sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==
 
 "@types/glob@^7.1.1":
@@ -4616,6 +4616,11 @@ expo-keep-awake@~11.0.1:
   version "11.0.1"
   resolved "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-11.0.1.tgz"
   integrity sha512-44ZjgLE4lnce2d40Pv8xsjMVc6R5GvgHOwZfkLYtGmgYG9TYrEJeEj5UfSeweXPL3pBFhXKfFU8xpGYMaHdP0A==
+
+expo-location@~15.0.1:
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-15.0.1.tgz#b132b8b50ce4d2dd9257b7b66cec44beeba253a4"
+  integrity sha512-GOAP24m8fMahFcBT75H07f2+IQAOCOdNTzb8Ci/19NZ+Y/CY2lIvb55V8zu7Gn0+76FKPb7XC3ebQaq4ctn1QA==
 
 expo-modules-autolinking@1.0.0:
   version "1.0.0"
@@ -8760,7 +8765,7 @@ react-native-gradle-plugin@^0.70.3:
 
 react-native-maps@1.3.2:
   version "1.3.2"
-  resolved "https://registry.npmjs.org/react-native-maps/-/react-native-maps-1.3.2.tgz"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-1.3.2.tgz#8e30bfd9d934de02827253e5cde6c08a04f6356c"
   integrity sha512-NB7HGRZOgxxXCWzrhIVucx/bsrEWANvk3DLci1ov4P9MQnEVQYQCCkTxsnaEvO191GeBOCRDyYn6jckqbfMtmg==
   dependencies:
     "@types/geojson" "^7946.0.8"
