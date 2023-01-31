@@ -5,6 +5,8 @@ import it.polimi.cpms.bookingservice.configuration.JacksonObjectMapperConfig;
 import it.polimi.cpms.bookingservice.model.booking.Booking;
 import it.polimi.cpms.bookingservice.model.booking.BookingStatus;
 import it.polimi.cpms.bookingservice.model.booking.dto.BookingKafkaDto;
+import it.polimi.cpms.bookingservice.model.booking.dto.SocketStatusEnum;
+import it.polimi.cpms.bookingservice.model.booking.dto.SocketStatusUpdateDto;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.*;
 
 public class BookingMapper {
@@ -60,6 +62,25 @@ public class BookingMapper {
                 return new BookingStatusExpiredDto().bookingId(bookingStatus.getId());
             }
             default -> throw new IllegalArgumentException(String.format("Booking status %s not supported", bookingStatus.getBookingStatus()));
+        }
+    }
+
+    public static BookingStatusDto buildBookingStatusDto(SocketStatusUpdateDto socketStatusUpdateDto){
+        switch (socketStatusUpdateDto.socketStatus){
+            case SocketDeliveringStatus -> {
+                return new BookingStatusInProgressDto()
+                        .expectedMinutesLeft(socketStatusUpdateDto.progressInformation.expectedMinutesLeft())
+                        .bookingId(socketStatusUpdateDto.bookingId);
+            }
+            case SocketReadyStatus -> {
+                return new BookingStatusInProgressDto()
+                        .bookingId(socketStatusUpdateDto.bookingId);
+            }
+            case SocketStoppedStatus, SocketAvailableStatus -> {
+                return new BookingStatusCompletedDto()
+                        .bookingId(socketStatusUpdateDto.bookingId);
+            }
+            default -> throw new IllegalArgumentException(String.format("Socket update status %s not supported", socketStatusUpdateDto.socketStatus));
         }
     }
 }
