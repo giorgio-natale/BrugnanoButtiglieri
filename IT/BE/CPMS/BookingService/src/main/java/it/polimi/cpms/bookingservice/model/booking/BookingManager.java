@@ -13,6 +13,7 @@ import it.polimi.emall.cpms.bookingservice.generated.http.server.model.SocketTyp
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -96,6 +97,9 @@ public class BookingManager extends IdGeneratedManager<Booking, Long, BookingDto
         return bookingStatusManager.getAll();
     }
 
+    public Set<Booking> getAllExpiringBookings(){
+        return bookingRepository.findBookingsExceedingDate(OffsetDateTime.now());
+    }
     @Override
     public Booking createNewAndUpdate(BookingDto dto) {
         Booking booking = super.createNewAndUpdate(dto);

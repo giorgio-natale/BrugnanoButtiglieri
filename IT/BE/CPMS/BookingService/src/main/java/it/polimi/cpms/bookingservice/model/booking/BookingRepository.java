@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
+import java.time.OffsetDateTime;
 import java.util.Set;
 
 public interface BookingRepository extends CrudRepository<Booking, Long>, Repository<Booking, Long> {
@@ -34,4 +35,13 @@ public interface BookingRepository extends CrudRepository<Booking, Long>, Reposi
             @Param("chargingPointId") Long chargingPointId,
             @Param("socketId") Long socketId
     );
+
+    @Query("""
+                SELECT booking
+                FROM Booking booking
+                WHERE   booking.bookingType = 'IN_ADVANCE'
+                    AND (booking.bookingStatus.bookingStatus = 'BookingStatusPlanned' OR booking.bookingStatus.bookingStatus = 'BookingStatusInProgress')
+                    AND booking.timeFrame.endInstant < :offsetDateTime
+           """)
+    Set<Booking> findBookingsExceedingDate(@Param("offsetDateTime") OffsetDateTime offsetDateTime);
 }

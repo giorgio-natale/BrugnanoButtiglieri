@@ -34,7 +34,7 @@ public class BookingStatus implements Identifiable<Long> {
         bookingStatus = desiredStatus;
     }
     void changeProgressInformation(ProgressInformation progressInformation){
-        if(bookingStatus != BookingStatusEnum.BookingStatusInProgress)
+        if(progressInformation != null && bookingStatus != BookingStatusEnum.BookingStatusInProgress)
             throw new IllegalArgumentException("Cannot update progress information if the booking is not in progress");
         this.progressInformation = progressInformation;
     }
