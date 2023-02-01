@@ -12,9 +12,11 @@ public class ExternalServicesConfig {
     @Bean
     public BookingApi bookingApiEndPoint(
             ObjectMapper jsonObjectMapper,
-            @Value("${endpoints.booking-service.base-path:#{null}}") String basePath
+            @Value("${endpoints.booking-service.base-path:#{null}}") String basePath,
+            @Value("${authentication.self-token}") String selfToken
     ){
         ApiClient apiClient = new ApiClient(jsonObjectMapper, ApiClient.createDefaultDateFormat());
+        apiClient.setBearerToken(selfToken);
         if(basePath != null)
             apiClient.setBasePath(basePath);
         return new BookingApi(apiClient);

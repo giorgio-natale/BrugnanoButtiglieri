@@ -38,7 +38,11 @@ public class PullBookingProcess {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                updateBookings();
+                try {
+                    updateBookings();
+                }catch(RuntimeException e){
+                    e.printStackTrace();
+                }
             }
         }, 0, 20000);
     }
