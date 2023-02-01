@@ -20,9 +20,9 @@ public class SocketMockController implements ChargingPointMockApi {
             Long chargingStationId,
             Long chargingPointId,
             Long socketId,
-            SocketStatusDto status
+            String status
     ) {
-        simulateChargingPointUseCase.updateChargingPointStatus(socketId, status);
+        simulateChargingPointUseCase.updateChargingPointStatus(socketId, SocketStatusDto.fromValue(status));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

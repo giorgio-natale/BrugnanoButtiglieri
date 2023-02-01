@@ -191,7 +191,7 @@ paths:
           name: socketId
           required: true
         - schema:
-            $ref: '#/components/schemas/SocketStatus'
+            type: string
           in: query
           name: status
           required: true

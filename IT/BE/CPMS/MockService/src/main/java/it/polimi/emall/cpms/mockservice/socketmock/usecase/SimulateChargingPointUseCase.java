@@ -17,20 +17,18 @@ public class SimulateChargingPointUseCase {
     private final ChargingManagementApi chargingManagementApi;
 
     private final int waitInReadyStateSeconds;
-    private final int initialKwHLeftToCharge;
 
     public SimulateChargingPointUseCase(
             SocketMockManager socketMockManager,
             ChargingManagementApi chargingManagementApi,
-            @Value("${socket-mock.wait-in-ready-state-seconds}") int waitInReadyStateSeconds,
-            @Value("${socket-mock.initial-kwh-left-to-charge}") int initialKwHLeftToCharge
+            @Value("${socket-mock.wait-in-ready-state-seconds}") int waitInReadyStateSeconds
     ) {
         this.socketMockManager = socketMockManager;
         this.chargingManagementApi = chargingManagementApi;
         this.waitInReadyStateSeconds = waitInReadyStateSeconds;
-        this.initialKwHLeftToCharge = initialKwHLeftToCharge;
     }
 
+    @Transactional
     public void simulateChargingPoints(){
         socketMockManager.getActiveSocketMocks().forEach(socketMock -> {
             OffsetDateTime now = OffsetDateTime.now();
@@ -40,8 +38,7 @@ public class SimulateChargingPointUseCase {
                     socketMock.getSocketId(),
                     socketMock.getUpdatedSocketStatusDto(
                             now,
-                            waitInReadyStateSeconds,
-                            initialKwHLeftToCharge
+                            waitInReadyStateSeconds
                     )
             ).subscribe();
         });

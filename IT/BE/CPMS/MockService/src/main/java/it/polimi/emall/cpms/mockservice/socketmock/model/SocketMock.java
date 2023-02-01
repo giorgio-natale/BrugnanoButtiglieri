@@ -30,6 +30,8 @@ public class SocketMock implements Identifiable<Long> {
             SocketTypeDto.RAPID, 50
     );
 
+    private static final int defaultInitialKwHLeftToCharge = 20;
+
     @Id
     private Long socketId;
     private Long chargingPointId;
@@ -67,12 +69,12 @@ public class SocketMock implements Identifiable<Long> {
 
     public SocketStatusClientDto getUpdatedSocketStatusDto(
             OffsetDateTime now,
-            int waitInReadyStateSeconds,
-            int initialKwHLeftToCharge
+            int waitInReadyStateSeconds
     ){
         SocketStatusClientDto socketStatusClientDto = new SocketStatusClientDto();
         if(this.socketStatus.equals(SocketStatusDto.SOCKETREADYSTATUS)){
             if(Duration.between(this.getLastStatusChangeTime(), now).toSeconds() > waitInReadyStateSeconds){
+                this.setStatus(new SocketDeliveryInfo(SocketStatusDto.SOCKETREADYSTATUS, defaultInitialKwHLeftToCharge));
                 socketStatusClientDto
                         .status(SocketStatusDto.SOCKETDELIVERINGSTATUS.getValue());
             }
