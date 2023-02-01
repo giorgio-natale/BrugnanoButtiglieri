@@ -9,6 +9,7 @@ tags:
   - name: cpms-charging-station-configuration
   - name: cpms-pricing
   - name: emsp-charging-station
+  - name: charging-point-mock
 paths:
   '/chargingStation/{chargingStationId}':
     get:
@@ -161,6 +162,40 @@ paths:
       tags:
         - cpms-pricing
       summary: ''
+  /chargingPointMock:
+    put:
+      summary: ''
+      operationId: put-chargingPointMock
+      responses:
+        '200':
+          description: OK
+      tags:
+        - charging-point-mock
+      parameters:
+        - schema:
+            type: integer
+            format: int64
+          in: query
+          name: chargingStationId
+          required: true
+        - schema:
+            type: integer
+            format: int64
+          in: query
+          name: chargingPointId
+          required: true
+        - schema:
+            type: integer
+            format: int64
+          in: query
+          name: socketId
+          required: true
+        - schema:
+            $ref: '#/components/schemas/SocketStatus'
+          in: query
+          name: status
+          required: true
+    parameters: []
 components:
   schemas:
     Error:
@@ -380,6 +415,16 @@ components:
         socketId: 1
         socketCode: B
         type: SLOW
+    SocketStatus:
+      title: SocketStatus
+      x-stoplight:
+        id: zhyi67axsw30f
+      type: string
+      enum:
+        - SocketAvailableStatus
+        - SocketReadyStatus
+        - SocketDeliveringStatus
+        - SocketStoppedStatus
   responses:
     ErrorResponse:
       content:
