@@ -4,76 +4,61 @@ info:
   version: 1.0.0
   description: A brand new API with no content.  Go nuts!
 paths:
-  /test:
-    get:
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TestComponent'
-        '401':
-          $ref: '#/components/responses/ErrorResponse'
-        '404':
-          $ref: '#/components/responses/ErrorResponse'
-        '500':
-          $ref: '#/components/responses/ErrorResponse'
-      security:
-        - Authenticated: []
-      operationId: getTestComponent
+  /customer:
     post:
-      summary: ''
-      operationId: post-test
+      summary: Signup
+      operationId: signup
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+      tags:
+        - customer
+    parameters: []
+  /customer/login:
+    post:
+      summary: Customer login
+      operationId: login
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TestComponent'
-      description: Create a TestComponent
-      security:
-        - Authenticated: []
+                $ref: '#/components/schemas/Customer'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TestComponent'
-  /health/ready:
+              $ref: '#/components/schemas/LoginRequest'
+      tags:
+        - customer
+  '/customer/{customerId}':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+        name: customerId
+        in: path
+        required: true
     get:
+      summary: Your GET endpoint
       responses:
         '200':
-          description: Ok
-        '401':
-          $ref: '#/components/responses/ErrorResponse'
-        '404':
-          $ref: '#/components/responses/ErrorResponse'
-        '500':
-          $ref: '#/components/responses/ErrorResponse'
-      security:
-        - Authenticated: []
-      operationId: isReady
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      operationId: get-customer-customerId
+      tags:
+        - customer
 components:
   schemas:
-    TestComponent:
-      title: MyTestComponent
-      type: object
-      x-stoplight:
-        id: b36a75377da8e
-      properties:
-        welcomeMesage:
-          type: string
-        fee:
-          type: object
-          properties:
-            value:
-              type: integer
-              format: int64
-            currency:
-              type: string
-        status:
-          $ref: '#/components/schemas/Status'
     Error:
       title: Root Type for Error
       description: ''
@@ -97,40 +82,59 @@ components:
         status: 409
         detail: The requested booking timeframe overlaps with another planned booking.
         instance: /booking
-    ReadyStatus:
-      title: ReadyStatus
-      required:
-        - status
+    SignupRequest:
+      title: SignupRequest
       x-stoplight:
-        id: g4m3tyyi871e3
+        id: zy4sxgjxqz1t2
+      type: object
+      required:
+        - name
+        - surname
+        - emailAddress
+        - password
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        emailAddress:
+          type: string
+        password:
+          type: string
+      description: ''
+    Customer:
+      title: Customer
+      x-stoplight:
+        id: 8p3v0g3l4g0xo
       type: object
       properties:
-        status:
-          type: string
-          x-discriminator: ReadyStatus
-    DeliveringStatus:
-      title: DeliveringStatus
-      required:
-        - status
-        - minutesLeft
-      x-stoplight:
-        id: 0xxhfd5zi3zdo
-      type: object
-      properties:
-        status:
-          type: string
-          x-discriminator: DeliveringStatus
-        minutesLeft:
+        customerId:
           type: integer
-    Status:
-      oneOf:
-        - $ref: '#/components/schemas/ReadyStatus'
-        - $ref: '#/components/schemas/DeliveringStatus'
-      discriminator:
-        propertyName: status
-        mapping:
-          ready: '#/components/schemas/ReadyStatus'
-          delivering: '#/components/schemas/DeliveringStatus'
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+        emailAddress:
+          type: string
+        token:
+          type: string
+      required:
+        - customerId
+        - name
+        - surname
+        - emailAddress
+        - token
+    LoginRequest:
+      title: LoginRequest
+      x-stoplight:
+        id: ccwdsnalwxh7m
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        password:
+          type: string
   responses:
     ErrorResponse:
       content:
@@ -142,3 +146,6 @@ components:
     Authenticated:
       scheme: bearer
       type: http
+servers:
+  - url: 'http://customer-service'
+    description: ''
