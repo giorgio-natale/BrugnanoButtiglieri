@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.controller.CustomerApi;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.*;
 import it.polimi.emall.emsp.bookingmanagementservice.usecases.BookAChargeUseCase;
+import it.polimi.emall.emsp.bookingmanagementservice.usecases.RegisterDeviceUseCase;
 import it.polimi.emall.emsp.bookingmanagementservice.usecases.StartABookingUseCase;
 import it.polimi.emall.emsp.bookingmanagementservice.utils.HttpRequestUtils;
 import it.polimi.emall.emsp.bookingmanagementservice.utils.JwtHelper;
@@ -21,11 +22,14 @@ public class CustomerController implements CustomerApi {
 
     private final BookAChargeUseCase bookAChargeUseCase;
     private final StartABookingUseCase startABookingUseCase;
+
+    private final RegisterDeviceUseCase registerDeviceUseCase;
     private final JwtHelper jwtHelper;
 
-    public CustomerController(BookAChargeUseCase bookAChargeUseCase, StartABookingUseCase startABookingUseCase, JwtHelper jwtHelper) {
+    public CustomerController(BookAChargeUseCase bookAChargeUseCase, StartABookingUseCase startABookingUseCase, RegisterDeviceUseCase registerDeviceUseCase, JwtHelper jwtHelper) {
         this.bookAChargeUseCase = bookAChargeUseCase;
         this.startABookingUseCase = startABookingUseCase;
+        this.registerDeviceUseCase = registerDeviceUseCase;
         this.jwtHelper = jwtHelper;
     }
 
@@ -87,5 +91,11 @@ public class CustomerController implements CustomerApi {
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         }
+    }
+
+    @Override
+    public ResponseEntity<Void> registerDevice(Long customerId, RegisterDeviceRequestDto registerDeviceRequestDto) {
+        registerDeviceUseCase.registerDeviceManager(customerId, registerDeviceRequestDto.getExpoToken());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

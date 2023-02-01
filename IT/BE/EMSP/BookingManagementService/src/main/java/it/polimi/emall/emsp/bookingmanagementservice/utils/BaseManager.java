@@ -18,6 +18,9 @@ public abstract class BaseManager <T extends Identifiable<K>, K, D>{
         return crudRepository.findById(key).orElseThrow();
     }
 
+    public Optional<T> getByIdOpt(K key){
+        return crudRepository.findById(key);
+    }
 
     public Set<T> getAll(){
         return StreamSupport.stream(crudRepository.findAll().spliterator(), false).collect(Collectors.toSet());

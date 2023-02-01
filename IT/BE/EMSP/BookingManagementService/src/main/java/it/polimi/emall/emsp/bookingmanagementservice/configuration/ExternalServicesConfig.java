@@ -6,6 +6,8 @@ import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class ExternalServicesConfig {
@@ -20,5 +22,16 @@ public class ExternalServicesConfig {
         if(basePath != null)
             apiClient.setBasePath(basePath);
         return new BookingApi(apiClient);
+    }
+
+    @Bean
+    public WebClient.RequestBodySpec notificationWebRequestBodySpec(
+            @Value("${notification.base-path}") String notificationBasePath
+    ){
+        return WebClient.builder()
+                .baseUrl(notificationBasePath)
+                .build()
+                .post()
+                .contentType(MediaType.APPLICATION_JSON);
     }
 }
