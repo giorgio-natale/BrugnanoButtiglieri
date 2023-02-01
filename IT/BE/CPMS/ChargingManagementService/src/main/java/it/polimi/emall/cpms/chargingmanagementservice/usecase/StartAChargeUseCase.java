@@ -1,7 +1,7 @@
 package it.polimi.emall.cpms.chargingmanagementservice.usecase;
 
+import it.polimi.emall.cpms.chargingmanagementservice.generated.http.client.cpms_mockingservice.endpoints.ChargingPointMockApi;
 import it.polimi.emall.cpms.chargingmanagementservice.generated.http.server.model.SocketDeliveringStatusDto;
-import it.polimi.emall.cpms.chargingmanagementservice.mapper.SocketUpdateMapper;
 import it.polimi.emall.cpms.chargingmanagementservice.model.booking.Booking;
 import it.polimi.emall.cpms.chargingmanagementservice.model.booking.BookingManager;
 import it.polimi.emall.cpms.chargingmanagementservice.model.booking.BookingStatusEnum;
@@ -14,23 +14,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
-
-import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @Service
 public class StartAChargeUseCase extends ChargeUseCase{
 
     private final Logger logger = LoggerFactory.getLogger(StartAChargeUseCase.class);
+    private final ChargingPointMockApi chargingPointMockApi;
 
     public StartAChargeUseCase(
             BookingManager bookingManager,
             SocketCurrentStatusManager socketCurrentStatusManager,
             PlatformTransactionManager platformTransactionManager,
-            ApplicationEventPublisher applicationEventPublisher) {
+            ApplicationEventPublisher applicationEventPublisher, ChargingPointMockApi chargingPointMockApi) {
         super(bookingManager, socketCurrentStatusManager, applicationEventPublisher, platformTransactionManager);
 
+        this.chargingPointMockApi = chargingPointMockApi;
     }
 
     public void makeSocketReady(Long chargingStationId, Long chargingPointId, Long socketId){
@@ -40,7 +38,12 @@ public class StartAChargeUseCase extends ChargeUseCase{
         updateSocketStatusAndSendEvent(socketId, null, booking, SocketStatusEnum.SocketReadyStatus);
 
 
-        //TODO: send ready command to charging point
+        chargingPointMockApi.putChargingPointMock(
+                chargingStationId,
+                chargingPointId,
+                socketId,
+                SocketStatusEnum.SocketReadyStatus.name()
+        ).block();
 
     }
 
@@ -73,7 +76,12 @@ public class StartAChargeUseCase extends ChargeUseCase{
                         socketCurrentStatus.getSocketStatusEnum(),
                         SocketStatusEnum.SocketReadyStatus
                 );
-                //TODO: tell the charging point to go back in the available state
+                chargingPointMockApi.putChargingPointMock(
+                        chargingStationId,
+                        chargingPointId,
+                        socketId,
+                        SocketStatusEnum.SocketAvailableStatus.name()
+                ).block();
                 logger.info(
                         "Charging point status reconciled"
                 );
@@ -82,7 +90,13 @@ public class StartAChargeUseCase extends ChargeUseCase{
             }
         }
 
-        //TODO: send delivery command to charging point
+
+        chargingPointMockApi.putChargingPointMock(
+                chargingStationId,
+                chargingPointId,
+                socketId,
+                SocketStatusEnum.SocketDeliveringStatus.name()
+        ).block();
 
 
     }

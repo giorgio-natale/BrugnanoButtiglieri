@@ -1,5 +1,6 @@
 package it.polimi.emall.cpms.chargingmanagementservice.usecase;
 
+import it.polimi.emall.cpms.chargingmanagementservice.generated.http.client.cpms_mockingservice.endpoints.ChargingPointMockApi;
 import it.polimi.emall.cpms.chargingmanagementservice.model.booking.Booking;
 import it.polimi.emall.cpms.chargingmanagementservice.model.booking.BookingManager;
 import it.polimi.emall.cpms.chargingmanagementservice.model.booking.BookingStatusEnum;
@@ -15,11 +16,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class StopAChargeUseCase extends ChargeUseCase{
 
     private final Logger logger = LoggerFactory.getLogger(StartAChargeUseCase.class);
+    private final ChargingPointMockApi chargingPointMockApi;
 
     public StopAChargeUseCase(
             BookingManager bookingManager, SocketCurrentStatusManager socketCurrentStatusManager,
-            ApplicationEventPublisher applicationEventPublisher, PlatformTransactionManager transactionManager) {
+            ApplicationEventPublisher applicationEventPublisher, PlatformTransactionManager transactionManager, ChargingPointMockApi chargingPointMockApi) {
         super(bookingManager, socketCurrentStatusManager, applicationEventPublisher, transactionManager);
+        this.chargingPointMockApi = chargingPointMockApi;
     }
 
     public void stopEnergyDelivering(Long chargingStationId, Long chargingPointId, Long socketId){
@@ -39,7 +42,12 @@ public class StopAChargeUseCase extends ChargeUseCase{
                 SocketStatusEnum.SocketStoppedStatus
         );
 
-        //TODO: send stop command to charging point
+        chargingPointMockApi.putChargingPointMock(
+                chargingStationId,
+                chargingPointId,
+                socketId,
+                SocketStatusEnum.SocketStoppedStatus.name()
+        ).block();
 
     }
 
@@ -56,7 +64,12 @@ public class StopAChargeUseCase extends ChargeUseCase{
 
         });
 
-        //TODO: send available command to charging point
+        chargingPointMockApi.putChargingPointMock(
+                chargingStationId,
+                chargingPointId,
+                socketId,
+                SocketStatusEnum.SocketAvailableStatus.name()
+        ).block();
     }
 
 

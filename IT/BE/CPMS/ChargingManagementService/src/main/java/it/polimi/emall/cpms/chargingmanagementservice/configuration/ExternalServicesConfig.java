@@ -2,6 +2,7 @@ package it.polimi.emall.cpms.chargingmanagementservice.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.emall.cpms.chargingmanagementservice.generated.http.client.cpms_mockingservice.ApiClient;
+import it.polimi.emall.cpms.chargingmanagementservice.generated.http.client.cpms_mockingservice.endpoints.ChargingPointMockApi;
 import it.polimi.emall.cpms.chargingmanagementservice.generated.http.client.cpms_mockingservice.endpoints.CpmsChargingStationConfigurationApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,5 +19,16 @@ public class ExternalServicesConfig {
         if(basePath != null)
             apiClient.setBasePath(basePath);
         return new CpmsChargingStationConfigurationApi(apiClient);
+    }
+
+    @Bean
+    public ChargingPointMockApi chargingPointMockApi(
+            ObjectMapper jsonObjectMapper,
+            @Value("${endpoints.mock-service.base-path:#{null}}") String basePath
+    ){
+        ApiClient apiClient = new ApiClient(jsonObjectMapper, ApiClient.createDefaultDateFormat());
+        if(basePath != null)
+            apiClient.setBasePath(basePath);
+        return new ChargingPointMockApi(apiClient);
     }
 }
