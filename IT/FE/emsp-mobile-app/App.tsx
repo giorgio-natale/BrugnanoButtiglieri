@@ -10,6 +10,7 @@ import merge from 'deepmerge';
 import {MainStack} from "./navigation/MainStack";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {configApiDefault} from "./api/ApiConfig";
+import {NotificationsManager} from "./notifications/NotificationsManager";
 
 const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
@@ -27,8 +28,10 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <Provider theme={CombinedLightTheme}>
         <NavigationContainer theme={CombinedLightTheme}>
-          {/*<AuthenticationStack/>*/}
-          <MainStack/>
+          <NotificationsManager>
+            {/*<AuthenticationStack/>*/}
+            <MainStack/>
+          </NotificationsManager>
         </NavigationContainer>
       </Provider>
     </QueryClientProvider>
