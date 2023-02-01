@@ -176,6 +176,33 @@
 							</configOptions>
 						</configuration>
 					</execution>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<id>buildCpmsBookingServiceClient</id>
+						<configuration>
+							<inputSpec>${project.basedir}/../../CPMS/ChargingManagementService/HttpApiSpecification.yaml</inputSpec>
+							<generatorName>java</generatorName>
+							<generateApis>true</generateApis>
+							<generateModels>true</generateModels>
+							<generateModelTests>false</generateModelTests>
+							<generateApiTests>false</generateApiTests>
+							<modelNameSuffix>ClientDto</modelNameSuffix>
+							<templateDirectory>${project.basedir}/../../templates/client</templateDirectory>
+
+							<configOptions>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<useJakartaEe>true</useJakartaEe>
+								<library>webclient</library>
+								<modelPackage>${project.groupId}.${componentBasePackage}.generated.http.client.cpms_chargingmanagementservice.model</modelPackage>
+								<apiPackage>${project.groupId}.${componentBasePackage}.generated.http.client.cpms_chargingmanagementservice.endpoints</apiPackage>
+								<sourceFolder>/src/main/java</sourceFolder>
+								<implFolder>/src/main/java</implFolder>
+								<serializableModel>true</serializableModel>
+							</configOptions>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
