@@ -7,8 +7,7 @@ import {useQuery} from "@tanstack/react-query";
 
 export function BookingsScreen(props: MainStackScreenProps<"Bookings">) {
 
-  const meetingRoomList = useQuery(allBookingsQuery(5)).data;
-  console.log(meetingRoomList)
+  // const bookingList = useQuery(allBookingsQuery(102)).data;
 
   return <ScrollView>
     <Text variant="titleLarge" style={styles.pageTitle}>
