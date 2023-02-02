@@ -13,7 +13,7 @@ public class SocketStatusUpdateKafkaPublisher {
 
     public SocketStatusUpdateKafkaPublisher(
             KafkaTemplate<Long, SocketStatusUpdateDto> socketStatusUpdateKafkaTemplate,
-            @Value("${topics.socket-status-update}") String topic
+            @Value("${topics.socket-update}") String topic
     ) {
         this.socketStatusUpdateKafkaTemplate = socketStatusUpdateKafkaTemplate;
         this.topic = topic;
