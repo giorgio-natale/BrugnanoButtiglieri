@@ -1,19 +1,16 @@
 import * as React from 'react';
 import {ScrollView, StyleSheet, View} from "react-native";
 import {Button, Divider, Text} from 'react-native-paper';
-import {MainStackScreenProps} from "../../navigation/types";
+import {BookingsStackScreenProps} from "../../navigation/types";
 import {allBookingsQuery} from "./BookingApi";
 import {useQuery} from "@tanstack/react-query";
+import {useGetAuthInfo} from "../../user-auth/UserAuthenticationUtils";
 
-export function BookingsScreen(props: MainStackScreenProps<"Bookings">) {
+export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">) {
 
   // const bookingList = useQuery(allBookingsQuery(102)).data;
 
   return <ScrollView>
-    <Text variant="titleLarge" style={styles.pageTitle}>
-      Your bookings
-    </Text>
-    <Divider/>
     <View style={{...styles.item, ...{backgroundColor: "rgba(255,255,255)"}}}>
       <View>
         <Text style={styles.itemTitle}>

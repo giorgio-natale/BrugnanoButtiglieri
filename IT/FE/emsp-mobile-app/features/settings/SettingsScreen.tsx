@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {View} from "react-native";
-import {MainStackScreenProps} from "../../navigation/types";
+import {MainStackScreenProps, SettingsStackScreenProps} from "../../navigation/types";
 import {Button, List, Text as TextPaper, TextInput} from "react-native-paper";
 import {styles} from "../authentication/SignupScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {useLogout} from "../../user-auth/UserAuthenticationUtils";
 
-export function SettingsScreen(props: MainStackScreenProps<"Settings">) {
+export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">) {
 
   const logout = useLogout();
 
