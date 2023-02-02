@@ -6,7 +6,7 @@ import {MainStackScreenProps, StationsStackParamList} from "../../navigation/typ
 
 const Stack = createNativeStackNavigator<StationsStackParamList>();
 
-export function StationsScreen(props: MainStackScreenProps<"Stations">) {
+export function StationsStack(props: MainStackScreenProps<"Stations">) {
   return <Stack.Navigator initialRouteName="FindStation">
     <Stack.Screen name="FindStation" component={FindStationScreen} options={{title: "Find a station"}}/>
     <Stack.Screen name="BookCharge" component={BookChargeScreen} options={{title: "Book your charge"}}/>

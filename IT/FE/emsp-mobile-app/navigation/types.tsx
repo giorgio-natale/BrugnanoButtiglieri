@@ -12,9 +12,9 @@ export type AuthenticationStackScreenProps<T extends keyof AuthenticationStackPa
   NativeStackScreenProps<AuthenticationStackParamList, T>;
 
 export type MainStackParamList = {
-  Settings: undefined;
+  Settings: NavigatorScreenParams<SettingsStackParamList>;
   Stations: NavigatorScreenParams<StationsStackParamList>;
-  Bookings: undefined;
+  Bookings: NavigatorScreenParams<BookingsStackParamList>;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> =
@@ -27,6 +27,20 @@ export type StationsStackParamList = {
 
 export type StationsStackScreenProps<T extends keyof StationsStackParamList> =
   NativeStackScreenProps<StationsStackParamList, T>;
+
+export type SettingsStackParamList = {
+  SettingsScreen: undefined;
+};
+
+export type SettingsStackScreenProps<T extends keyof SettingsStackParamList> =
+  NativeStackScreenProps<SettingsStackParamList, T>;
+
+export type BookingsStackParamList = {
+  BookingsScreen: undefined;
+};
+
+export type BookingsStackScreenProps<T extends keyof BookingsStackParamList> =
+  NativeStackScreenProps<BookingsStackParamList, T>;
 
 export type BookChargeTabParamList = {
   BookInAdvance: undefined;
