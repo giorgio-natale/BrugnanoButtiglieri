@@ -65,17 +65,21 @@ public class StartupProcesses {
                     chargingStationClientDto.getChargingPointList().forEach(
                             chargingPointClientDto ->
                                     chargingPointClientDto.getSocketList().forEach(socketClientDto -> {
-                                        if (socketCurrentStatusManager.getByIdOpt(socketClientDto.getSocketId()).isEmpty()) {
-                                            socketCurrentStatusManager.createNewAndUpdate(
-                                                    socketClientDto.getSocketId(),
-                                                    new SocketCurrentStatusDto(
-                                                            socketClientDto.getSocketId(),
-                                                            chargingPointClientDto.getChargingPointId(),
-                                                            chargingStationClientDto.getChargingStationId(),
-                                                            SocketStatusEnum.SocketAvailableStatus,
-                                                            null
-                                                    ));
-                                        }
+                                        SocketCurrentStatusDto desiredState = new SocketCurrentStatusDto(
+                                                socketClientDto.getSocketId(),
+                                                socketClientDto.getSocketCode(),
+                                                chargingPointClientDto.getChargingPointId(),
+                                                chargingPointClientDto.getChargingPointCode(),
+                                                chargingPointClientDto.getMode(),
+                                                chargingStationClientDto.getChargingStationId(),
+                                                socketClientDto.getType(),
+                                                SocketStatusEnum.SocketAvailableStatus,
+                                                null
+                                        );
+                                        socketCurrentStatusManager.getByIdOpt(socketClientDto.getSocketId()).ifPresentOrElse(
+                                                socketCurrentStatus -> socketCurrentStatusManager.updateSocketInfo(socketCurrentStatus, desiredState),
+                                                () -> socketCurrentStatusManager.createNewAndUpdate(socketClientDto.getSocketId(), desiredState)
+                                        );
                                     }))
                     );
             return null;

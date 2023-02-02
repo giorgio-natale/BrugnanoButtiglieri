@@ -2,6 +2,7 @@ package it.polimi.emall.cpms.chargingmanagementservice.controller;
 
 import it.polimi.emall.cpms.chargingmanagementservice.generated.http.server.controller.ChargingStationApi;
 import it.polimi.emall.cpms.chargingmanagementservice.generated.http.server.model.*;
+import it.polimi.emall.cpms.chargingmanagementservice.usecase.ShowChargingStationStatusUseCase;
 import it.polimi.emall.cpms.chargingmanagementservice.usecase.StartAChargeUseCase;
 import it.polimi.emall.cpms.chargingmanagementservice.usecase.StopAChargeUseCase;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,12 @@ public class ChargingManagementController implements ChargingStationApi {
     private final StartAChargeUseCase startAChargeUseCase;
     private final StopAChargeUseCase stopAChargeUseCase;
 
-    public ChargingManagementController(StartAChargeUseCase startAChargeUseCase, StopAChargeUseCase stopAChargeUseCase) {
+    private final ShowChargingStationStatusUseCase showChargingStationStatusUseCase;
+
+    public ChargingManagementController(StartAChargeUseCase startAChargeUseCase, StopAChargeUseCase stopAChargeUseCase, ShowChargingStationStatusUseCase showChargingStationStatusUseCase) {
         this.startAChargeUseCase = startAChargeUseCase;
         this.stopAChargeUseCase = stopAChargeUseCase;
+        this.showChargingStationStatusUseCase = showChargingStationStatusUseCase;
     }
 
     @Override
@@ -42,5 +46,13 @@ public class ChargingManagementController implements ChargingStationApi {
         else{
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         }
+    }
+
+    @Override
+    public ResponseEntity<ChargingStationStatusDto> getChargingStationStatus(Long chargingStationId) {
+        return new ResponseEntity<>(
+                showChargingStationStatusUseCase.getChargingStationStatus(chargingStationId),
+                HttpStatus.OK
+        );
     }
 }

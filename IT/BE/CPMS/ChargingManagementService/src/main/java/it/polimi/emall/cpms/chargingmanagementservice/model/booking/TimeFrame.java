@@ -33,5 +33,9 @@ public class TimeFrame {
         this.endInstant = endInstant;
     }
 
+    public boolean contains(OffsetDateTime offsetDateTime){
+        return startInstant.isBefore(offsetDateTime) && (endInstant == null || endInstant.isAfter(offsetDateTime));
+    }
+
 
 }

@@ -5,6 +5,7 @@ import it.polimi.emall.cpms.chargingmanagementservice.utils.IdAssignedManager;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.Set;
 
 
 @Service
@@ -33,6 +34,10 @@ public class BookingManager extends IdAssignedManager<Booking, Long, BookingKafk
                 socketId,
                 bookingStatus
         ).orElseThrow();
+    }
+
+    public Set<Booking> getBookingsByChargingStation(Long chargingStationId){
+        return bookingRepository.findAllByChargingStationId(chargingStationId);
     }
 
 

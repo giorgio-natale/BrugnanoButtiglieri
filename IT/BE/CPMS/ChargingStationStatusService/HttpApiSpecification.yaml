@@ -174,12 +174,25 @@ components:
         socketList:
           type: array
           items:
-            $ref: '#/components/schemas/SocketStatus'
+            $ref: '#/components/schemas/SocketForDashboard'
       example:
         chargingPointId: 1
         chargingPointCode: A
         mode: IN_ADVANCE
         socketList: []
+    SocketForDashboard:
+      required:
+        - socketId
+        - socketCode
+        - status
+      properties:
+        socketId:
+          type: integer
+          format: int64
+        socketCode:
+          type: string
+        status:
+          $ref: '#/components/schemas/SocketStatus'
     SocketDeliveringStatus:
       required:
         - expectedMinutesLeft
@@ -237,15 +250,6 @@ components:
       example:
         status: SocketReadyStatus
     SocketStatus:
-      required:
-        - socketId
-        - socketCode
-      properties:
-        socketId:
-          type: integer
-          format: int64
-        socketCode:
-          type: string
       oneOf:
         - $ref: '#/components/schemas/SocketStoppedStatus'
         - $ref: '#/components/schemas/SocketDeliveringStatus'

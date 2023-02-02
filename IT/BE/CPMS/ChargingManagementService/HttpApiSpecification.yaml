@@ -69,6 +69,33 @@ paths:
           type: integer
         in: path
         required: true
+  '/chargingStation/{chargingStationId}/status':
+    get:
+      tags:
+        - ChargingManagement      
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargingStationStatus'
+          description: ''
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+        - Authenticated: []
+      operationId: getChargingStationStatus
+    parameters:
+      - name: chargingStationId
+        schema:
+          format: int64
+          type: integer
+        in: path
+        required: true
 components:
   schemas:
     Error:
@@ -152,6 +179,110 @@ components:
         - $ref: '#/components/schemas/SocketStoppedStatus'
       discriminator:
         propertyName: status
+    
+    SocketForDashboard:
+      required:
+        - socketId
+        - socketCode
+        - status
+      properties: 
+        socketId:
+          type: integer
+          format: int64
+        socketCode:
+          type: string
+        status:
+          $ref: '#/components/schemas/SocketStatus'
+
+    ChargingPointMode:
+      type: string
+      enum:
+        - IN_ADVANCE
+        - ON_THE_FLY
+      example: IN_ADVANCE
+
+    ChargingPoint:
+      title: Root Type for ChargingPoint
+      description: ''
+      required:
+        - chargingPointId
+        - chargingPointCode
+        - mode
+        - socketList
+      type: object
+      properties:
+        chargingPointId:
+          type: integer
+          format: int64
+        chargingPointCode:
+          type: string
+        mode:
+          $ref: '#/components/schemas/ChargingPointMode'
+        socketList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketForDashboard'
+      example:
+        chargingPointId: 1
+        chargingPointCode: A
+        mode: IN_ADVANCE
+        socketList: []
+
+    ChargingStationStatus:
+      title: Root Type for ChargingStationStatus
+      description: ''
+      required:
+        - overview
+        - chargingPointList
+      type: object
+      properties:
+        overview:
+          $ref: '#/components/schemas/AvailabilityOverview'
+        chargingPointList:
+          description: ''
+          type: array
+          items:
+            $ref: '#/components/schemas/ChargingPoint'
+
+    AvailabilityOverview:
+      title: Root Type for AvailabilityOverview
+      description: ''
+      required:
+        - fast
+        - rapid
+        - slow
+      type: object
+      properties:
+        slow:
+          $ref: '#/components/schemas/SocketTypeAvailabilityOverview'
+        fast:
+          $ref: '#/components/schemas/SocketTypeAvailabilityOverview'
+        rapid:
+          $ref: '#/components/schemas/SocketTypeAvailabilityOverview'
+
+    SocketTypeAvailabilityOverview:
+      title: Root Type for SocketTypeAvailabilityOverview
+      description: ''
+      required:
+        - availableSocketNumber
+        - nearestExpectedMinutesLeft
+        - totalSocketNumber
+      type: object
+      properties:
+        totalSocketNumber:
+          format: int32
+          type: integer
+        availableSocketNumber:
+          format: int32
+          type: integer
+        nearestExpectedMinutesLeft:
+          format: int32
+          type: integer
+      example:
+        totalSocketNumber: 1
+        availableSocketNumber: 1
+        nearestExpectedMinutesLeft: 1
+
   responses:
     ErrorResponse:
       content:
