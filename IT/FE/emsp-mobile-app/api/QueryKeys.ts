@@ -11,5 +11,8 @@ export const QueryKeys = {
   StationsConfig: {
     All: () => ["StationsConfig"],
     Station: (stationId: number) => ["StationsConfig", stationId]
+  },
+  Customer: {
+    CustomerProfile: (customerId: number) => ["Customer", customerId]
   }
 }

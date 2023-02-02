@@ -1,58 +1,53 @@
 import * as React from 'react';
-import {View} from "react-native";
-import {MainStackScreenProps, SettingsStackScreenProps} from "../../navigation/types";
-import {Button, List, Text as TextPaper, TextInput} from "react-native-paper";
-import {styles} from "../authentication/SignupScreen";
+import {StyleSheet, View} from "react-native";
+import {SettingsStackScreenProps} from "../../navigation/types";
+import {Button, List, Text, TextInput} from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import {useLogout} from "../../user-auth/UserAuthenticationUtils";
+import {useGetAuthInfo, useLogout} from "../../user-auth/UserAuthenticationUtils";
+import {useQuery} from "@tanstack/react-query";
+import {customerQuery} from "./CustomerApi";
 
 export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">) {
 
+  const authInfo = useGetAuthInfo();
+  const customerProfileQuery = useQuery(customerQuery(authInfo.customerId));
+
   const logout = useLogout();
 
-  return <View style={{flex: 1}}>
+  return <View style={{flex: 1, margin: 10}}>
     <List.Item
-      style={{marginTop: 30, marginBottom: 30}}
-      title="Mary Jane"
-      description="mary.jane@gmail.com"
+      style={{marginTop: 30, marginBottom: 20}}
+      title={`Hi ${customerProfileQuery?.data?.name}!`}
+      titleStyle={{fontSize: 20, fontWeight: "500"}}
       left={props => <MaterialCommunityIcons {...props} name="account-circle" size={80}/>}
     />
-    <TextPaper
-      variant="titleMedium"
-      style={styles.title}
-    >
-      Payment credentials
-    </TextPaper>
     <TextInput
-      label="Card number"
+      label="Name"
+      style={{marginBottom: 7}}
       mode="outlined"
-      value="1234 1234 1234 1234"
-      style={styles.textInput}
+      value={customerProfileQuery?.data?.name}
+      outlineColor={"rgba(0,0,0,0.12)"}
       editable={false}
     />
     <TextInput
-      label="Billing name and surname"
+      label="Surname"
+      style={{marginBottom: 7}}
       mode="outlined"
-      value="Mary Jane"
-      style={styles.textInput}
+      value={customerProfileQuery?.data?.surname}
+      outlineColor={"rgba(0,0,0,0.12)"}
       editable={false}
     />
-    <Button
-      mode="contained-tonal"
-      style={styles.button}
-    >
-      Change payment credentials
-    </Button>
-    <View style={{marginTop: "auto"}}>
-      <Button
-        mode="contained-tonal"
-        style={{...styles.button, ...{marginBottom: 20}}}
-      >
-        Change password
-      </Button>
+    <TextInput
+      label="Email address"
+      mode="outlined"
+      value={customerProfileQuery?.data?.emailAddress}
+      outlineColor={"rgba(0,0,0,0.12)"}
+      editable={false}
+    />
+      <View style={styles.buttonContainer}>
       <Button
         mode="contained"
-        style={{...styles.button, ...{marginBottom: 20}}}
+        style={styles.button}
         onPress={logout}
       >
         Log out
@@ -60,3 +55,20 @@ export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">
     </View>
   </View>
 }
+
+export const styles = StyleSheet.create({
+  buttonContainer: {
+    marginTop: "auto",
+    marginBottom: 20,
+    width: "100%",
+    height: 45
+  },
+  button: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    flexDirection: "row",
+    display: "flex",
+    justifyContent: "center"
+  }
+});
