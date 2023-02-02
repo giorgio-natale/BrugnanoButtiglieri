@@ -33,9 +33,10 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
   const authInfo = useGetAuthInfo();
 
   const postBookingMutation = useMutation(
-    (values: BookingOnTheFly & { customerId: number, chargingStationId: number }) =>
+    (values: BookingOnTheFly) =>
       BookingApi.postBooking(authInfo.customerId, values),
     {
+      // TODO setQueryData
       onSuccess: () => queryClient.invalidateQueries()
         .then(() => navigation.dispatch(StackActions.pop(1)))
         .then(() => navigation.navigate("Bookings"))

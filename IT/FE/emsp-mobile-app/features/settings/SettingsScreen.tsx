@@ -22,6 +22,7 @@ export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">
       left={props => <MaterialCommunityIcons {...props} name="account-circle" size={80}/>}
     />
     <TextInput
+      key="nameTextInput"
       label="Name"
       style={{marginBottom: 7}}
       mode="outlined"
@@ -30,6 +31,7 @@ export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">
       editable={false}
     />
     <TextInput
+      key="surnameTextInput"
       label="Surname"
       style={{marginBottom: 7}}
       mode="outlined"
@@ -38,6 +40,7 @@ export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">
       editable={false}
     />
     <TextInput
+      key="emailAddressTextInput"
       label="Email address"
       mode="outlined"
       value={customerProfileQuery?.data?.emailAddress}

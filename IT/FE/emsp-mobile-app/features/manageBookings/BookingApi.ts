@@ -11,6 +11,11 @@ export const bookingQuery = (customerId: number, bookingId: number) => ({
   queryFn: () => BookingApi.getBooking(customerId, bookingId)
 })
 
+export const allBookingsStatusQuery = (customerId: number) => ({
+  queryKey: QueryKeys.Bookings.AllBookingStatus(customerId),
+  queryFn: () => BookingApi.getAllBookingStatuses(customerId)
+})
+
 export const bookingStatusQuery = (customerId: number, bookingId: number) => ({
   queryKey: QueryKeys.Bookings.BookingStatus(customerId, bookingId),
   queryFn: () => BookingApi.getBookingStatus(customerId, bookingId)
