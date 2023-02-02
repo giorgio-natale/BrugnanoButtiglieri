@@ -63,7 +63,7 @@ public class StartABookingUseCase {
                 .block();
 
         transactionTemplate.execute(status -> {
-            bookingManager.updateStatus(bookingManager.getEntityByKey(bookingId), new BookingStatusInProgressDto());
+            bookingManager.updateStatus(bookingManager.getEntityByKey(bookingId), new BookingStatusInProgressDto(bookingId));
             return null;
         });
     }
