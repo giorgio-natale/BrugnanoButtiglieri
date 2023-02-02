@@ -4,8 +4,12 @@ import {MainStackScreenProps} from "../../navigation/types";
 import {Button, List, Text as TextPaper, TextInput} from "react-native-paper";
 import {styles} from "../authentication/SignupScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import {useLogout} from "../../user-auth/UserAuthenticationUtils";
 
 export function SettingsScreen(props: MainStackScreenProps<"Settings">) {
+
+  const logout = useLogout();
+
   return <View style={{flex: 1}}>
     <List.Item
       style={{marginTop: 30, marginBottom: 30}}
@@ -49,6 +53,7 @@ export function SettingsScreen(props: MainStackScreenProps<"Settings">) {
       <Button
         mode="contained"
         style={{...styles.button, ...{marginBottom: 20}}}
+        onPress={logout}
       >
         Log out
       </Button>
