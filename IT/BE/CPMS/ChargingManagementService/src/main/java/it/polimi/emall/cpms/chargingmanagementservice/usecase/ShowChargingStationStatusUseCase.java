@@ -30,6 +30,11 @@ public class ShowChargingStationStatusUseCase {
         this.bookingManager = bookingManager;
     }
 
+    public SocketStatusDto getSocketStatus(Long socketId){
+        SocketCurrentStatus socketCurrentStatus = socketCurrentStatusManager.getEntityByKey(socketId);
+        return SocketForDashboardMapper.buildSocketStatusDto(socketCurrentStatus);
+    }
+
     public ChargingStationStatusDto getChargingStationStatus(Long chargingStationId){
 
         OffsetDateTime now = OffsetDateTime.now();

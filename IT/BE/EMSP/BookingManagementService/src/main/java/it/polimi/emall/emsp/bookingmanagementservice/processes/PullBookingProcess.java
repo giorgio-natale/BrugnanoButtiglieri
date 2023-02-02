@@ -84,23 +84,37 @@ public class PullBookingProcess {
         var notifications = transactionTemplate.execute(status -> {
             Set<NotificationDto> notificationsToSend = new HashSet<>();
             bookingIdByChargingStationId.forEach(bookingId -> {
-                BookingClientDto bookingClientDto = bookingClientDtoById.get(bookingId);
-                BookingStatusClientDto bookingStatusClientDto = bookingStatusClientDtoById.get(bookingId);
+                try {
+                    BookingClientDto bookingClientDto = bookingClientDtoById.get(bookingId);
+                    BookingStatusClientDto bookingStatusClientDto = bookingStatusClientDtoById.get(bookingId);
 
-                bookingManager.getByIdOpt(bookingId).ifPresent(booking -> {
-                    if(booking.getBookingStatus().getBookingStatus().equals(BookingStatusEnum.BookingStatusInProgress)
-                    && bookingStatusClientDto.getBookingStatus().equals(BookingStatusEnum.BookingStatusCompleted.name())
-                    ){
-                        deviceManager.getByIdOpt(booking.getCustomerId()).ifPresent(device -> {
-                            notificationsToSend.add(new NotificationDto(
-                                            device.getExpoToken(),
-                                            new NotificationDataDto(bookingId)));
-                        });
-
+                    if (bookingClientDto == null || bookingStatusClientDto == null) {
+                        try {
+                            bookingManager.delete(bookingId);
+                            return;
+                        } catch (RuntimeException e) {
+                            log.error("Error while pulling booking id {}", bookingId);
+                            return;
+                        }
                     }
-                });
-                Booking booking = bookingManager.getOrCreateNewAndUpdate(bookingId, BookingDtoMapper.buildBookingDto(bookingClientDto));
-                bookingManager.updateStatus(booking, BookingDtoMapper.buildBookingStatusDto(bookingStatusClientDto));
+
+                    bookingManager.getByIdOpt(bookingId).ifPresent(booking -> {
+                        if (!booking.getBookingStatus().getBookingStatus().equals(BookingStatusEnum.BookingStatusCompleted)
+                                && bookingStatusClientDto.getBookingStatus().equals(BookingStatusEnum.BookingStatusCompleted.name())
+                        ) {
+                            deviceManager.getByIdOpt(booking.getCustomerId()).ifPresent(device -> {
+                                notificationsToSend.add(new NotificationDto(
+                                        device.getExpoToken(),
+                                        new NotificationDataDto(bookingId)));
+                            });
+
+                        }
+                    });
+                    Booking booking = bookingManager.getOrCreateNewAndUpdate(bookingId, BookingDtoMapper.buildBookingDto(bookingClientDto));
+                    bookingManager.updateStatus(booking, BookingDtoMapper.buildBookingStatusDto(bookingStatusClientDto));
+                }catch (RuntimeException e){
+                    log.error("Failed to pull booking id {}: {}", bookingId, e.getMessage());
+                }
             });
             return notificationsToSend;
         });

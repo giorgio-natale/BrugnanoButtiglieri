@@ -69,7 +69,7 @@ public class StartAChargeUseCase extends ChargeUseCase{
 
         }catch (IllegalStateException e){
             if(socketCurrentStatus.getSocketStatusEnum().equals(SocketStatusEnum.SocketAvailableStatus)){
-                logger.info(
+                logger.warn(
                         "Charging point status was not in synch: socket {} status: {}, chargingPointStatus: {}." +
                         "Trying to reconcile the charging point status.",
                         socketId,

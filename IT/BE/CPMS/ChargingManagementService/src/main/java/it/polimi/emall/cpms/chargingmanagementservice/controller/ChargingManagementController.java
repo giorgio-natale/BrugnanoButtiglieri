@@ -25,7 +25,7 @@ public class ChargingManagementController implements ChargingStationApi {
 
     @Override
     public ResponseEntity<SocketStatusDto> getSocketStatus(Long chargingStationId, Long chargingPointId, Long socketId) {
-        return ChargingStationApi.super.getSocketStatus(chargingStationId, chargingPointId, socketId);
+        return new ResponseEntity<>(showChargingStationStatusUseCase.getSocketStatus(socketId), HttpStatus.OK);
     }
 
     @Override

@@ -58,10 +58,8 @@ public class BookingManager extends IdAssignedManager<Booking, Long, BookingDto>
                 desiredState.getChargingPointId(),
                 desiredState.getSocketId(),
                 desiredState.getSocketType(),
-                desiredState.getBookingType() == BookingTypeDto.IN_ADVANCE ?
-                        TimeFrame.getClosedTimeFrame(desiredState.getTimeframe().getStartInstant(), desiredState.getTimeframe().getEndInstant())
-                        :
-                        TimeFrame.getOpenTimeFrame(desiredState.getTimeframe().getStartInstant())
+                new TimeFrame(desiredState.getTimeframe().getStartInstant(), desiredState.getTimeframe().getEndInstant())
+
         );
 
         return currentState;
