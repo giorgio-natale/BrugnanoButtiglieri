@@ -6,31 +6,43 @@ import it.polimi.emall.emsp.bookingmanagementservice.generated.http.client.cpms_
 import it.polimi.emall.emsp.bookingmanagementservice.mappers.BookingDtoMapper;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.Booking;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingManager;
+import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingStatusEnum;
+import it.polimi.emall.emsp.bookingmanagementservice.model.customerdevice.DeviceManager;
+import it.polimi.emall.emsp.bookingmanagementservice.usecases.NotificationDataDto;
+import it.polimi.emall.emsp.bookingmanagementservice.usecases.NotificationDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 public class PullBookingProcess {
     private final BookingApi bookingApi;
     private final BookingManager bookingManager;
 
     private final TransactionTemplate transactionTemplate;
 
+    private final WebClient.RequestBodySpec notificationWebRequestBodySpec;
+
+    private final DeviceManager deviceManager;
+
 
     public PullBookingProcess(
             BookingApi bookingApi, BookingManager bookingManager,
-            PlatformTransactionManager transactionManager
-    ) {
+            PlatformTransactionManager transactionManager,
+            WebClient.RequestBodySpec notificationWebRequestBodySpec, DeviceManager deviceManager) {
         this.bookingApi = bookingApi;
         this.bookingManager = bookingManager;
         this.transactionTemplate = new TransactionTemplate(transactionManager);
+        this.notificationWebRequestBodySpec = notificationWebRequestBodySpec;
+        this.deviceManager = deviceManager;
     }
     @EventListener(ApplicationReadyEvent.class)
     public void startup(){
@@ -38,7 +50,11 @@ public class PullBookingProcess {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                updateBookings();
+                try {
+                    updateBookings();
+                }catch(RuntimeException e){
+                    log.error("Cannot update booking {}", e.getMessage());
+                }
             }
         }, 0, 20000);
     }
@@ -65,15 +81,37 @@ public class PullBookingProcess {
                                 bookingStatusClientDto -> bookingStatusClientDto
                         ));
 
-        transactionTemplate.execute(status -> {
+        var notifications = transactionTemplate.execute(status -> {
+            Set<NotificationDto> notificationsToSend = new HashSet<>();
             bookingIdByChargingStationId.forEach(bookingId -> {
                 BookingClientDto bookingClientDto = bookingClientDtoById.get(bookingId);
                 BookingStatusClientDto bookingStatusClientDto = bookingStatusClientDtoById.get(bookingId);
 
+                bookingManager.getByIdOpt(bookingId).ifPresent(booking -> {
+                    if(booking.getBookingStatus().getBookingStatus().equals(BookingStatusEnum.BookingStatusInProgress)
+                    && bookingStatusClientDto.getBookingStatus().equals(BookingStatusEnum.BookingStatusCompleted.name())
+                    ){
+                        deviceManager.getByIdOpt(booking.getCustomerId()).ifPresent(device -> {
+                            notificationsToSend.add(new NotificationDto(
+                                            device.getExpoToken(),
+                                            new NotificationDataDto(bookingId)));
+                        });
+
+                    }
+                });
                 Booking booking = bookingManager.getOrCreateNewAndUpdate(bookingId, BookingDtoMapper.buildBookingDto(bookingClientDto));
                 bookingManager.updateStatus(booking, BookingDtoMapper.buildBookingStatusDto(bookingStatusClientDto));
             });
-            return null;
+            return notificationsToSend;
+        });
+        assert notifications != null;
+        notifications.forEach(notificationDto -> {
+            log.info("Sending notification for booking id {}", notificationDto.data.bookingId);
+            notificationWebRequestBodySpec
+                    .bodyValue(notificationDto)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .subscribe();
         });
     }
 }

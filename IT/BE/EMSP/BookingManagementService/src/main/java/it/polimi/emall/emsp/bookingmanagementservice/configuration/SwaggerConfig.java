@@ -1,9 +1,8 @@
-package it.polimi.emall.emsp.customerservice.configuration;
+package it.polimi.emall.emsp.bookingmanagementservice.configuration;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Configuration;
-
 
 
 @Configuration

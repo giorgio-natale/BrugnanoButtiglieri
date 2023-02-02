@@ -80,7 +80,7 @@ public class BookAChargeUseCase {
                     bookingOnTheFlyRequestDto.getCustomerId(),
                     bookingOnTheFlyRequestDto.getChargingStationId(),
                     bookingOnTheFlyRequestDto.getChargingPointId(),
-                    bookingOnTheFlyRequestDto.getChargingPointId(),
+                    bookingOnTheFlyRequestDto.getSocketId(),
                     chargingStationManager.getSocket(chargingStation, bookingOnTheFlyRequestDto.getSocketId()).getType(),
                     new TimeframeDto(OffsetDateTime.now()),
                     BookingTypeDto.ON_THE_FLY

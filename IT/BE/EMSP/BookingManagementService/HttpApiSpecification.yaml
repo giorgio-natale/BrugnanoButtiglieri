@@ -81,17 +81,17 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorResponse'
       security:
-        - Authenticated: [ ]
+        - Authenticated: []
       tags:
         - booking
       operationId: getAllBookingStatuses
       parameters:
-      - name: customerId
-        schema:
-          format: int64
-          type: integer
-        in: path
-        required: true
+        - name: customerId
+          schema:
+            format: int64
+            type: integer
+          in: path
+          required: true
   '/customer/{customerId}/booking/{bookingCode}':
     get:
       responses:
@@ -182,6 +182,33 @@ paths:
           type: integer
         in: path
         required: true
+  '/customer/{customerId}/notificationInfo':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+        name: customerId
+        in: path
+        required: true
+    post:
+      summary: Register device
+      operationId: registerDevice
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expoToken:
+                  type: string
+              required:
+                - expoToken
+      tags:
+        - booking
+      description: ''
 components:
   schemas:
     Timeframe:
@@ -453,7 +480,7 @@ components:
           $ref: '#/components/schemas/BookingType'
       example:
         bookingId: 127
-        bookingCode: "1"
+        bookingCode: '1'
         customerId: 1
         chargingStationId: 1
         bookingType: IN_ADVANCE

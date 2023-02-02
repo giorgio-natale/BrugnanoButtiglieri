@@ -9,6 +9,7 @@ import it.polimi.emall.cpms.chargingmanagementservice.generated.http.client.cpms
 import it.polimi.emall.cpms.chargingmanagementservice.model.socketstatus.SocketCurrentStatusDto;
 import it.polimi.emall.cpms.chargingmanagementservice.model.socketstatus.SocketCurrentStatusManager;
 import it.polimi.emall.cpms.chargingmanagementservice.model.socketstatus.SocketStatusEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -19,6 +20,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.util.List;
 
 @Component
+@Slf4j
 public class StartupProcesses {
 
     private final CpmsChargingStationConfigurationApi mockApi;
@@ -48,8 +50,14 @@ public class StartupProcesses {
         Retry retry = retryRegistry.retry("externalService", "externalService");
         List<ChargingStationClientDto> chargingStationClientDtoList =
         Retry.decorateSupplier(retry, CircuitBreaker.decorateSupplier(
-                    circuitBreaker, () -> mockApi.getChargingStationConfigurationList().collectList().block()
-                )
+                    circuitBreaker, () -> {
+                        try {
+                            return mockApi.getChargingStationConfigurationList().collectList().block();
+                        }catch (RuntimeException e){
+                            log.error("Cannot retrieve charging stations information: {}", e.getMessage());
+                            throw e;
+                        }
+                })
         ).get();
         assert chargingStationClientDtoList != null;
         transactionTemplate.execute(status -> {
