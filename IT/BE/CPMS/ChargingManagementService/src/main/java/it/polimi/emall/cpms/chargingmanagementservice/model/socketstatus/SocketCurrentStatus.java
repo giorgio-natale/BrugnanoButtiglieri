@@ -1,5 +1,7 @@
 package it.polimi.emall.cpms.chargingmanagementservice.model.socketstatus;
 
+import it.polimi.emall.cpms.chargingmanagementservice.generated.http.client.cpms_mockingservice.model.ChargingPointModeClientDto;
+import it.polimi.emall.cpms.chargingmanagementservice.generated.http.client.cpms_mockingservice.model.SocketTypeClientDto;
 import it.polimi.emall.cpms.chargingmanagementservice.utils.Identifiable;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,8 +17,18 @@ import java.util.Objects;
 public class SocketCurrentStatus implements Identifiable<Long> {
     @Id
     private Long id;
+
+    private String socketCode;
     private Long chargingPointId;
+
+    private String chargingPointCode;
+
+    @Enumerated(EnumType.STRING)
+    private ChargingPointModeClientDto chargingPointMode;
     private Long chargingStationId;
+
+    @Enumerated(EnumType.STRING)
+    private SocketTypeClientDto socketType;
     @Enumerated(EnumType.STRING)
     private SocketStatusEnum socketStatusEnum;
     @Convert(converter = ProgressInformationConverter.class)
@@ -27,9 +39,20 @@ public class SocketCurrentStatus implements Identifiable<Long> {
         this.socketStatusEnum = SocketStatusEnum.SocketAvailableStatus;
     }
 
-    void updateSocketInfo(Long chargingPointId, Long chargingStationId){
+    void updateSocketInfo(
+            String socketCode,
+            Long chargingPointId,
+            String chargingPointCode,
+            ChargingPointModeClientDto chargingPointMode,
+            Long chargingStationId,
+            SocketTypeClientDto socketType
+    ){
+        this.socketCode = socketCode;
         this.chargingPointId = chargingPointId;
+        this.chargingPointCode = chargingPointCode;
+        this.chargingPointMode = chargingPointMode;
         this.chargingStationId = chargingStationId;
+        this.socketType = socketType;
     }
 
     void updateStatus(SocketStatusEnum socketStatusEnum, ProgressInformation progressInformation){

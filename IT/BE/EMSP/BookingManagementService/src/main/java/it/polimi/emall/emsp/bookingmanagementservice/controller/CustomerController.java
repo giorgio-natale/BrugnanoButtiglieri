@@ -36,16 +36,16 @@ public class CustomerController implements CustomerApi {
     @SecurityRequirement(name = "Bearer Authentication")
     @Override
     public ResponseEntity<List<BookingDto>> getAllBookings(Long customerId) {
-        if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        //if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
+        //    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(bookAChargeUseCase.getAllBookingsForCustomer(customerId), HttpStatus.OK);
     }
 
     @SecurityRequirement(name = "Bearer Authentication")
     @Override
     public ResponseEntity<BookingDto> getBooking(Long customerId, Long bookingCode) {
-        if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        //if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
+        //  return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(bookAChargeUseCase.getBookingForCustomer(customerId, bookingCode), HttpStatus.OK);
 
     }
@@ -53,16 +53,16 @@ public class CustomerController implements CustomerApi {
     @SecurityRequirement(name = "Bearer Authentication")
     @Override
     public ResponseEntity<BookingStatusDto> getBookingStatus(Long customerId, Long bookingCode) {
-        if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        //if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
+        //  return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(bookAChargeUseCase.getBookingStatusForCustomer(customerId, bookingCode), HttpStatus.OK);
     }
 
     @SecurityRequirement(name = "Bearer Authentication")
     @Override
     public ResponseEntity<BookingDto> postBooking(Long customerId, BookingRequestDto bookingRequestDto) {
-        if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        //if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
+        //    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         try {
             if(!BeanUtils.getProperty(bookingRequestDto, "customerId").equals(String.valueOf(customerId)))
                 throw new IllegalArgumentException("Customer id mismatch between path parameter and request");
@@ -75,16 +75,16 @@ public class CustomerController implements CustomerApi {
     @SecurityRequirement(name = "Bearer Authentication")
     @Override
     public ResponseEntity<List<BookingStatusDto>> getAllBookingStatuses(Long customerId) {
-        if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        //if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
+        //   return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(bookAChargeUseCase.getAllBookingStatusForCustomer(customerId), HttpStatus.OK);
     }
 
     @SecurityRequirement(name = "Bearer Authentication")
     @Override
     public ResponseEntity<Void> putBookingStatus(Long customerId, Long bookingCode, BookingStatusDto bookingStatusDto) {
-        if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        //if(!jwtHelper.buildTokenDto(HttpRequestUtils.getAuthorizationToken()).customerId.equals(customerId))
+        //   return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         if(bookingStatusDto instanceof BookingStatusInProgressDto) {
             startABookingUseCase.startBooking(customerId, bookingCode);
             return new ResponseEntity<>(HttpStatus.OK);

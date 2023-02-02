@@ -247,16 +247,6 @@ components:
         Example 1: IN_ADVANCE
     BookingRequest:
       type: object
-      required:
-        - chargingStationId
-        - customerId
-      properties:
-        customerId:
-          format: int64
-          type: integer
-        chargingStationId:
-          format: int64
-          type: integer
       oneOf:
         - $ref: '#/components/schemas/BookingInAdvance'
         - $ref: '#/components/schemas/BookingOnTheFly'
@@ -278,14 +268,22 @@ components:
             endInstant: '2018-11-13T20:20:39+00:00'
     BookingInAdvance:
       required:
-        - socketType
-        - timeframe
         - bookingType
+        - socketType
+        - customerId
+        - chargingStationId
+        - timeframe
       type: object
       properties:
         bookingType:
           type: string
           x-discriminator: BookingInAdvance
+        customerId:
+          format: int64
+          type: integer
+        chargingStationId:
+          format: int64
+          type: integer
         socketType:
           $ref: '#/components/schemas/SocketType'
         timeframe:
@@ -293,6 +291,8 @@ components:
       example:
         bookingType: BookingInAdvance
         socketType: SLOW
+        customerId: 1
+        chargingStationId: 1
         timeframe:
           startInstant: '2018-11-13T20:20:39+00:00'
           endInstant: '2018-11-13T20:20:39+00:00'
@@ -306,6 +306,8 @@ components:
     BookingOnTheFly:
       required:
         - bookingType
+        - customerId
+        - chargingStationId
         - chargingPointId
         - socketId
       type: object
@@ -313,6 +315,12 @@ components:
         bookingType:
           type: string
           x-discriminator: BookingOnTheFly
+        customerId:
+          format: int64
+          type: integer
+        chargingStationId:
+          format: int64
+          type: integer
         chargingPointId:
           format: int64
           description: ''
@@ -323,6 +331,8 @@ components:
           type: integer
       example:
         bookingType: BookingOnTheFly
+        customerId: 1
+        chargingStationId: 1
         chargingPointId: 1
         socketId: 1
       x-examples:
@@ -334,12 +344,17 @@ components:
       type: object
       required:
         - bookingStatus
+        - bookingId
       properties:
         bookingStatus:
           type: string
           x-discriminator: BookingStatusCancelled
+        bookingId:
+          type: integer
+          format: int64
       example:
         bookingStatus: BookingStatusCancelled
+        bookingId: 1
       x-examples:
         Example 1:
           bookingStatus: BookingStatusCancelled
@@ -347,12 +362,17 @@ components:
       type: object
       required:
         - bookingStatus
+        - bookingId
       properties:
         bookingStatus:
           type: string
           x-discriminator: BookingStatusCompleted
+        bookingId:
+          type: integer
+          format: int64
       example:
         bookingStatus: BookingStatusCompleted
+        bookingId: 1
       x-examples:
         Example 1:
           bookingStatus: BookingStatusCompleted
@@ -360,28 +380,39 @@ components:
       type: object
       example:
         bookingStatus: BookingStatusExpired
+        bookingId: 1
       required:
         - bookingStatus
+        - bookingId
       properties:
         bookingStatus:
           type: string
           x-discriminator: BookingStatusExpired
+        bookingId:
+          type: integer
+          format: int64
       x-examples:
         Example 1:
           bookingStatus: BookingStatusExpired
+          bookingId: 1
     BookingStatusInProgress:
       type: object
       required:
         - bookingStatus
+        - bookingId
       properties:
         bookingStatus:
           type: string
           x-discriminator: BookingStatusInProgress
+        bookingId:
+          type: integer
+          format: int64
         expectedMinutesLeft:
           format: int32
           type: integer
       example:
         bookingStatus: BookingStatusInProgress
+        bookingId: 1
         expectedMinutesLeft: 1
       x-examples:
         Example 1:
@@ -391,22 +422,21 @@ components:
       type: object
       required:
         - bookingStatus
+        - bookingId
       properties:
         bookingStatus:
           x-discriminator: BookingStatusPlanned
           type: string
+        bookingId:
+          type: integer
+          format: int64
       example:
         bookingStatus: BookingStatusPlanned
+        bookingId: 1
       x-examples:
         Example 1:
           bookingStatus: BookingStatusPlanned
     BookingStatus:
-      required:
-        - bookingId
-      properties:
-        bookingId:
-          type: integer
-          format: int64
       oneOf:
         - $ref: '#/components/schemas/BookingStatusInProgress'
         - $ref: '#/components/schemas/BookingStatusPlanned'

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
+import java.util.Set;
 
 public interface BookingRepository extends CrudRepository<Booking, Long>, Repository<Booking, Long> {
     @Query(
@@ -41,6 +42,7 @@ public interface BookingRepository extends CrudRepository<Booking, Long>, Reposi
             @Param("socketId") Long socketId,
             @Param("bookingStatus") BookingStatusEnum bookingStatus);
 
+    Set<Booking> findAllByChargingStationId(Long chargingStationId);
 
 
 }
