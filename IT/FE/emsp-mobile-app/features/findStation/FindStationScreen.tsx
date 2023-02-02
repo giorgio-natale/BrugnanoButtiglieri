@@ -1,12 +1,12 @@
 import * as React from "react";
 import {useEffect, useRef, useState} from "react";
-import {StyleSheet, View} from "react-native";
+import {Platform, StyleSheet, View} from "react-native";
 import {StationsStackScreenProps} from "../../navigation/types";
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import * as Location from 'expo-location';
 import {LocationAccuracy} from 'expo-location';
 import {Button, List} from "react-native-paper";
-import {allStationsQuery} from "./StationApi";
+import {allStationsOverviewQuery} from "./StationApi";
 import {useQuery} from "@tanstack/react-query";
 import mapStyle from "../../assets/mapStyle.json";
 import {ChargingStationOverview} from "../../generated";
@@ -24,7 +24,7 @@ export function FindStationScreen({navigation}: StationsStackScreenProps<"FindSt
     longitude: 9.227884
   };
 
-  const {status, data: stationList} = useQuery(allStationsQuery());
+  const {status, data: stationList} = useQuery(allStationsOverviewQuery());
 
   const mapViewRef = useRef<MapView>();
 
@@ -58,32 +58,34 @@ export function FindStationScreen({navigation}: StationsStackScreenProps<"FindSt
 
   return (
     <View style={styles.container}>
-      <MapView
-        ref={mapViewRef}
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation={true}
-        showsMyLocationButton={true}
-        customMapStyle={mapStyle}
-        onPress={() => setSelectedChargingStationId(null)}
-      >
-        {status === "success" && stationList.map(s => (
-          <Marker key={s.chargingStationId} coordinate={{latitude: s.latitude, longitude: s.longitude}}
-                  image={selectedChargingStationId === s.chargingStationId ? selectedChargingStationIcon : defaultChargingStationIcon}
-                  onPress={(m) => {
-                    m.stopPropagation();
-                    setSelectedChargingStationId(s.chargingStationId);
-                    mapViewRef.current.animateToRegion({
-                        latitude: s.latitude,
-                        longitude: s.longitude,
-                        latitudeDelta: 0.05,
-                        longitudeDelta: 0.05
-                      }
-                    )
-                  }}
-          />
-        ))}
-      </MapView>
+      {Platform.OS !== "web" &&
+        <MapView
+          ref={mapViewRef}
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
+          customMapStyle={mapStyle}
+          onPress={() => setSelectedChargingStationId(null)}
+        >
+          {status === "success" && stationList.map(s => (
+            <Marker key={s.chargingStationId} coordinate={{latitude: s.latitude, longitude: s.longitude}}
+                    image={selectedChargingStationId === s.chargingStationId ? selectedChargingStationIcon : defaultChargingStationIcon}
+                    onPress={(m) => {
+                      m.stopPropagation();
+                      setSelectedChargingStationId(s.chargingStationId);
+                      mapViewRef.current.animateToRegion({
+                          latitude: s.latitude,
+                          longitude: s.longitude,
+                          latitudeDelta: 0.05,
+                          longitudeDelta: 0.05
+                        }
+                      )
+                    }}
+            />
+          ))}
+        </MapView>
+      }
       {isChargingStationSelected &&
         <List.Item
           title={getChargingStationOverviewTitle(selectedChargingStation)}
@@ -92,7 +94,7 @@ export function FindStationScreen({navigation}: StationsStackScreenProps<"FindSt
           description={`${selectedChargingStation.address}, ${selectedChargingStation.city}`}
           right={() => <View style={{alignSelf: "center"}}>
             <Button mode="contained" onPress={() => {
-              navigation.navigate("BookCharge")
+              navigation.navigate("BookCharge", {screen: "BookInAdvance", chargingStationId: selectedChargingStationId})
             }} labelStyle={{fontSize: 17}}>
               Book
             </Button>

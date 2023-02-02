@@ -1,38 +1,67 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {View} from "react-native";
-import {Button, TextInput} from "react-native-paper";
+import {Button, Text, TextInput} from "react-native-paper";
 import {AuthenticationStackScreenProps} from "../../navigation/types";
 import {styles} from "./SignupScreen";
+import {LoginRequest} from "../../generated";
+import {Formik} from "formik";
+import {useLogin} from "../../user-auth/UserAuthenticationUtils";
+import {useMutation} from "@tanstack/react-query";
 
 export function LoginScreen({navigation}: AuthenticationStackScreenProps<"Login">) {
-  return <View style={{justifyContent: "center", flex: 1}}>
-    <TextInput
-      label="Email address"
-      mode="outlined"
-      value="mary.jane@gmail.com"
-      style={{...styles.textInput, ...{marginTop: 10}}}
-    />
-    <TextInput
-      label="Password"
-      mode="outlined"
-      value="xxxxxxxxxxx"
-      secureTextEntry={true}
-      style={{...styles.textInput, ...{marginBottom: 0}}}
-    />
-    <Button>
-      Forgot password?
-    </Button>
-    <Button
-      mode="contained"
-      style={styles.button}
+
+  const login = useLogin();
+  const loginMutation = useMutation(({emailAddress, password}: LoginRequest) => login(emailAddress, password));
+
+  return (
+    <Formik<LoginRequest>
+      initialValues={{"emailAddress": "", "password": ""}}
+      onSubmit={values =>
+        loginMutation.mutate({
+          emailAddress: values.emailAddress,
+          password: values.password
+        })}
     >
-      Login
-    </Button>
-    <Button
-      onPress={() => navigation.navigate("Signup")}
-      style={{marginTop: 30}}
-    >
-      Sign up
-    </Button>
-  </View>
+      {({handleChange, handleBlur, handleSubmit, values}) => (
+        <View style={{justifyContent: "center", flex: 1}}>
+          <TextInput
+            label="Email address"
+            mode="outlined"
+            value={values.emailAddress}
+            onChangeText={handleChange("emailAddress")}
+            style={{...styles.textInput, ...{marginTop: 10}}}
+          />
+          <TextInput
+            label="Password"
+            mode="outlined"
+            value={values.password}
+            onChangeText={handleChange("password")}
+            secureTextEntry={true}
+            style={{...styles.textInput, ...{marginBottom: 0}}}
+          />
+          <View style={{height: 20}}>
+            {loginMutation.isError &&
+              <Text style={{color: "#F00"}}>
+                Login failed, please retry
+              </Text>
+            }
+          </View>
+          <Button
+            mode="contained"
+            style={styles.button}
+            onPress={() => handleSubmit()}
+          >
+            Login
+          </Button>
+          <Button
+            onPress={() => navigation.navigate("Signup")}
+            style={{marginTop: 30}}
+          >
+            Sign up
+          </Button>
+        </View>
+      )}
+    </Formik>
+  );
 }

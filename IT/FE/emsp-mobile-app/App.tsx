@@ -5,12 +5,12 @@ import {
   NavigationContainer
 } from "@react-navigation/native";
 import {adaptNavigationTheme, MD3DarkTheme, MD3LightTheme, Provider} from "react-native-paper";
-import {AuthenticationStack} from "./navigation/AuthenticationStack";
 import merge from 'deepmerge';
-import {MainStack} from "./navigation/MainStack";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {configApiDefault} from "./api/ApiConfig";
 import {NotificationsManager} from "./notifications/NotificationsManager";
+import {AuthenticationManager} from "./user-auth/AuthenticationManager";
+import {NavigationManager} from "./navigation/NavigationManager";
 
 const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
@@ -27,12 +27,13 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider theme={CombinedLightTheme}>
-        <NavigationContainer theme={CombinedLightTheme}>
-          <NotificationsManager>
-            {/*<AuthenticationStack/>*/}
-            <MainStack/>
-          </NotificationsManager>
-        </NavigationContainer>
+        <AuthenticationManager>
+          <NavigationContainer theme={CombinedLightTheme}>
+            <NotificationsManager>
+              <NavigationManager/>
+            </NotificationsManager>
+          </NavigationContainer>
+        </AuthenticationManager>
       </Provider>
     </QueryClientProvider>
   );

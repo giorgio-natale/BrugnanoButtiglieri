@@ -22,7 +22,7 @@ export type MainStackScreenProps<T extends keyof MainStackParamList> =
 
 export type StationsStackParamList = {
   FindStation: undefined;
-  BookCharge: NavigatorScreenParams<BookChargeTabParamList>;
+  BookCharge: NavigatorScreenParams<BookChargeTabParamList> & {chargingStationId: number};
 };
 
 export type StationsStackScreenProps<T extends keyof StationsStackParamList> =

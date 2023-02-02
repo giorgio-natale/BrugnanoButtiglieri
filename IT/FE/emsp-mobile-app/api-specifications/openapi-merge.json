@@ -4,9 +4,12 @@
       "inputFile": "../../../BE/EMSP/BookingManagementService/HttpApiSpecification.yaml"
     },
     {
+      "inputFile": "../../../BE/EMSP/CustomerService/HttpApiSpecification.yaml"
+    },
+    {
       "inputFile": "../../../BE/CPMS/MockService/HttpApiSpecification.yaml",
       "operationSelection": {
-        "includeTags": ["emsp-charging-station"]
+        "includeTags": ["emsp-charging-station", "cpms-charging-station-configuration"]
       }
     }
   ],
