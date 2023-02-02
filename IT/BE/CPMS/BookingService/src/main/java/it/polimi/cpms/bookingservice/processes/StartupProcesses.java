@@ -7,6 +7,7 @@ import io.github.resilience4j.retry.RetryRegistry;
 import it.polimi.cpms.bookingservice.model.chargingstation.ChargingStationManager;
 import it.polimi.emall.cpms.bookingservice.generated.http.client.cpms_bookingservice.endpoints.CpmsChargingStationConfigurationApi;
 import it.polimi.emall.cpms.bookingservice.generated.http.client.cpms_bookingservice.model.ChargingStationClientDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -17,6 +18,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.util.List;
 
 @Component
+@Slf4j
 public class StartupProcesses {
 
     private final CpmsChargingStationConfigurationApi mockApi;
@@ -43,10 +45,17 @@ public class StartupProcesses {
     @Async
     public void startup(){
         CircuitBreaker circuitBreaker = circuitBreakerRegistry.circuitBreaker("externalService", "externalService");
-        Retry retry = retryRegistry.retry("externalService", "externalService");
+        Retry retry = retryRegistry.retry("endlessRetry", "endlessRetry");
         List<ChargingStationClientDto> chargingStationClientDtoList =
         Retry.decorateSupplier(retry, CircuitBreaker.decorateSupplier(
-                    circuitBreaker, () -> mockApi.getChargingStationConfigurationList().collectList().block()
+                    circuitBreaker, () -> {
+                        try {
+                            return mockApi.getChargingStationConfigurationList().collectList().block();
+                        }catch (RuntimeException e){
+                            log.error("Cannot update charging station configuration: {}", e.getMessage());
+                            throw e;
+                        }
+                    }
                 )
         ).get();
         assert chargingStationClientDtoList != null;
