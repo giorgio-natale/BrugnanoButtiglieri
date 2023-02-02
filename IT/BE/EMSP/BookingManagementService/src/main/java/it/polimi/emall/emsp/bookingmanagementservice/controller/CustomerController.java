@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.controller.CustomerApi;
 import it.polimi.emall.emsp.bookingmanagementservice.generated.http.server.model.*;
 import it.polimi.emall.emsp.bookingmanagementservice.usecases.BookAChargeUseCase;
+import it.polimi.emall.emsp.bookingmanagementservice.usecases.CancelABookingUseCase;
 import it.polimi.emall.emsp.bookingmanagementservice.usecases.RegisterDeviceUseCase;
 import it.polimi.emall.emsp.bookingmanagementservice.usecases.StartABookingUseCase;
-import it.polimi.emall.emsp.bookingmanagementservice.utils.HttpRequestUtils;
 import it.polimi.emall.emsp.bookingmanagementservice.utils.JwtHelper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -24,12 +24,15 @@ public class CustomerController implements CustomerApi {
     private final StartABookingUseCase startABookingUseCase;
 
     private final RegisterDeviceUseCase registerDeviceUseCase;
+
+    private final CancelABookingUseCase cancelABookingUseCase;
     private final JwtHelper jwtHelper;
 
-    public CustomerController(BookAChargeUseCase bookAChargeUseCase, StartABookingUseCase startABookingUseCase, RegisterDeviceUseCase registerDeviceUseCase, JwtHelper jwtHelper) {
+    public CustomerController(BookAChargeUseCase bookAChargeUseCase, StartABookingUseCase startABookingUseCase, RegisterDeviceUseCase registerDeviceUseCase, CancelABookingUseCase cancelABookingUseCase, JwtHelper jwtHelper) {
         this.bookAChargeUseCase = bookAChargeUseCase;
         this.startABookingUseCase = startABookingUseCase;
         this.registerDeviceUseCase = registerDeviceUseCase;
+        this.cancelABookingUseCase = cancelABookingUseCase;
         this.jwtHelper = jwtHelper;
     }
 
@@ -87,6 +90,9 @@ public class CustomerController implements CustomerApi {
         //   return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         if(bookingStatusDto instanceof BookingStatusInProgressDto) {
             startABookingUseCase.startBooking(customerId, bookingCode);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else if(bookingStatusDto instanceof BookingStatusCancelledDto){
+            cancelABookingUseCase.cancelBooking(customerId, bookingCode);
             return new ResponseEntity<>(HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);

@@ -5,7 +5,9 @@ import it.polimi.cpms.bookingservice.model.booking.Booking;
 import it.polimi.cpms.bookingservice.model.booking.BookingManager;
 import it.polimi.cpms.bookingservice.model.booking.BookingStatus;
 import it.polimi.cpms.bookingservice.model.booking.dto.SocketStatusUpdateDto;
+import it.polimi.cpms.bookingservice.model.booking.event.BookingUpdatedEvent;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.*;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +19,11 @@ import java.util.stream.Collectors;
 @Service
 public class SynchronizeBookingUseCase {
     private final BookingManager bookingManager;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public SynchronizeBookingUseCase(BookingManager bookingManager) {
+    public SynchronizeBookingUseCase(BookingManager bookingManager, ApplicationEventPublisher applicationEventPublisher) {
         this.bookingManager = bookingManager;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     public BookingDto getBookingDto(Long bookingId){
@@ -49,10 +53,12 @@ public class SynchronizeBookingUseCase {
 
     @Transactional
     public void updateInProgressInformationForBooking(SocketStatusUpdateDto socketStatusUpdateDto){
-        bookingManager.updateStatus(
+        Booking booking = bookingManager.updateStatus(
                 bookingManager.getEntityByKey(socketStatusUpdateDto.bookingId),
                 BookingMapper.buildBookingStatusDto(socketStatusUpdateDto)
         );
+
+        applicationEventPublisher.publishEvent(new BookingUpdatedEvent(BookingMapper.buildBookingKafkaDto(booking)));
     }
 
     @Transactional
@@ -63,7 +69,9 @@ public class SynchronizeBookingUseCase {
             bookingDto.timeframe(
                     new TimeframeDto(booking.getTimeFrame().getStartInstant()).endInstant(OffsetDateTime.now())
             );
+            bookingManager.update(booking.getId(), bookingDto);
         }
-        bookingManager.updateStatus(booking, new BookingStatusCompletedDto());
+        booking = bookingManager.updateStatus(booking, new BookingStatusCompletedDto());
+        applicationEventPublisher.publishEvent(new BookingUpdatedEvent(BookingMapper.buildBookingKafkaDto(booking)));
     }
 }

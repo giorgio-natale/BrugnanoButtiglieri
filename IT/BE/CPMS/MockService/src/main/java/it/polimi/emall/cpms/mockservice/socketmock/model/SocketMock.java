@@ -76,7 +76,9 @@ public class SocketMock implements Identifiable<Long> {
             if(Duration.between(this.getLastStatusChangeTime(), now).toSeconds() > waitInReadyStateSeconds){
                 this.setStatus(new SocketDeliveryInfo(SocketStatusDto.SOCKETREADYSTATUS, defaultInitialKwHLeftToCharge));
                 socketStatusClientDto
-                        .status(SocketStatusDto.SOCKETDELIVERINGSTATUS.getValue());
+                        .status(SocketStatusDto.SOCKETDELIVERINGSTATUS.getValue())
+                        .expectedMinutesLeft(60)
+                        .kWhAbsorbed(0.0);
             }
         }
         else if(this.socketStatus.equals(SocketStatusDto.SOCKETDELIVERINGSTATUS)) {

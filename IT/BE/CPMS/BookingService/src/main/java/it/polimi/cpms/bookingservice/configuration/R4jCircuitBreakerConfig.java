@@ -36,8 +36,17 @@ public class R4jCircuitBreakerConfig {
                 .maxAttempts(100)
                 .waitDuration(Duration.of(2, ChronoUnit.SECONDS))
                 .build();
+
+        RetryConfig endlessRetry = RetryConfig
+                .custom()
+                .maxAttempts(Integer.MAX_VALUE)
+                .waitDuration(Duration.of(2, ChronoUnit.SECONDS))
+                .build();
         return RetryRegistry.of(
-                Map.of("externalService", config)
+                Map.of(
+                        "externalService", config,
+                        "endlessRetry", endlessRetry
+                )
         );
     }
 }

@@ -25,7 +25,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 public class KafkaConfig {
 
     @Bean
-    public NewTopic bookingTopic(@Value("${topics.socket-status-update}")String bookingUpdateTopic){
+    public NewTopic bookingTopic(@Value("${topics.socket-update}")String bookingUpdateTopic){
         return TopicBuilder
                 .name(bookingUpdateTopic)
                 .config(TopicConfig.RETENTION_MS_CONFIG, "600000")

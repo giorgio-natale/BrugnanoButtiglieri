@@ -17,6 +17,7 @@ public interface BookingRepository extends CrudRepository<Booking, Long>, Reposi
             WHERE booking.chargingStationId = :chargingStationId
             AND   booking.chargingPointId = :chargingPointId
             AND   booking.socketId = :socketId
+            AND   (booking.bookingStatus = 'BookingStatusInProgress' OR booking.bookingStatus = 'BookingStatusPlanned')
             AND   (booking.timeFrame.endInstant IS NULL OR (booking.timeFrame.startInstant <= :targetDateTime AND booking.timeFrame.endInstant >= :targetDateTime))
             """
     )
