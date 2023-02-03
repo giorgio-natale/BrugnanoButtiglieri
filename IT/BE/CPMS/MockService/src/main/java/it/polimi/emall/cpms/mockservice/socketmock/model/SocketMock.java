@@ -79,6 +79,8 @@ public class SocketMock implements Identifiable<Long> {
                         .status(SocketStatusDto.SOCKETDELIVERINGSTATUS.getValue())
                         .expectedMinutesLeft(60)
                         .kWhAbsorbed(0.0);
+            }else{
+                socketStatusClientDto.status(SocketStatusDto.SOCKETREADYSTATUS.getValue());
             }
         }
         else if(this.socketStatus.equals(SocketStatusDto.SOCKETDELIVERINGSTATUS)) {

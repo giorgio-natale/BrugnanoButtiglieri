@@ -41,13 +41,14 @@ public class SimulateChargingPointUseCase {
                         waitInReadyStateSeconds
                 );
                 log.info("Sending to ChargingManagement request to change socket status of {} to {}", socketMock.getSocketId(), socketStatusClientDto.getStatus());
-                chargingManagementApi.putSocketStatus(
-                        socketMock.getChargingStationId(),
-                        socketMock.getChargingPointId(),
-                        socketMock.getSocketId(),
-                        socketStatusClientDto
-
-                ).block();
+                if(!socketStatusClientDto.getStatus().equals(SocketStatusDto.SOCKETREADYSTATUS.getValue())) {
+                    chargingManagementApi.putSocketStatus(
+                            socketMock.getChargingStationId(),
+                            socketMock.getChargingPointId(),
+                            socketMock.getSocketId(),
+                            socketStatusClientDto
+                    ).block();
+                }
             }catch (RuntimeException e){
                 log.error("Error while simulating socket {}", socketMock.getSocketId());
             }
