@@ -24,6 +24,7 @@ public class KafkaController {
     )
     public void handleSocketUpdate(SocketStatusUpdateDto socketStatusUpdateDto, Acknowledgment acknowledgment){
         try {
+            log.info("Sending socket update for booking {}: {}", socketStatusUpdateDto.bookingId, socketStatusUpdateDto.socketStatus);
             if (socketStatusUpdateDto.socketStatus.equals(SocketStatusEnum.SocketDeliveringStatus))
                 synchronizeBookingUseCase.updateInProgressInformationForBooking(socketStatusUpdateDto);
             else if (socketStatusUpdateDto.socketStatus.equals(SocketStatusEnum.SocketStoppedStatus)) {
