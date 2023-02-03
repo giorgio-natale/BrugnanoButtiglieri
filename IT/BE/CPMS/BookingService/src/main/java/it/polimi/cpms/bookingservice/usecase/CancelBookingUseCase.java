@@ -32,13 +32,6 @@ public class CancelBookingUseCase {
         if(!booking.getBookingStatus().getBookingStatus().equals(BookingStatusEnum.BookingStatusPlanned))
             throw new IllegalStateException(String.format("Booking with code %s is not planned", booking.getBookingCode()));
 
-        chargingManagementApi.putSocketStatus(
-                booking.getChargingStationId(),
-                booking.getChargingPointId(),
-                booking.getSocketId(),
-                new SocketStatusClientDto().status("SocketReadyStatus")
-        ).block();
-
         Booking updatedBooking = bookingManager.updateStatus(
                 bookingManager.getEntityByKey(bookingId),
                 new BookingStatusInProgressDto()
