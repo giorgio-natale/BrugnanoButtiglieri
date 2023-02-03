@@ -5,6 +5,8 @@ import {StyleSheet, TouchableWithoutFeedback, View} from "react-native";
 import {Text} from "react-native-paper";
 import {useNavigation} from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import {BookingApi} from "../generated";
+import {useGetAuthInfo} from "../user-auth/UserAuthenticationUtils";
 
 interface Props {
   children: JSX.Element
@@ -22,6 +24,7 @@ interface Notification {
 export const NotificationsManager: React.FC<Props> = ({children}) => {
 
   const navigation = useNavigation();
+  const authInfo = useGetAuthInfo();
 
   const notificationListener = useRef<any>();
   const responseListener = useRef<any>();
@@ -32,7 +35,9 @@ export const NotificationsManager: React.FC<Props> = ({children}) => {
 
   useEffect(() => {
     registerForPushNotificationsAsync()
-    // TODO .then(token => setExpoPushToken(token));
+      .then(token => BookingApi.registerDevice(authInfo.customerId, {
+        expoToken: token
+      }));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       const notificationContent = notification.request.content;
