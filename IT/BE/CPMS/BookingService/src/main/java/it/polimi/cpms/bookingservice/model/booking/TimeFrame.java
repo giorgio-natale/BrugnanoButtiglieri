@@ -29,6 +29,8 @@ public class TimeFrame {
         return tf;
     }
     public TimeFrame(OffsetDateTime startInstant, OffsetDateTime endInstant) {
+        if(endInstant != null && endInstant.isBefore(startInstant))
+            throw new IllegalArgumentException("Check again the selected time frame");
         this.startInstant = startInstant;
         this.endInstant = endInstant;
     }
