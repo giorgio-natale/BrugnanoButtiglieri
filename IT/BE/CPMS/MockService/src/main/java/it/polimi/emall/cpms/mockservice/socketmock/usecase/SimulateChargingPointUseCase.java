@@ -6,6 +6,7 @@ import it.polimi.emall.cpms.mockservice.generated.http.server.model.SocketStatus
 import it.polimi.emall.cpms.mockservice.socketmock.model.SocketMock;
 import it.polimi.emall.cpms.mockservice.socketmock.model.SocketMockManager;
 import it.polimi.emall.cpms.mockservice.socketmock.model.dto.SocketDeliveryInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 
 @Service
+@Slf4j
 public class SimulateChargingPointUseCase {
     private final SocketMockManager socketMockManager;
     private final ChargingManagementApi chargingManagementApi;
@@ -34,22 +36,20 @@ public class SimulateChargingPointUseCase {
         socketMockManager.getActiveSocketMocks().forEach(socketMock -> {
             OffsetDateTime now = OffsetDateTime.now();
             try {
+                SocketStatusClientDto socketStatusClientDto = socketMock.getUpdatedSocketStatusDto(
+                        now,
+                        waitInReadyStateSeconds
+                );
+                log.info("Sending to ChargingManagement request to change socket status of {} to {}", socketMock.getSocketId(), socketStatusClientDto.getStatus());
                 chargingManagementApi.putSocketStatus(
                         socketMock.getChargingStationId(),
                         socketMock.getChargingPointId(),
                         socketMock.getSocketId(),
-                        socketMock.getUpdatedSocketStatusDto(
-                                now,
-                                waitInReadyStateSeconds
-                        )
+                        socketStatusClientDto
+
                 ).block();
             }catch (RuntimeException e){
-                SocketStatusClientDto trueStatus =
-                chargingManagementApi.getSocketStatus(
-                        socketMock.getChargingStationId(),
-                        socketMock.getChargingPointId(),
-                        socketMock.getSocketId()
-                ).block();
+                log.error("Error while simulating socket {}", socketMock.getSocketId());
             }
         });
     }
