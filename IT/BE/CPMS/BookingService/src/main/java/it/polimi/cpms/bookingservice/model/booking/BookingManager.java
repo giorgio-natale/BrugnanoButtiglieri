@@ -113,7 +113,7 @@ public class BookingManager extends IdGeneratedManager<Booking, Long, BookingDto
     @Override
     protected Booking updateEntity(Booking currentState, BookingDto desiredState) {
         currentState.updateBooking(
-            desiredState.getBookingCode(),
+            String.format("BC%d", currentState.getId()),
             desiredState.getBookingType(),
                 desiredState.getChargingStationId(),
                 desiredState.getCustomerId(),

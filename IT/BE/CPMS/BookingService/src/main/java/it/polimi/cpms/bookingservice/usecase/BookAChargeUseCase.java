@@ -44,7 +44,7 @@ public class BookAChargeUseCase {
 
         BookingDto newBookingDto = new BookingDto(
                 null,
-                String.format("BK-%d-%d", freeChargingPointId, freeSocketId),
+                "",
                 bookingInAdvanceRequestDto.getCustomerId(),
                 bookingInAdvanceRequestDto.getChargingStationId(),
                 freeChargingPointId,
@@ -74,7 +74,7 @@ public class BookAChargeUseCase {
 
             BookingDto newBookingDto = new BookingDto(
                     null,
-                    String.format("BK-%d-%d", bookingOnTheFlyRequestDto.getChargingPointId(), bookingOnTheFlyRequestDto.getSocketId()),
+                    "",
                     bookingOnTheFlyRequestDto.getCustomerId(),
                     bookingOnTheFlyRequestDto.getChargingStationId(),
                     bookingOnTheFlyRequestDto.getChargingPointId(),
