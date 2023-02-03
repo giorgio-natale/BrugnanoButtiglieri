@@ -11,8 +11,8 @@ public class NotificationDto {
     @JsonCreator
     public NotificationDto(String expoToken, NotificationDataDto data) {
         this.to = expoToken;
-        this.title = "Tutto è bene";
-        this.body = "Quel che finisce bene \uD83D\uDD0B ";
+        this.title = "Booking completed";
+        this.body = "\uD83D\uDD0B The charge is completed, your vehicle is ready to go!";
         this.data = data;
     }
 }
