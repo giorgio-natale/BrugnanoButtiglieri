@@ -30,10 +30,12 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
     (values: BookingInAdvance) =>
       BookingApi.postBooking(authInfo.customerId, values),
     {
-      // TODO setQueryData
-      onSuccess: () => queryClient.invalidateQueries()
-        .then(() => navigation.dispatch(StackActions.pop(1)))
-        .then(() => navigation.navigate("Bookings")),
+      onSuccess: () => {
+        queryClient.invalidateQueries(["Bookings", authInfo.customerId, "List"]);
+        queryClient.invalidateQueries(["Bookings", authInfo.customerId, "Status", "List"]);
+        navigation.dispatch(StackActions.pop(1))
+        navigation.navigate("Bookings");
+      },
       onSettled: () => setCanShowError(true)
     }
   );

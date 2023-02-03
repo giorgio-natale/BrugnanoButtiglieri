@@ -1,8 +1,8 @@
 export const QueryKeys = {
   Bookings: {
-    All: (customerId: number) => ["Bookings", customerId],
+    All: (customerId: number) => ["Bookings", customerId, "List"],
     Booking: (customerId: number, bookingId: number) => ["Bookings", customerId, bookingId],
-    AllBookingStatus: (customerId: number) => ["Bookings", customerId, "Status"],
+    AllBookingStatus: (customerId: number) => ["Bookings", customerId, "Status", "List"],
     BookingStatus: (customerId: number, bookingId: number) => ["Bookings", customerId, "Status", bookingId]
   },
   StationsOverview: {

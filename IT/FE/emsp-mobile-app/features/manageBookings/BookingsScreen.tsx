@@ -36,8 +36,11 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
         bookingStatus: "BookingStatusCancelled"
       } as BookingStatusCancelled),
     {
-      // TODO setQueryData
-      onSuccess: () => queryClient.invalidateQueries()
+      onMutate: (bookingId) => ({bookingId: bookingId}),
+      onSuccess: (data, variables, context) => {
+        queryClient.invalidateQueries(["Bookings", authInfo.customerId, "Status"]);
+        queryClient.invalidateQueries(["Bookings", authInfo.customerId, "Status", context.bookingId]);
+      }
     }
   );
 
@@ -48,8 +51,11 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
         bookingStatus: "BookingStatusInProgress"
       } as BookingStatusInProgress),
     {
-      // TODO setQueryData
-      onSuccess: () => queryClient.invalidateQueries()
+      onMutate: (bookingId) => ({bookingId: bookingId}),
+      onSuccess: (data, variables, context) => {
+        queryClient.invalidateQueries(["Bookings", authInfo.customerId, "Status"]);
+        queryClient.invalidateQueries(["Bookings", authInfo.customerId, "Status", context.bookingId]);
+      }
     }
   );
 
