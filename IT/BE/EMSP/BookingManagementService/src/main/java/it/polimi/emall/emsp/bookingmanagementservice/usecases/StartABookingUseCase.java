@@ -46,8 +46,7 @@ public class StartABookingUseCase {
         }
 
         OffsetDateTime now = OffsetDateTime.now();
-        if(now.isBefore(booking.getTimeFrame().getStartInstant())
-            || now.isAfter(booking.getTimeFrame().getEndInstant())){
+        if(!booking.getTimeFrame().contains(now)){
             throw new IllegalStateException(String.format(
                     "Cannot start booking %s because its timeframe %s does not include now (%s)",
                     booking.getBookingCode(),
