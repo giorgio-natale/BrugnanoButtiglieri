@@ -61,6 +61,8 @@ public class StartAChargeUseCase {
             Booking updatedBooking = bookingManager.updateStatus(
                     bookingManager.getEntityByKey(bookingId),
                     new BookingStatusInProgressDto()
+                            .bookingId(bookingId)
+                            .expectedMinutesLeft(-1)
             );
             return BookingMapper.buildBookingKafkaDto(updatedBooking);
         });

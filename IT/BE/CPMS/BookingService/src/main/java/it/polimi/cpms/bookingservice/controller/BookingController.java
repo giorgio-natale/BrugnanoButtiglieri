@@ -1,6 +1,7 @@
 package it.polimi.cpms.bookingservice.controller;
 
 import it.polimi.cpms.bookingservice.usecase.BookAChargeUseCase;
+import it.polimi.cpms.bookingservice.usecase.CancelBookingUseCase;
 import it.polimi.cpms.bookingservice.usecase.StartAChargeUseCase;
 import it.polimi.cpms.bookingservice.usecase.SynchronizeBookingUseCase;
 import it.polimi.emall.cpms.bookingservice.generated.http.server.controller.BookingApi;
@@ -17,11 +18,14 @@ public class BookingController implements BookingApi {
     private final BookAChargeUseCase bookAChargeUseCase;
     private final StartAChargeUseCase startAChargeUseCase;
 
+    private final CancelBookingUseCase cancelBookingUseCase;
+
     private final SynchronizeBookingUseCase synchronizeBookingUseCase;
 
-    public BookingController(BookAChargeUseCase bookAChargeUseCase, StartAChargeUseCase startAChargeUseCase, SynchronizeBookingUseCase synchronizeBookingUseCase) {
+    public BookingController(BookAChargeUseCase bookAChargeUseCase, StartAChargeUseCase startAChargeUseCase, CancelBookingUseCase cancelBookingUseCase, SynchronizeBookingUseCase synchronizeBookingUseCase) {
         this.bookAChargeUseCase = bookAChargeUseCase;
         this.startAChargeUseCase = startAChargeUseCase;
+        this.cancelBookingUseCase = cancelBookingUseCase;
         this.synchronizeBookingUseCase = synchronizeBookingUseCase;
     }
 
@@ -63,8 +67,11 @@ public class BookingController implements BookingApi {
         if(bookingStatusDto instanceof BookingStatusInProgressDto) {  //TODO: check also that the update comes from emsp
             startAChargeUseCase.startACharge(bookingCode);
             return new ResponseEntity<>(HttpStatus.OK);
-        }else {
-            return BookingApi.super.putBookingStatus(bookingCode, bookingStatusDto);
+        }else if(bookingStatusDto instanceof BookingStatusCancelledDto){
+            cancelBookingUseCase.cancelBooking(bookingCode);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         }
     }
 }

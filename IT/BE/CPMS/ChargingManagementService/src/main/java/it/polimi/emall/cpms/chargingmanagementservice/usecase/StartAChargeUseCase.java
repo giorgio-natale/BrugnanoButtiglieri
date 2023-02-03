@@ -35,7 +35,7 @@ public class StartAChargeUseCase extends ChargeUseCase{
         SocketCurrentStatus socketCurrentStatus = getSocketCurrentStatus(chargingStationId, chargingPointId, socketId);
 
         Booking booking = bookingManager.getCurrentBookingByTime(chargingStationId, chargingPointId, socketId);
-        updateSocketStatusAndSendEvent(socketId, null, booking, SocketStatusEnum.SocketReadyStatus);
+        updateSocketStatusAndSendEvent(socketId, new ProgressInformation(-1, 0.0), booking, SocketStatusEnum.SocketReadyStatus);
 
 
         chargingPointMockApi.putChargingPointMock(

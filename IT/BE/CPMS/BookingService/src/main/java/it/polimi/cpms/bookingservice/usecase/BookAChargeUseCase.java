@@ -44,8 +44,7 @@ public class BookAChargeUseCase {
 
         BookingDto newBookingDto = new BookingDto(
                 null,
-                //TODO: generate booking code
-                "#TODO: genera",
+                "",
                 bookingInAdvanceRequestDto.getCustomerId(),
                 bookingInAdvanceRequestDto.getChargingStationId(),
                 freeChargingPointId,
@@ -75,8 +74,7 @@ public class BookAChargeUseCase {
 
             BookingDto newBookingDto = new BookingDto(
                     null,
-                    //TODO: generate booking code
-                    "#TODO: genera",
+                    "",
                     bookingOnTheFlyRequestDto.getCustomerId(),
                     bookingOnTheFlyRequestDto.getChargingStationId(),
                     bookingOnTheFlyRequestDto.getChargingPointId(),
