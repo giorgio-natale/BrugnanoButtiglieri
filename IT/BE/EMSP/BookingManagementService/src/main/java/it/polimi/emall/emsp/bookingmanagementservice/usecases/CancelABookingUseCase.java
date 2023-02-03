@@ -7,6 +7,7 @@ import it.polimi.emall.emsp.bookingmanagementservice.model.booking.Booking;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingManager;
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingStatusEnum;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.NoSuchElementException;
@@ -17,10 +18,10 @@ public class CancelABookingUseCase {
     private final BookingManager bookingManager;
     private final TransactionTemplate transactionTemplate;
 
-    public CancelABookingUseCase(BookingApi bookingApi, BookingManager bookingManager, TransactionTemplate transactionTemplate) {
+    public CancelABookingUseCase(BookingApi bookingApi, BookingManager bookingManager, PlatformTransactionManager transactionManager) {
         this.bookingApi = bookingApi;
         this.bookingManager = bookingManager;
-        this.transactionTemplate = transactionTemplate;
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
     }
 
     public void cancelBooking(Long customerId, Long bookingId){
@@ -43,6 +44,7 @@ public class CancelABookingUseCase {
         bookingApi.putBookingStatus(
                         bookingId,
                         new BookingStatusCancelledClientDto().bookingStatus(BookingStatusEnum.BookingStatusCancelled.name())
+                                .bookingId(bookingId)
                 )
                 .block();
 

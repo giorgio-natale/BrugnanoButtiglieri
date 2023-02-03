@@ -58,7 +58,9 @@ public class StartABookingUseCase {
 
         bookingApi.putBookingStatus(
                     bookingId,
-                    new BookingStatusInProgressClientDto().bookingStatus(BookingStatusEnum.BookingStatusInProgress.name())
+                    new BookingStatusInProgressClientDto()
+                            .bookingStatus(BookingStatusEnum.BookingStatusInProgress.name())
+                            .bookingId(bookingId)
                 )
                 .block();
 
