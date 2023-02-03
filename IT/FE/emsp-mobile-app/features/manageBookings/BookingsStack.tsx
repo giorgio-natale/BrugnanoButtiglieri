@@ -6,7 +6,7 @@ import {BookingsScreen} from "./BookingsScreen";
 const Stack = createNativeStackNavigator<BookingsStackParamList>();
 
 export function BookingsStack(props: MainStackScreenProps<"Bookings">) {
-  return <Stack.Navigator>
+  return <Stack.Navigator initialRouteName="BookingsScreen">
     <Stack.Screen name="BookingsScreen" component={BookingsScreen} options={{title: "Your bookings"}}/>
   </Stack.Navigator>;
 }

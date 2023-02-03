@@ -50,7 +50,8 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
   );
 
   return <ScrollView>
-    {bookingStatusListQuery.status === "success" && bookingList.map(b => (
+    {(bookingListQuery.status === "success" && bookingStatusListQuery.status === "success")
+      && bookingList.map(b => (
       <BookingItem
         key={b.bookingId}
         booking={b}

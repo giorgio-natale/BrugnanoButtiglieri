@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import {StyleSheet, View} from "react-native";
 import {BookChargeTabScreenProps} from "../../navigation/types";
 import {ActivityIndicator, Button, List, RadioButton, Text} from "react-native-paper";
@@ -9,13 +9,16 @@ import {stationConfigQuery} from "../findStation/StationApi";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {StackActions, useNavigation} from "@react-navigation/native";
 import {BookingApi, BookingOnTheFly} from "../../generated";
-import {BookChargeContext} from "./BookChargeScreen";
 import {useGetAuthInfo} from "../../user-auth/UserAuthenticationUtils";
+import {BookChargeContext} from "./BookChargeContext";
+import {FormikHelper} from "./BookInAdvanceScreen";
 
 export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly">) {
 
   const {chargingStationId} = useContext(BookChargeContext);
   const {status, data} = useQuery(stationConfigQuery(chargingStationId));
+
+  const [canShowError, setCanShowError] = useState<boolean>(true);
 
   const chargingPointList = status === "success" ? data.chargingPointList : [];
   const selectableSocketList = chargingPointList
@@ -39,12 +42,13 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
       // TODO setQueryData
       onSuccess: () => queryClient.invalidateQueries()
         .then(() => navigation.dispatch(StackActions.pop(1)))
-        .then(() => navigation.navigate("Bookings"))
+        .then(() => navigation.navigate("Bookings")),
+      onSettled: () => setCanShowError(true)
     }
   );
 
   return (
-    <Formik<{chargingPointId: number, socketId: number}>
+    <Formik<{ chargingPointId: number, socketId: number }>
       initialValues={{chargingPointId: null, socketId: null}}
       onSubmit={values => {
         postBookingMutation.mutate({
@@ -55,7 +59,7 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
         });
       }}
     >
-      {({handleSubmit, values, setFieldValue}) => (
+      {({handleSubmit, values, setFieldValue, resetForm}) => (
         <View style={styles.container}>
           <List.Item
             title={status === "success" ? data.name : ""}
@@ -103,13 +107,24 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
             >
             </Button>
           </View>
-          <View style={{alignItems: "flex-start", justifyContent: "center", height: 40, paddingLeft: 10, paddingRight: 10}}>
-            {postBookingMutation.isError &&
+          <View
+            style={{alignItems: "flex-start", justifyContent: "center", height: 40, paddingLeft: 10, paddingRight: 10}}>
+            {(postBookingMutation.isError && canShowError) &&
               <Text style={{color: "#F00"}}>
                 Oops, an error occurred in the booking procedure. Please change your preferences and retry
               </Text>
             }
           </View>
+          <FormikHelper
+            onFocusExit={() => {
+              resetForm();
+              setCanShowError(false);
+            }}
+            onChangeValues={() => {
+              setCanShowError(false);
+            }}
+            values={values}
+          />
         </View>
       )}
     </Formik>

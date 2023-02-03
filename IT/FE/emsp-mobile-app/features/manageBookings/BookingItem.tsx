@@ -121,10 +121,11 @@ export function BookingItem(props: Props) {
                 {booking.status.expectedMinutesLeft >= 0 ?
                   <Button
                     mode={"outlined"}
-                    labelStyle={{fontSize: 15}}
+                    style={{borderColor: "transparent"}}
+                    labelStyle={{fontSize: 18}}
                   >
                     {/*TODO update expected time left*/}
-                    {booking.status.expectedMinutesLeft}
+                    - {booking.status.expectedMinutesLeft}
                   </Button>
                   :
                   <Text>Plug it!</Text>
