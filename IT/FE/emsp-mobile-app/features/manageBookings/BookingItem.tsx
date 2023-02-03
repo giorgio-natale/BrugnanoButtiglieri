@@ -4,7 +4,7 @@ import {StyleSheet, View} from "react-native";
 import {Button, Divider, Text} from "react-native-paper";
 import {useQuery} from "@tanstack/react-query";
 import {stationConfigQuery} from "../findStation/StationApi";
-import {formatDistanceStrict, intervalToDuration, isBefore, isWithinInterval} from "date-fns";
+import {intervalToDuration, isBefore, isWithinInterval} from "date-fns";
 import format from "date-fns/format";
 
 interface Props {
@@ -40,12 +40,24 @@ export function BookingItem(props: Props) {
     return isBefore(now, start);
   }
 
+  function canPlannedBookingBeActivated(booking): boolean {
+    return booking.status.bookingStatus === "BookingStatusPlanned" &&
+      (booking.bookingType === "ON_THE_FLY" ||
+        (booking.bookingType === "IN_ADVANCE" && isNowWithinTimeframe(booking.timeframe))
+      );
+  }
+
+  function canPlannedBookingBeDeleted(booking): boolean {
+    return booking.status.bookingStatus === "BookingStatusPlanned" &&
+      booking.bookingType === "IN_ADVANCE" &&
+      isNowBeforeTimeframe(booking.timeframe);
+  }
+
   function getBackgroundColor(booking) {
     let backgroundColor;
-    if (booking.status.bookingStatus === "BookingStatusInProgress" ||
-      (booking.status.bookingStatus === "BookingStatusPlanned" && isNowWithinTimeframe(booking.timeframe)))
+    if (booking.status.bookingStatus === "BookingStatusInProgress" || canPlannedBookingBeActivated(booking))
       backgroundColor = "rgba(172,146,225,0.5)";
-    else if (booking.status.bookingStatus === "BookingStatusPlanned" && isNowBeforeTimeframe(booking.timeframe))
+    else if (canPlannedBookingBeDeleted(booking))
       backgroundColor = "rgba(255,255,255)";
     else
       backgroundColor = "rgba(229,227,227,0.5)";
@@ -71,8 +83,8 @@ export function BookingItem(props: Props) {
                 Booking #{booking.bookingCode}
               </Text>
               <Text style={styles.itemSubtitle}>
-                {`${getFormattedDateTime(booking.timeframe.startInstant)}${booking.timeframe?.endInstant ? 
-                ` (${getFormattedDifferenceBetweenTwoInstants(booking.timeframe.startInstant, booking.timeframe.endInstant)})` : ""
+                {`${getFormattedDateTime(booking.timeframe.startInstant)}${booking.bookingType === "IN_ADVANCE" ?
+                  ` (${getFormattedDifferenceBetweenTwoInstants(booking.timeframe.startInstant, booking.timeframe.endInstant)})` : ""
                 }`}
               </Text>
               <Text style={styles.description}>
@@ -82,7 +94,7 @@ export function BookingItem(props: Props) {
                 {`${data?.address}, ${data?.city}`}
               </Text>
             </View>
-            {(booking.status.bookingStatus === "BookingStatusPlanned" && isNowBeforeTimeframe(booking.timeframe)) &&
+            {canPlannedBookingBeDeleted(booking) &&
               <View style={{alignSelf: "center"}}>
                 <Button
                   mode={"contained-tonal"}
@@ -93,7 +105,7 @@ export function BookingItem(props: Props) {
                 </Button>
               </View>
             }
-            {(booking.status.bookingStatus === "BookingStatusPlanned" && isNowWithinTimeframe(booking.timeframe)) &&
+            {canPlannedBookingBeActivated(booking) &&
               <View style={{alignSelf: "center"}}>
                 <Button
                   mode={"contained"}

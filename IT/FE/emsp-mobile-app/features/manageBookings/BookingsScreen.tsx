@@ -6,6 +6,7 @@ import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useGetAuthInfo} from "../../user-auth/UserAuthenticationUtils";
 import {BookingApi, BookingStatus, BookingStatusCancelled, BookingStatusInProgress} from "../../generated";
 import {BookingItem} from "./BookingItem";
+import {compareDesc} from "date-fns";
 
 export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">) {
   const authInfo = useGetAuthInfo();
@@ -16,7 +17,10 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
 
   const bookingListQuery = useQuery(allBookingsQuery(authInfo.customerId));
   const bookingList = (bookingListQuery.status === "success" && bookingStatusListQuery.status === "success") ?
-    bookingListQuery.data.map(booking => ({
+    bookingListQuery.data
+      .sort((a, b) =>
+        compareDesc(new Date(a.timeframe.startInstant), new Date(b.timeframe.startInstant))
+      ).map(booking => ({
       ...booking,
       status: bookingStatusList.find(b => b.bookingId === booking.bookingId) as BookingStatus
     })) : [];
