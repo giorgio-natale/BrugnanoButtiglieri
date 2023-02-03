@@ -4,6 +4,8 @@ import {StyleSheet, View} from "react-native";
 import {Button, Divider, Text} from "react-native-paper";
 import {useQuery} from "@tanstack/react-query";
 import {stationConfigQuery} from "../findStation/StationApi";
+import {formatDistanceStrict, intervalToDuration, isBefore, isWithinInterval} from "date-fns";
+import format from "date-fns/format";
 
 interface Props {
   booking: Booking & { status: BookingStatus },
@@ -29,13 +31,13 @@ export function BookingItem(props: Props) {
     const now = new Date();
     const start = new Date(timeframe.startInstant);
     const end = new Date(timeframe.endInstant);
-    return start <= now && now <= end;
+    return isWithinInterval(now, {start: start, end: end});
   }
 
   function isNowBeforeTimeframe(timeframe: Timeframe): boolean {
     const now = new Date();
     const start = new Date(timeframe.startInstant);
-    return now <= start;
+    return isBefore(now, start);
   }
 
   function getBackgroundColor(booking) {
@@ -50,31 +52,27 @@ export function BookingItem(props: Props) {
     return backgroundColor;
   }
 
-  function getFormattedDateTime(instant) {
-    const str = new Date(instant).toLocaleString();
-    // remove seconds in time
-    return str.substring(0, str.lastIndexOf(":"));
+  function getFormattedDateTime(instant: string) {
+    return format(new Date(instant), "PP - HH:mm");
   }
 
-  function getFormattedDifferenceBetweenTwoInstants(startInstant, endInstant) {
-    // @ts-ignore
-    const ms = new Date(endInstant) - new Date(startInstant);
-    console.log()
-    return ((new Date(ms)).toISOString().slice(11, 16));
+  function getFormattedDifferenceBetweenTwoInstants(startInstant: string, endInstant: string) {
+    const duration = intervalToDuration({start: new Date(startInstant), end: new Date(endInstant)});
+    return `${duration.hours}h ${duration.minutes}m`;
   }
 
   return (
     <>
       {status === "success" &&
         <>
-          <View style={{...styles.item, ...{backgroundColor: getBackgroundColor(booking)}}}>
+          <View style={{...styles.item, backgroundColor: getBackgroundColor(booking)}}>
             <View>
               <Text style={styles.itemTitle}>
                 Booking #{booking.bookingCode}
               </Text>
               <Text style={styles.itemSubtitle}>
-                {`${getFormattedDateTime(booking.timeframe.startInstant)}${booking.timeframe.endInstant ?? 
-                ` (${getFormattedDifferenceBetweenTwoInstants(booking.timeframe.startInstant, booking.timeframe.endInstant)} h)`
+                {`${getFormattedDateTime(booking.timeframe.startInstant)}${booking.timeframe?.endInstant ? 
+                ` (${getFormattedDifferenceBetweenTwoInstants(booking.timeframe.startInstant, booking.timeframe.endInstant)})` : ""
                 }`}
               </Text>
               <Text style={styles.description}>
@@ -108,13 +106,17 @@ export function BookingItem(props: Props) {
             }
             {booking.status.bookingStatus === "BookingStatusInProgress" &&
               <View style={{alignSelf: "center"}}>
-                <Button
-                  mode={"outlined"}
-                  labelStyle={{fontSize: 15}}
-                >
-                  {/*TODO update expected time left*/}
-                  {booking.status.expectedMinutesLeft}
-                </Button>
+                {booking.status.expectedMinutesLeft >= 0 ?
+                  <Button
+                    mode={"outlined"}
+                    labelStyle={{fontSize: 15}}
+                  >
+                    {/*TODO update expected time left*/}
+                    {booking.status.expectedMinutesLeft}
+                  </Button>
+                  :
+                  <Text>Plug it!</Text>
+                }
               </View>
             }
             {(booking.status.bookingStatus === "BookingStatusCompleted" ||

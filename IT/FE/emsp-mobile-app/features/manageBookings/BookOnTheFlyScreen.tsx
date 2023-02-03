@@ -44,17 +44,16 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
   );
 
   return (
-    <Formik
-      initialValues={{"chargingPointId": null, "socketId": null}}
+    <Formik<{chargingPointId: number, socketId: number}>
+      initialValues={{chargingPointId: null, socketId: null}}
       onSubmit={values => {
         postBookingMutation.mutate({
           ...values,
           bookingType: 'BookingOnTheFly' as BookingOnTheFly["bookingType"],
           customerId: authInfo.customerId,
-          chargingStationId: data?.chargingStationId
+          chargingStationId: chargingStationId
         });
-      }
-      }
+      }}
     >
       {({handleSubmit, values, setFieldValue}) => (
         <View style={styles.container}>
@@ -78,8 +77,8 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
               <RadioButton.Item
                 key={socketKey}
                 label={`${socketKey} (Type: ${s.socketType})`}
-                labelStyle={{fontSize: 18}}
-                style={{backgroundColor: isItemChecked() ? "rgba(151,114,227,0.5)" : "rgba(234,234,234,0.34)"}}
+                labelStyle={{fontSize: 17}}
+                style={{backgroundColor: isItemChecked() ? "rgb(232, 222, 248)" : "rgba(234,234,234,0.34)"}}
                 value={socketKey}
                 onPress={() => {
                   setFieldValue("chargingPointId", s.chargingPointId);
@@ -107,7 +106,7 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
           <View>
             {postBookingMutation.isError &&
               <Text style={{color: "#F00"}}>
-                Oops, an error occured in the booking. Please retry
+                Oops, an error occured in the booking. Please change your preferences and retry
               </Text>
             }
           </View>
