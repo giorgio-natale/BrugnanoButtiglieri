@@ -1,6 +1,7 @@
 package it.polimi.emall.cpms.mockservice.socketmock.usecase;
 
 import it.polimi.emall.cpms.mockservice.generated.http.client.cpms_chargingmanagementservice.endpoints.ChargingManagementApi;
+import it.polimi.emall.cpms.mockservice.generated.http.client.cpms_chargingmanagementservice.model.SocketStatusClientDto;
 import it.polimi.emall.cpms.mockservice.generated.http.server.model.SocketStatusDto;
 import it.polimi.emall.cpms.mockservice.socketmock.model.SocketMock;
 import it.polimi.emall.cpms.mockservice.socketmock.model.SocketMockManager;
@@ -32,15 +33,24 @@ public class SimulateChargingPointUseCase {
     public void simulateChargingPoints(){
         socketMockManager.getActiveSocketMocks().forEach(socketMock -> {
             OffsetDateTime now = OffsetDateTime.now();
-            chargingManagementApi.putSocketStatus(
-                    socketMock.getChargingStationId(),
-                    socketMock.getChargingPointId(),
-                    socketMock.getSocketId(),
-                    socketMock.getUpdatedSocketStatusDto(
-                            now,
-                            waitInReadyStateSeconds
-                    )
-            ).subscribe();
+            try {
+                chargingManagementApi.putSocketStatus(
+                        socketMock.getChargingStationId(),
+                        socketMock.getChargingPointId(),
+                        socketMock.getSocketId(),
+                        socketMock.getUpdatedSocketStatusDto(
+                                now,
+                                waitInReadyStateSeconds
+                        )
+                ).block();
+            }catch (RuntimeException e){
+                SocketStatusClientDto trueStatus =
+                chargingManagementApi.getSocketStatus(
+                        socketMock.getChargingStationId(),
+                        socketMock.getChargingPointId(),
+                        socketMock.getSocketId()
+                ).block();
+            }
         });
     }
 
@@ -50,9 +60,12 @@ public class SimulateChargingPointUseCase {
             SocketStatusDto status
     ){
         SocketMock socketMock = socketMockManager.getEntityByKey(socketId);
+        Integer initialKwHLeftToCharge = null;
+        if(status.equals(SocketStatusDto.SOCKETDELIVERINGSTATUS))
+            initialKwHLeftToCharge = 30;
         socketMockManager.setStatus(socketMock, new SocketDeliveryInfo(
                 status,
-                null
+                initialKwHLeftToCharge
         ));
     }
 }
