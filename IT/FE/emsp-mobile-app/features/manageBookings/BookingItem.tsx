@@ -1,10 +1,11 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import {Booking, BookingStatus, BookingStatusCompleted, Timeframe} from "../../generated";
 import {StyleSheet, View} from "react-native";
 import {Button, Divider, Text} from "react-native-paper";
 import {useQuery} from "@tanstack/react-query";
 import {stationConfigQuery} from "../findStation/StationApi";
-import {intervalToDuration, isBefore, isWithinInterval} from "date-fns";
+import {differenceInMinutes, intervalToDuration, isBefore, isWithinInterval} from "date-fns";
 import format from "date-fns/format";
 
 interface Props {
@@ -18,6 +19,18 @@ export function BookingItem(props: Props) {
   const {booking, onDeleteBooking, onActivateBooking} = props;
 
   const {status, data} = useQuery(stationConfigQuery(booking.chargingStationId));
+
+  const [minutesLeftForBookingInAdvance, setMinutesLeftForBookingInAdvance] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (booking.bookingType === "IN_ADVANCE" && booking.status.bookingStatus === "BookingStatusInProgress") {
+      const interval = setInterval(() =>
+        setMinutesLeftForBookingInAdvance(
+          differenceInMinutes(new Date(booking.timeframe.endInstant), new Date(), {roundingMethod: "ceil"})
+        ), 5 * 1000);
+      return () => clearTimeout(interval);
+    }
+  }, [booking.status.bookingStatus]);
 
   let chargingPointList, chargingPoint, socket;
 
@@ -118,17 +131,26 @@ export function BookingItem(props: Props) {
             }
             {booking.status.bookingStatus === "BookingStatusInProgress" &&
               <View style={{alignSelf: "center"}}>
-                {booking.status.expectedMinutesLeft >= 0 ?
+                {/*TODO*/}
+                {(booking.bookingType === "ON_THE_FLY" && booking.status.expectedMinutesLeft >= 0) ?
                   <Button
                     mode={"outlined"}
                     style={{borderColor: "transparent"}}
                     labelStyle={{fontSize: 18}}
                   >
-                    {/*TODO update expected time left*/}
-                    - {booking.status.expectedMinutesLeft}
+                    - {booking.status.expectedMinutesLeft}'
                   </Button>
                   :
                   <Text>Plug it!</Text>
+                }
+                {booking.bookingType === "IN_ADVANCE" &&
+                  <Button
+                    mode={"outlined"}
+                    style={{borderColor: "transparent"}}
+                    labelStyle={{fontSize: 18}}
+                  >
+                    - {minutesLeftForBookingInAdvance}'
+                  </Button>
                 }
               </View>
             }

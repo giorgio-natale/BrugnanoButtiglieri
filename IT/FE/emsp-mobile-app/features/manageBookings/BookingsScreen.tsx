@@ -12,7 +12,11 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
   const authInfo = useGetAuthInfo();
   const queryClient = useQueryClient();
 
-  const bookingStatusListQuery = useQuery(allBookingsStatusQuery(authInfo.customerId));
+  const bookingStatusListQuery = useQuery({
+      ...allBookingsStatusQuery(authInfo.customerId),
+      refetchInterval: 30 * 1000
+    }
+  );
   const bookingStatusList = bookingStatusListQuery.status === "success" ? bookingStatusListQuery.data : [];
 
   const bookingListQuery = useQuery(allBookingsQuery(authInfo.customerId));
@@ -52,12 +56,12 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
   return <ScrollView>
     {(bookingListQuery.status === "success" && bookingStatusListQuery.status === "success")
       && bookingList.map(b => (
-      <BookingItem
-        key={b.bookingId}
-        booking={b}
-        onActivateBooking={activateBookingMutation.mutate}
-        onDeleteBooking={deleteBookingMutation.mutate}
-      />
-    ))}
+        <BookingItem
+          key={b.bookingId}
+          booking={b}
+          onActivateBooking={activateBookingMutation.mutate}
+          onDeleteBooking={deleteBookingMutation.mutate}
+        />
+      ))}
   </ScrollView>
 }
