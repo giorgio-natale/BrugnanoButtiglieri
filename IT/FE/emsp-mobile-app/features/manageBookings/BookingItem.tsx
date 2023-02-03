@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {Booking, BookingStatus, BookingStatusCompleted, Timeframe} from "../../generated";
+import {Booking, BookingStatus, BookingStatusCompleted, BookingStatusInProgress, Timeframe} from "../../generated";
 import {StyleSheet, View} from "react-native";
-import {Button, Divider, Text} from "react-native-paper";
+import {ActivityIndicator, Button, Divider, Text} from "react-native-paper";
 import {useQuery} from "@tanstack/react-query";
 import {stationConfigQuery} from "../findStation/StationApi";
 import {differenceInMinutes, intervalToDuration, isBefore, isWithinInterval} from "date-fns";
 import format from "date-fns/format";
+import {BookingItem} from "./BookingsScreen";
 
 interface Props {
   booking: Booking & { status: BookingStatus },
@@ -20,14 +21,13 @@ export function BookingItem(props: Props) {
 
   const {status, data} = useQuery(stationConfigQuery(booking.chargingStationId));
 
-  const [minutesLeftForBookingInAdvance, setMinutesLeftForBookingInAdvance] = useState<number | null>(null);
+  const [timeLeftInfo, setTimeLeftInfo] = useState<TimeLeftInfo | null>(null);
 
   useEffect(() => {
-    if (booking.bookingType === "IN_ADVANCE" && booking.status.bookingStatus === "BookingStatusInProgress") {
+    if (booking.status.bookingStatus === "BookingStatusInProgress") {
       const interval = setInterval(() =>
-        setMinutesLeftForBookingInAdvance(
-          differenceInMinutes(new Date(booking.timeframe.endInstant), new Date(), {roundingMethod: "ceil"})
-        ), 5 * 1000);
+          setTimeLeftInfo(getTimeLeftInfo(booking))
+        , 5 * 1000);
       return () => clearTimeout(interval);
     }
   }, [booking.status.bookingStatus]);
@@ -131,25 +131,17 @@ export function BookingItem(props: Props) {
             }
             {booking.status.bookingStatus === "BookingStatusInProgress" &&
               <View style={{alignSelf: "center"}}>
-                {/*TODO*/}
-                {(booking.bookingType === "ON_THE_FLY" && booking.status.expectedMinutesLeft >= 0) ?
-                  <Button
-                    mode={"outlined"}
-                    style={{borderColor: "transparent"}}
-                    labelStyle={{fontSize: 18}}
-                  >
-                    - {booking.status.expectedMinutesLeft}'
-                  </Button>
-                  :
-                  <Text>Plug it!</Text>
+                {!timeLeftInfo.chargeStarted &&
+                  <ActivityIndicator animating={true} color={"rgb(107, 79, 170)"} style={{marginRight: 5}}/>
                 }
-                {booking.bookingType === "IN_ADVANCE" &&
+                {timeLeftInfo.chargeStarted &&
                   <Button
                     mode={"outlined"}
                     style={{borderColor: "transparent"}}
                     labelStyle={{fontSize: 18}}
+                    icon={timeLeftInfo.endReason === "END_OF_BOOKING" ? "timer" : "battery-charging"}
                   >
-                    - {minutesLeftForBookingInAdvance}'
+                    - {timeLeftInfo.minutesLeft}'
                   </Button>
                 }
               </View>
@@ -173,23 +165,67 @@ export function BookingItem(props: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  item: {
-    padding: 10,
-    paddingLeft: 25,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start"
-  },
-  itemTitle: {
-    fontWeight: "600",
-    fontSize: 18
-  },
-  itemSubtitle: {
-    fontSize: 16
-  },
-  description: {
-    fontSize: 14
+function getMinutesLeftToEndOfBooking(booking) {
+  return differenceInMinutes(new Date(booking.timeframe.endInstant), new Date(), {roundingMethod: "ceil"});
+}
+
+type TimeLeftInfo = {
+  minutesLeft: number,
+  endReason: "FULL_BATTERY" | "END_OF_BOOKING",
+  chargeStarted: true
+} | {
+  chargeStarted: false
+};
+
+export function getTimeLeftInfo(booking: BookingItem): TimeLeftInfo {
+  if (booking.status.bookingStatus !== "BookingStatusInProgress")
+    throw Error("Unexpected error: booking status should be in progress");
+  const fullBatteryMinutesLeft = booking.status.expectedMinutesLeft;
+  if(fullBatteryMinutesLeft < 0)
+    return {
+    chargeStarted: false
+    }
+  if (booking.bookingType === "ON_THE_FLY") {
+    return {
+      minutesLeft: fullBatteryMinutesLeft,
+      endReason: "FULL_BATTERY",
+      chargeStarted: true
+    };
+  } else {
+    const endOfBookingMinutesLeft = getMinutesLeftToEndOfBooking(booking);
+    if (fullBatteryMinutesLeft < endOfBookingMinutesLeft) {
+      return {
+        minutesLeft: fullBatteryMinutesLeft,
+        endReason: "FULL_BATTERY",
+        chargeStarted: true
+      };
+    } else {
+      return {
+        minutesLeft: endOfBookingMinutesLeft,
+        endReason: "END_OF_BOOKING",
+        chargeStarted: true
+      }
+    }
   }
-})
+}
+
+  const styles = StyleSheet.create({
+    item: {
+      padding: 10,
+      paddingLeft: 25,
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "flex-start"
+    },
+    itemTitle: {
+      fontWeight: "600",
+      fontSize: 18
+    },
+    itemSubtitle: {
+      fontSize: 16
+    },
+    description: {
+      fontSize: 14
+    }
+  })
