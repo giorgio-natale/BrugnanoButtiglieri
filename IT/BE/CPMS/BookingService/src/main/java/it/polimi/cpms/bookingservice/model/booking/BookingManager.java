@@ -86,6 +86,8 @@ public class BookingManager extends IdGeneratedManager<Booking, Long, BookingDto
             ChargingPoint chargingPoint = chargingStationManager.findChargingPointOwningSocket(socket);
             if(!chargingPoint.getId().equals(chargingPointId))
                 throw new IllegalArgumentException();
+            if(!chargingPoint.getMode().equals(ChargingPointModeClientDto.ON_THE_FLY))
+                throw new IllegalArgumentException();
         }catch(NoSuchElementException e){
             throw new IllegalArgumentException("Charging point and/or socket ids are not valid");
         }

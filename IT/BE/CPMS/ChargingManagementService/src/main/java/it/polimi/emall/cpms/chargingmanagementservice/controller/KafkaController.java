@@ -23,6 +23,7 @@ public class KafkaController {
     )
     public void updateBooking(BookingKafkaDto bookingKafkaDto, Acknowledgment ack){
         try {
+            log.info("Receiving update for booking {}: {}", bookingKafkaDto.bookingId, bookingKafkaDto.status);
             updateBookingUsecase.updateBooking(bookingKafkaDto);
         }catch (RuntimeException e){
             log.error("Error while processing update for booking {}: {}", bookingKafkaDto.bookingId, e.getMessage());
