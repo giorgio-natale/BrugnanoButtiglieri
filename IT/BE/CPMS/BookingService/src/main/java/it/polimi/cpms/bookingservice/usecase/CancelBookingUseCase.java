@@ -11,44 +11,26 @@ import it.polimi.emall.cpms.bookingservice.generated.http.client.chargingmanagem
 import it.polimi.emall.cpms.bookingservice.generated.http.server.model.BookingStatusInProgressDto;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
-
-import java.time.OffsetDateTime;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class StartAChargeUseCase {
-
+public class CancelBookingUseCase {
     private final BookingManager bookingManager;
+    private final ApplicationEventPublisher applicationEventPublisher;
     private final ChargingManagementApi chargingManagementApi;
 
-    private final TransactionTemplate transactionTemplate;
 
-    private final ApplicationEventPublisher applicationEventPublisher;
-
-    public StartAChargeUseCase(
-            BookingManager bookingManager,
-            ChargingManagementApi chargingManagementApi,
-            PlatformTransactionManager platformTransactionManager,
-            ApplicationEventPublisher applicationEventPublisher){
+    public CancelBookingUseCase(BookingManager bookingManager, ApplicationEventPublisher applicationEventPublisher, ChargingManagementApi chargingManagementApi) {
         this.bookingManager = bookingManager;
-        this.chargingManagementApi = chargingManagementApi;
-        this.transactionTemplate = new TransactionTemplate(platformTransactionManager);
         this.applicationEventPublisher = applicationEventPublisher;
+        this.chargingManagementApi = chargingManagementApi;
     }
 
-    public void startACharge(Long bookingId){
+    @Transactional
+    public void cancelBooking(Long bookingId){
         Booking booking = bookingManager.getEntityByKey(bookingId);
         if(!booking.getBookingStatus().getBookingStatus().equals(BookingStatusEnum.BookingStatusPlanned))
             throw new IllegalStateException(String.format("Booking with code %s is not planned", booking.getBookingCode()));
-        OffsetDateTime now = OffsetDateTime.now();
-        if(!booking.getTimeFrame().contains(now))
-            throw new IllegalStateException(String.format(
-                    "Booking with code %s cannot be started now. Interval: %s (now: %s)",
-                    booking.getBookingCode(),
-                    booking.getTimeFrame(),
-                    now
-            ));
 
         chargingManagementApi.putSocketStatus(
                 booking.getChargingStationId(),
@@ -57,16 +39,12 @@ public class StartAChargeUseCase {
                 new SocketStatusClientDto().status("SocketReadyStatus")
         ).block();
 
-        BookingKafkaDto updatedBookingKafkaDto = transactionTemplate.execute(status -> {
-            Booking updatedBooking = bookingManager.updateStatus(
-                    bookingManager.getEntityByKey(bookingId),
-                    new BookingStatusInProgressDto()
-                            .bookingId(bookingId)
-            );
-            return BookingMapper.buildBookingKafkaDto(updatedBooking);
-        });
+        Booking updatedBooking = bookingManager.updateStatus(
+                bookingManager.getEntityByKey(bookingId),
+                new BookingStatusInProgressDto()
+                        .bookingId(bookingId)
+        );
 
-        applicationEventPublisher.publishEvent(new BookingUpdatedEvent(updatedBookingKafkaDto));
-
+        applicationEventPublisher.publishEvent(new BookingUpdatedEvent(BookingMapper.buildBookingKafkaDto(updatedBooking)));
     }
 }
