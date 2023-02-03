@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useState} from 'react';
 import {View} from "react-native";
 import {Button, Text, TextInput} from "react-native-paper";
 import {AuthenticationStackScreenProps} from "../../navigation/types";
@@ -16,7 +15,7 @@ export function LoginScreen({navigation}: AuthenticationStackScreenProps<"Login"
 
   return (
     <Formik<LoginRequest>
-      initialValues={{"emailAddress": "", "password": ""}}
+      initialValues={{emailAddress: null, password: null}}
       onSubmit={values =>
         loginMutation.mutate({
           emailAddress: values.emailAddress,
@@ -24,7 +23,7 @@ export function LoginScreen({navigation}: AuthenticationStackScreenProps<"Login"
         })}
     >
       {({handleChange, handleBlur, handleSubmit, values}) => (
-        <View style={{justifyContent: "center", flex: 1}}>
+        <View style={{justifyContent: "center", flex: 1, padding: 10}}>
           <TextInput
             label="Email address"
             mode="outlined"
@@ -40,7 +39,7 @@ export function LoginScreen({navigation}: AuthenticationStackScreenProps<"Login"
             secureTextEntry={true}
             style={{...styles.textInput, ...{marginBottom: 0}}}
           />
-          <View style={{height: 20}}>
+          <View style={{alignItems: "flex-start", justifyContent: "center", height: 36, paddingLeft: 10, paddingRight: 10}}>
             {loginMutation.isError &&
               <Text style={{color: "#F00"}}>
                 Login failed, please retry

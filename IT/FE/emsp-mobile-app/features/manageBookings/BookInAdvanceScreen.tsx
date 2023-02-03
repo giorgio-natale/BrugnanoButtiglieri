@@ -185,10 +185,10 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
             >
             </Button>
           </View>
-          <View>
+          <View style={{alignItems: "flex-start", justifyContent: "center", height: 40, paddingLeft: 10, paddingRight: 10}}>
             {postBookingMutation.isError &&
               <Text style={{color: "#F00"}}>
-                Oops, an error occured in the booking. Please change your preferences and retry
+                Oops, an error occurred in the booking procedure. Please change your preferences and retry
               </Text>
             }
           </View>
