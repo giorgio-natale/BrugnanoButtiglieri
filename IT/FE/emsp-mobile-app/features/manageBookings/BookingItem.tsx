@@ -132,8 +132,12 @@ export function BookingItem(props: Props) {
             }
             {booking.status.bookingStatus === "BookingStatusInProgress" &&
               <View style={{alignSelf: "center"}}>
-                {!timeLeftInfo?.chargeStarted &&
-                  <ActivityIndicator animating={true} color={"rgb(107, 79, 170)"} style={{marginRight: 5}}/>
+                {(!timeLeftInfo?.chargeStarted || timeLeftInfo?.minutesLeft === 0) &&
+                  <ActivityIndicator
+                    animating={true}
+                    color={!timeLeftInfo?.chargeStarted ? "rgb(107, 79, 170)" : "rgb(75,83,100)"}
+                    style={{marginRight: 5}}
+                  />
                 }
                 {timeLeftInfo?.chargeStarted && timeLeftInfo?.minutesLeft > 0 &&
                   <Button
