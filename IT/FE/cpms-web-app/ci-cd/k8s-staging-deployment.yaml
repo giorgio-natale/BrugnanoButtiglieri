@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: web-app
   namespace: papaia
+  annotations:
+    cloud.google.com/backend-config: '{"default": "ingress-papaia-web-app-backendconfig"}'
 spec:
   selector:
     app-component: web-app
