@@ -9,33 +9,18 @@ pipeline {
           name: jenkins-agent
           labels:
             app: jenkins-agent
-            mvn-local-cache: enabled
+            mvn-local-cache: disabled
         spec:
-          affinity:
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                  - key: "mvn-local-cache"
-                    operator: In
-                    values:
-                    - enabled
-                topologyKey: "kubernetes.io/hostname"
           containers:
           - name: jnlp
             image: 'europe-central2-docker.pkg.dev/smg-genitorpino-project/smg-main-repo/smg-jenkins-agent'
             args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-          - name: maven
-            image: maven:3-openjdk-18
-            env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: jenkins-CICD
-            volumeMounts:
-            - mountPath: /root/.m2
-              name: mvn-cache
+          - name: node
+            image: node:lts
             command:
-            - cat
-            tty: true
+            - sleep
+            args:
+            - 99d
           - name: kaniko
             image: gcr.io/kaniko-project/executor:debug
             command:
@@ -48,10 +33,6 @@ pipeline {
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /secret/clusterino-sa-secret.json
           volumes:
-          - name: mvn-cache
-            hostPath:
-              path: /var/cache/maven/jenkins-agent
-              type: DirectoryOrCreate
           - name: kaniko-secret
             secret:
               secretName: clusterino-sa-secret
