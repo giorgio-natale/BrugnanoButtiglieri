@@ -22,16 +22,14 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
   const bookingStatusListQuery = useQuery({
       ...allBookingsStatusQuery(authInfo.customerId),
       refetchInterval: (data: BookingStatus[]) => {
-        const bookingEnding = bookingListQuery.status === "success" && data &&
+        const fastRefresh = bookingListQuery.status === "success" && data &&
           data
           .filter(s => s.bookingStatus === "BookingStatusInProgress")
           .map(s => ({...bookingListQuery.data.find(b => b.bookingId === s.bookingId), status: s}))
           .map(b => getTimeLeftInfo(b))
-          .filter(b => b.chargeStarted)
-          // @ts-ignore
-          .some(b => b.minutesLeft <= 2);
-        if(bookingEnding)
-          return 3 * 1000;
+          .some(b => !b.chargeStarted || b.minutesLeft <= 2);
+        if(fastRefresh)
+          return 2 * 1000;
         else
           return 30 * 1000;
       }
