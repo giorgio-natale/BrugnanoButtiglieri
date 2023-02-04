@@ -11,6 +11,17 @@ spec:
       targetPort: 80
 
 ---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: web-app-be-url-config
+  namespace: papaia
+data:
+  configFE.js: |
+    BE_URL="https://api.papaia.smg-team.net"
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,4 +52,4 @@ spec:
       volumes:
         - name: "config"
           configMap:
-            name: "staging-totem-config"
+            name: "web-app-be-url-config"
