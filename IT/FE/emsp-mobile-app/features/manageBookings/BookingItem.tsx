@@ -7,7 +7,7 @@ import {useQuery} from "@tanstack/react-query";
 import {stationConfigQuery} from "../findStation/StationApi";
 import {differenceInMinutes, intervalToDuration, isBefore, isWithinInterval} from "date-fns";
 import format from "date-fns/format";
-import {BookingItem} from "./BookingsScreen";
+import {BookingItemType} from "./BookingsScreen";
 
 interface Props {
   booking: Booking & { status: BookingStatus },
@@ -24,7 +24,7 @@ export function BookingItem(props: Props) {
   const [timeLeftInfo, setTimeLeftInfo] = useState<TimeLeftInfo | null>(null);
 
   useEffect(() => {
-    if (booking.status.bookingStatus === "BookingStatusInProgress") {
+    if (booking?.status?.bookingStatus === "BookingStatusInProgress") {
       const interval = setInterval(() =>
           setTimeLeftInfo(getTimeLeftInfo(booking))
         , 5 * 1000);
@@ -54,21 +54,21 @@ export function BookingItem(props: Props) {
   }
 
   function canPlannedBookingBeActivated(booking): boolean {
-    return booking.status.bookingStatus === "BookingStatusPlanned" &&
+    return booking?.status?.bookingStatus === "BookingStatusPlanned" &&
       (booking.bookingType === "ON_THE_FLY" ||
         (booking.bookingType === "IN_ADVANCE" && isNowWithinTimeframe(booking.timeframe))
       );
   }
 
   function canPlannedBookingBeDeleted(booking): boolean {
-    return booking.status.bookingStatus === "BookingStatusPlanned" &&
+    return booking?.status?.bookingStatus === "BookingStatusPlanned" &&
       booking.bookingType === "IN_ADVANCE" &&
       isNowBeforeTimeframe(booking.timeframe);
   }
 
   function getBackgroundColor(booking) {
     let backgroundColor;
-    if (booking.status.bookingStatus === "BookingStatusInProgress" || canPlannedBookingBeActivated(booking))
+    if (booking?.status?.bookingStatus === "BookingStatusInProgress" || canPlannedBookingBeActivated(booking))
       backgroundColor = "rgba(172,146,225,0.5)";
     else if (canPlannedBookingBeDeleted(booking))
       backgroundColor = "rgba(255,255,255)";
@@ -134,7 +134,7 @@ export function BookingItem(props: Props) {
                 {!timeLeftInfo.chargeStarted &&
                   <ActivityIndicator animating={true} color={"rgb(107, 79, 170)"} style={{marginRight: 5}}/>
                 }
-                {timeLeftInfo.chargeStarted &&
+                {timeLeftInfo.chargeStarted && timeLeftInfo.minutesLeft > 0 &&
                   <Button
                     mode={"outlined"}
                     style={{borderColor: "transparent"}}
@@ -177,7 +177,7 @@ type TimeLeftInfo = {
   chargeStarted: false
 };
 
-export function getTimeLeftInfo(booking: BookingItem): TimeLeftInfo {
+export function getTimeLeftInfo(booking: BookingItemType): TimeLeftInfo {
   if (booking.status.bookingStatus !== "BookingStatusInProgress")
     throw Error("Unexpected error: booking status should be in progress");
   const fullBatteryMinutesLeft = booking.status.expectedMinutesLeft;

@@ -8,7 +8,7 @@ import {Booking, BookingApi, BookingStatus, BookingStatusCancelled, BookingStatu
 import {BookingItem, getTimeLeftInfo} from "./BookingItem";
 import {compareDesc} from "date-fns";
 
-export type BookingItem = Booking & {status: BookingStatus};
+export type BookingItemType = Booking & {status: BookingStatus};
 
 export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">) {
   const authInfo = useGetAuthInfo();
@@ -22,7 +22,8 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
   const bookingStatusListQuery = useQuery({
       ...allBookingsStatusQuery(authInfo.customerId),
       refetchInterval: (data: BookingStatus[]) => {
-        const bookingEnding = bookingListQuery.status === "success" && data
+        const bookingEnding = bookingListQuery.status === "success" && data &&
+          data
           .filter(s => s.bookingStatus === "BookingStatusInProgress")
           .map(s => ({...bookingListQuery.data.find(b => b.bookingId === s.bookingId), status: s}))
           .map(b => getTimeLeftInfo(b))
@@ -38,7 +39,7 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
   );
   const bookingStatusList = bookingStatusListQuery.status === "success" ? bookingStatusListQuery.data : [];
 
-  const bookingList: BookingItem[] = (bookingListQuery.status === "success" && bookingStatusListQuery.status === "success") ?
+  const bookingList: BookingItemType[] = (bookingListQuery.status === "success" && bookingStatusListQuery.status === "success") ?
     bookingListQuery.data
       .sort((a, b) =>
         compareDesc(new Date(a.timeframe.startInstant), new Date(b.timeframe.startInstant))
@@ -79,13 +80,16 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
 
   return <ScrollView>
     {(bookingListQuery.status === "success" && bookingStatusListQuery.status === "success")
-      && bookingList.map(b => (
-        <BookingItem
-          key={b.bookingId}
-          booking={b}
-          onActivateBooking={activateBookingMutation.mutate}
-          onDeleteBooking={deleteBookingMutation.mutate}
-        />
-      ))}
+      && bookingList.map(b => {
+        if(b && b.status)
+          return (
+            <BookingItem
+              key={b.bookingId}
+              booking={b}
+              onActivateBooking={activateBookingMutation.mutate}
+              onDeleteBooking={deleteBookingMutation.mutate}
+            />
+          )
+      })}
   </ScrollView>
 }
