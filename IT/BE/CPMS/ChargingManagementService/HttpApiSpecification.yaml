@@ -181,6 +181,7 @@ components:
         propertyName: status
     
     SocketForDashboard:
+      type: object
       required:
         - socketId
         - socketCode
