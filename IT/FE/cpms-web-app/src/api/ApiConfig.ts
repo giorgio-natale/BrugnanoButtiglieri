@@ -1,7 +1,11 @@
 import {OpenAPI} from "../generated";
 
+// @ts-ignore
+const beUrl = BE_URL; // eslint-disable-line
+
 export function configApiDefault() {
-  OpenAPI.BASE = "https://api.papaia.smg-team.net";
+  OpenAPI.BASE = beUrl
+  console.log(`BE_URL: ${beUrl}`)
   const token = window.localStorage.getItem("token");
   if (token)
     setJwtTokenForApiRequest(token);

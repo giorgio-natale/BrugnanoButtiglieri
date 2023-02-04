@@ -3,12 +3,25 @@ kind: Service
 metadata:
   name: web-app
   namespace: papaia
+  annotations:
+    cloud.google.com/backend-config: '{"default": "ingress-papaia-web-app-backendconfig"}'
 spec:
   selector:
     app-component: web-app
   ports:
     - port: 80
       targetPort: 80
+
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: web-app-be-url-config
+  namespace: papaia
+data:
+  configFE.js: |
+    BE_URL="https://api.papaia.smg-team.net"
 
 ---
 apiVersion: apps/v1
@@ -41,4 +54,4 @@ spec:
       volumes:
         - name: "config"
           configMap:
-            name: "staging-totem-config"
+            name: "web-app-be-url-config"
