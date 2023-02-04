@@ -1,0 +1,17 @@
+{
+  "inputs": [
+    {
+      "inputFile": "../../../../BE/CPMS/EmployeeService/HttpApiSpecification.yaml"
+    },
+    {
+      "inputFile": "../../../../BE/CPMS/ChargingStationStatusService/HttpApiSpecification.yaml"
+    },
+    {
+      "inputFile": "../../../../BE/CPMS/MockService/HttpApiSpecification.yaml",
+      "operationSelection": {
+        "includeTags": ["cpms-charging-station-configuration", "cpms-pricing"]
+      }
+    }
+  ],
+  "output": "./gateway-api-specifications.yaml"
+}
