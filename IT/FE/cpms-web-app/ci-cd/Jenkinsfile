@@ -55,10 +55,12 @@ pipeline {
       stage('Build (local)') {
         steps {
           container('node') {
-            sh "npm install"
-            sh "npm run merge-openapi"
-            sh "npm run generate"
-            sh " CI='' npm run build"
+            dir("${WORKING_DIR}"){
+              sh "npm install"
+              sh "npm run merge-openapi"
+              sh "npm run generate"
+              sh " CI='' npm run build"
+            }
           }
         }
       }
