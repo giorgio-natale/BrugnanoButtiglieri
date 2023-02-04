@@ -64,8 +64,8 @@ public class SocketCurrentStatus implements Identifiable<Long> {
             ));
         if(socketStatusEnum.equals(SocketStatusEnum.SocketDeliveringStatus) && progressInformation == null)
             throw new IllegalArgumentException("Progress information are needed when status is SocketDeliveringStatus");
-        if(!socketStatusEnum.equals(SocketStatusEnum.SocketDeliveringStatus) && progressInformation != null)
-            throw new IllegalArgumentException("Progress information cannot be set when status is not SocketDeliveringStatus");
+        //if(!socketStatusEnum.equals(SocketStatusEnum.SocketDeliveringStatus) && progressInformation != null)
+          //  throw new IllegalArgumentException("Progress information cannot be set when status is not SocketDeliveringStatus");
 
         this.socketStatusEnum = socketStatusEnum;
         this.progressInformation = progressInformation;
