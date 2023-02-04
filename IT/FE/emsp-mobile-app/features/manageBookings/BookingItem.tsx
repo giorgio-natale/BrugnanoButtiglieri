@@ -30,7 +30,8 @@ export function BookingItem(props: Props) {
         , 5 * 1000);
       return () => clearTimeout(interval);
     }
-  }, [booking.status.bookingStatus]);
+    // @ts-ignore
+  }, [booking.status.bookingStatus, booking.status.expectedMinutesLeft]);
 
   let chargingPointList, chargingPoint, socket;
 
@@ -131,17 +132,18 @@ export function BookingItem(props: Props) {
             }
             {booking.status.bookingStatus === "BookingStatusInProgress" &&
               <View style={{alignSelf: "center"}}>
-                {!timeLeftInfo.chargeStarted &&
+                {!timeLeftInfo?.chargeStarted &&
                   <ActivityIndicator animating={true} color={"rgb(107, 79, 170)"} style={{marginRight: 5}}/>
                 }
-                {timeLeftInfo.chargeStarted && timeLeftInfo.minutesLeft > 0 &&
+                {timeLeftInfo?.chargeStarted && timeLeftInfo?.minutesLeft > 0 &&
                   <Button
                     mode={"outlined"}
                     style={{borderColor: "transparent"}}
-                    labelStyle={{fontSize: 18}}
-                    icon={timeLeftInfo.endReason === "END_OF_BOOKING" ? "timer" : "battery-charging"}
+                    contentStyle={{flexDirection: "row-reverse"}}
+                    labelStyle={{fontSize: 20}}
+                    icon={timeLeftInfo?.endReason === "END_OF_BOOKING" ? "timer" : "battery-charging"}
                   >
-                    - {timeLeftInfo.minutesLeft}'
+                    - {timeLeftInfo?.minutesLeft}'
                   </Button>
                 }
               </View>
@@ -181,7 +183,7 @@ export function getTimeLeftInfo(booking: BookingItemType): TimeLeftInfo {
   if (booking.status.bookingStatus !== "BookingStatusInProgress")
     throw Error("Unexpected error: booking status should be in progress");
   const fullBatteryMinutesLeft = booking.status.expectedMinutesLeft;
-  if(fullBatteryMinutesLeft < 0)
+  if(fullBatteryMinutesLeft < 0 || !fullBatteryMinutesLeft)
     return {
     chargeStarted: false
     }
