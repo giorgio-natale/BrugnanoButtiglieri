@@ -6,7 +6,7 @@ import {SettingsScreen} from "./SettingsScreen";
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
 export function SettingsStack(props: MainStackScreenProps<"Settings">) {
-  return <Stack.Navigator>
+  return <Stack.Navigator initialRouteName="SettingsScreen">
     <Stack.Screen name="SettingsScreen" component={SettingsScreen} options={{title: "Your profile"}}/>
   </Stack.Navigator>;
 }

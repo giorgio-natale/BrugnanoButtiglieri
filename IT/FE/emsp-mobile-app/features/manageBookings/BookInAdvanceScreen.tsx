@@ -1,24 +1,26 @@
 import * as React from 'react';
-import {useContext} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {Platform, StyleSheet, View} from "react-native";
 import {BookChargeTabScreenProps} from "../../navigation/types";
 import {ActivityIndicator, Button, List, SegmentedButtons, Text, Text as TextPaper} from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RNDateTimePicker, {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
-import {BookChargeContext} from "./BookChargeScreen";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {StackActions, useNavigation} from "@react-navigation/native";
+import {StackActions, useFocusEffect, useNavigation} from "@react-navigation/native";
 import {useGetAuthInfo} from "../../user-auth/UserAuthenticationUtils";
 import {BookingApi, BookingInAdvance, SocketType} from "../../generated";
 import {Formik} from "formik";
 import format from 'date-fns/format'
 import {stationConfigQuery} from "../findStation/StationApi";
 import {addMinutes} from "date-fns";
+import {BookChargeContext} from "./BookChargeContext";
 
 export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvance">) {
 
   const {chargingStationId} = useContext(BookChargeContext);
   const {status, data} = useQuery(stationConfigQuery(chargingStationId));
+
+  const [canShowError, setCanShowError] = useState<boolean>(true);
 
   const queryClient = useQueryClient();
   const navigation = useNavigation();
@@ -28,10 +30,13 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
     (values: BookingInAdvance) =>
       BookingApi.postBooking(authInfo.customerId, values),
     {
-      // TODO setQueryData
-      onSuccess: () => queryClient.invalidateQueries()
-        .then(() => navigation.dispatch(StackActions.pop(1)))
-        .then(() => navigation.navigate("Bookings"))
+      onSuccess: () => {
+        queryClient.invalidateQueries(["Bookings", authInfo.customerId, "List"]);
+        queryClient.invalidateQueries(["Bookings", authInfo.customerId, "Status", "List"]);
+        navigation.dispatch(StackActions.pop(1))
+        navigation.navigate("Bookings");
+      },
+      onSettled: () => setCanShowError(true)
     }
   );
 
@@ -65,7 +70,7 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
         });
       }}
     >
-      {({handleChange, handleSubmit, values, setFieldValue}) => (
+      {({handleChange, handleSubmit, values, setFieldValue, resetForm}) => (
         <View style={styles.container}>
           <List.Item
             title={status === "success" ? data.name : ""}
@@ -185,17 +190,36 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
             >
             </Button>
           </View>
-          <View>
-            {postBookingMutation.isError &&
+          <View
+            style={{alignItems: "flex-start", justifyContent: "center", height: 40, paddingLeft: 10, paddingRight: 10}}>
+            {(postBookingMutation.isError && canShowError) &&
               <Text style={{color: "#F00"}}>
-                Oops, an error occured in the booking. Please change your preferences and retry
+                Oops, an error occurred in the booking procedure. Please change your preferences and retry
               </Text>
             }
           </View>
+          <FormikHelper
+            onFocusExit={() => {
+              resetForm();
+              setCanShowError(false);
+            }}
+            onChangeValues={() => {
+              setCanShowError(false);
+            }}
+            values={values}
+          />
         </View>
       )
       }
     </Formik>
+  );
+}
+
+export function FormikHelper({onFocusExit, onChangeValues, values}) {
+  useFocusEffect(React.useCallback(() => onFocusExit, []));
+  useEffect(onChangeValues, [values]);
+  return (
+    <></>
   );
 }
 

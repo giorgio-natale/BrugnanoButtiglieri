@@ -20,7 +20,7 @@ export function SignupScreen(props: AuthenticationStackScreenProps<"Signup">) {
 
   return (
     <Formik<SignupRequest & { confirmPassword: string }>
-      initialValues={{"emailAddress": "", "password": "", "confirmPassword": "", "name": "", "surname": ""}}
+      initialValues={{emailAddress: null, password: null, confirmPassword: null, name: null, surname: null}}
       onSubmit={values => {
         if (values.password === values.confirmPassword) {
           signupMutation.mutate(values);
@@ -31,7 +31,7 @@ export function SignupScreen(props: AuthenticationStackScreenProps<"Signup">) {
       }}
     >
       {({handleChange, handleSubmit, values}) => (
-        <View style={{justifyContent: "center", flex: 1}}>
+        <View style={{justifyContent: "center", flex: 1, padding: 10}}>
           <TextInput
             label="Name"
             mode="outlined"
@@ -57,7 +57,10 @@ export function SignupScreen(props: AuthenticationStackScreenProps<"Signup">) {
             label="Password"
             mode="outlined"
             value={values.password}
-            onChangeText={handleChange("password")}
+            onChangeText={(value) => {
+              handleChange("password")(value);
+              setIsConfirmPasswordNotCorrect(false);
+            }}
             secureTextEntry={true}
             style={styles.textInput}
           />
@@ -65,14 +68,17 @@ export function SignupScreen(props: AuthenticationStackScreenProps<"Signup">) {
             label="Confirm password"
             mode="outlined"
             value={values.confirmPassword}
-            onChangeText={handleChange("confirmPassword")}
+            onChangeText={(value) => {
+              handleChange("confirmPassword")(value);
+              setIsConfirmPasswordNotCorrect(false);
+            }}
             secureTextEntry={true}
             style={styles.textInput}
           />
-          <View style={{height: 20}}>
+          <View style={{alignItems: "flex-start", justifyContent: "center", height: 36, paddingLeft: 10, paddingRight: 10}}>
             {signupMutation.isError &&
               <Text style={{color: "#F00"}}>
-                Login failed, please retry
+                Registration failed, please retry
               </Text>
             }
             {isConfirmPasswordNotCorrect &&
@@ -84,6 +90,7 @@ export function SignupScreen(props: AuthenticationStackScreenProps<"Signup">) {
           <Button
             mode="contained"
             onPress={() => handleSubmit()}
+            disabled={!values.password || !values.confirmPassword || !values.name || !values.surname || !values.emailAddress}
             style={{...styles.button, marginTop: 30}}
           >
             Sign up

@@ -12,12 +12,18 @@ export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">
   const authInfo = useGetAuthInfo();
   const customerProfileQuery = useQuery(customerQuery(authInfo.customerId));
 
+  const customer = customerProfileQuery.status === "success" ? customerProfileQuery.data : {
+    name: "",
+    surname: "",
+    emailAddress: ""
+  };
+
   const logout = useLogout();
 
   return <View style={{flex: 1, margin: 10}}>
     <List.Item
       style={{marginTop: 30, marginBottom: 20}}
-      title={`Hi ${customerProfileQuery?.data?.name}!`}
+      title={`Hi ${customer.name}!`}
       titleStyle={{fontSize: 20, fontWeight: "500"}}
       left={props => <MaterialCommunityIcons {...props} name="account-circle" size={80}/>}
     />
@@ -26,7 +32,7 @@ export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">
       label="Name"
       style={{marginBottom: 7}}
       mode="outlined"
-      value={customerProfileQuery?.data?.name}
+      value={customer.name}
       outlineColor={"rgba(0,0,0,0.12)"}
       editable={false}
     />
@@ -35,7 +41,7 @@ export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">
       label="Surname"
       style={{marginBottom: 7}}
       mode="outlined"
-      value={customerProfileQuery?.data?.surname}
+      value={customer.surname}
       outlineColor={"rgba(0,0,0,0.12)"}
       editable={false}
     />
@@ -43,7 +49,7 @@ export function SettingsScreen(props: SettingsStackScreenProps<"SettingsScreen">
       key="emailAddressTextInput"
       label="Email address"
       mode="outlined"
-      value={customerProfileQuery?.data?.emailAddress}
+      value={customer.emailAddress}
       outlineColor={"rgba(0,0,0,0.12)"}
       editable={false}
     />

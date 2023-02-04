@@ -1,11 +1,13 @@
 import * as React from 'react';
-import {Booking, BookingStatus, BookingStatusCompleted, Timeframe} from "../../generated";
+import {useEffect, useState} from 'react';
+import {Booking, BookingStatus, BookingStatusCompleted, BookingStatusInProgress, Timeframe} from "../../generated";
 import {StyleSheet, View} from "react-native";
-import {Button, Divider, Text} from "react-native-paper";
+import {ActivityIndicator, Button, Divider, Text} from "react-native-paper";
 import {useQuery} from "@tanstack/react-query";
 import {stationConfigQuery} from "../findStation/StationApi";
-import {formatDistanceStrict, intervalToDuration, isBefore, isWithinInterval} from "date-fns";
+import {differenceInMinutes, intervalToDuration, isBefore, isWithinInterval} from "date-fns";
 import format from "date-fns/format";
+import {BookingItemType} from "./BookingsScreen";
 
 interface Props {
   booking: Booking & { status: BookingStatus },
@@ -18,6 +20,17 @@ export function BookingItem(props: Props) {
   const {booking, onDeleteBooking, onActivateBooking} = props;
 
   const {status, data} = useQuery(stationConfigQuery(booking.chargingStationId));
+
+  const [timeLeftInfo, setTimeLeftInfo] = useState<TimeLeftInfo | null>(null);
+
+  useEffect(() => {
+    if (booking?.status?.bookingStatus === "BookingStatusInProgress") {
+      const interval = setInterval(() =>
+          setTimeLeftInfo(getTimeLeftInfo(booking))
+        , 5 * 1000);
+      return () => clearTimeout(interval);
+    }
+  }, [booking.status.bookingStatus]);
 
   let chargingPointList, chargingPoint, socket;
 
@@ -40,12 +53,24 @@ export function BookingItem(props: Props) {
     return isBefore(now, start);
   }
 
+  function canPlannedBookingBeActivated(booking): boolean {
+    return booking?.status?.bookingStatus === "BookingStatusPlanned" &&
+      (booking.bookingType === "ON_THE_FLY" ||
+        (booking.bookingType === "IN_ADVANCE" && isNowWithinTimeframe(booking.timeframe))
+      );
+  }
+
+  function canPlannedBookingBeDeleted(booking): boolean {
+    return booking?.status?.bookingStatus === "BookingStatusPlanned" &&
+      booking.bookingType === "IN_ADVANCE" &&
+      isNowBeforeTimeframe(booking.timeframe);
+  }
+
   function getBackgroundColor(booking) {
     let backgroundColor;
-    if (booking.status.bookingStatus === "BookingStatusInProgress" ||
-      (booking.status.bookingStatus === "BookingStatusPlanned" && isNowWithinTimeframe(booking.timeframe)))
+    if (booking?.status?.bookingStatus === "BookingStatusInProgress" || canPlannedBookingBeActivated(booking))
       backgroundColor = "rgba(172,146,225,0.5)";
-    else if (booking.status.bookingStatus === "BookingStatusPlanned" && isNowBeforeTimeframe(booking.timeframe))
+    else if (canPlannedBookingBeDeleted(booking))
       backgroundColor = "rgba(255,255,255)";
     else
       backgroundColor = "rgba(229,227,227,0.5)";
@@ -71,8 +96,8 @@ export function BookingItem(props: Props) {
                 Booking #{booking.bookingCode}
               </Text>
               <Text style={styles.itemSubtitle}>
-                {`${getFormattedDateTime(booking.timeframe.startInstant)}${booking.timeframe?.endInstant ? 
-                ` (${getFormattedDifferenceBetweenTwoInstants(booking.timeframe.startInstant, booking.timeframe.endInstant)})` : ""
+                {`${getFormattedDateTime(booking.timeframe.startInstant)}${booking.bookingType === "IN_ADVANCE" ?
+                  ` (${getFormattedDifferenceBetweenTwoInstants(booking.timeframe.startInstant, booking.timeframe.endInstant)})` : ""
                 }`}
               </Text>
               <Text style={styles.description}>
@@ -82,7 +107,7 @@ export function BookingItem(props: Props) {
                 {`${data?.address}, ${data?.city}`}
               </Text>
             </View>
-            {(booking.status.bookingStatus === "BookingStatusPlanned" && isNowBeforeTimeframe(booking.timeframe)) &&
+            {canPlannedBookingBeDeleted(booking) &&
               <View style={{alignSelf: "center"}}>
                 <Button
                   mode={"contained-tonal"}
@@ -93,7 +118,7 @@ export function BookingItem(props: Props) {
                 </Button>
               </View>
             }
-            {(booking.status.bookingStatus === "BookingStatusPlanned" && isNowWithinTimeframe(booking.timeframe)) &&
+            {canPlannedBookingBeActivated(booking) &&
               <View style={{alignSelf: "center"}}>
                 <Button
                   mode={"contained"}
@@ -106,16 +131,18 @@ export function BookingItem(props: Props) {
             }
             {booking.status.bookingStatus === "BookingStatusInProgress" &&
               <View style={{alignSelf: "center"}}>
-                {booking.status.expectedMinutesLeft >= 0 ?
+                {!timeLeftInfo.chargeStarted &&
+                  <ActivityIndicator animating={true} color={"rgb(107, 79, 170)"} style={{marginRight: 5}}/>
+                }
+                {timeLeftInfo.chargeStarted && timeLeftInfo.minutesLeft > 0 &&
                   <Button
                     mode={"outlined"}
-                    labelStyle={{fontSize: 15}}
+                    style={{borderColor: "transparent"}}
+                    labelStyle={{fontSize: 18}}
+                    icon={timeLeftInfo.endReason === "END_OF_BOOKING" ? "timer" : "battery-charging"}
                   >
-                    {/*TODO update expected time left*/}
-                    {booking.status.expectedMinutesLeft}
+                    - {timeLeftInfo.minutesLeft}'
                   </Button>
-                  :
-                  <Text>Plug it!</Text>
                 }
               </View>
             }
@@ -138,23 +165,67 @@ export function BookingItem(props: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  item: {
-    padding: 10,
-    paddingLeft: 25,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start"
-  },
-  itemTitle: {
-    fontWeight: "600",
-    fontSize: 18
-  },
-  itemSubtitle: {
-    fontSize: 16
-  },
-  description: {
-    fontSize: 14
+function getMinutesLeftToEndOfBooking(booking) {
+  return differenceInMinutes(new Date(booking.timeframe.endInstant), new Date(), {roundingMethod: "ceil"});
+}
+
+type TimeLeftInfo = {
+  minutesLeft: number,
+  endReason: "FULL_BATTERY" | "END_OF_BOOKING",
+  chargeStarted: true
+} | {
+  chargeStarted: false
+};
+
+export function getTimeLeftInfo(booking: BookingItemType): TimeLeftInfo {
+  if (booking.status.bookingStatus !== "BookingStatusInProgress")
+    throw Error("Unexpected error: booking status should be in progress");
+  const fullBatteryMinutesLeft = booking.status.expectedMinutesLeft;
+  if(fullBatteryMinutesLeft < 0)
+    return {
+    chargeStarted: false
+    }
+  if (booking.bookingType === "ON_THE_FLY") {
+    return {
+      minutesLeft: fullBatteryMinutesLeft,
+      endReason: "FULL_BATTERY",
+      chargeStarted: true
+    };
+  } else {
+    const endOfBookingMinutesLeft = getMinutesLeftToEndOfBooking(booking);
+    if (fullBatteryMinutesLeft < endOfBookingMinutesLeft) {
+      return {
+        minutesLeft: fullBatteryMinutesLeft,
+        endReason: "FULL_BATTERY",
+        chargeStarted: true
+      };
+    } else {
+      return {
+        minutesLeft: endOfBookingMinutesLeft,
+        endReason: "END_OF_BOOKING",
+        chargeStarted: true
+      }
+    }
   }
-})
+}
+
+  const styles = StyleSheet.create({
+    item: {
+      padding: 10,
+      paddingLeft: 25,
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "flex-start"
+    },
+    itemTitle: {
+      fontWeight: "600",
+      fontSize: 18
+    },
+    itemSubtitle: {
+      fontSize: 16
+    },
+    description: {
+      fontSize: 14
+    }
+  })
