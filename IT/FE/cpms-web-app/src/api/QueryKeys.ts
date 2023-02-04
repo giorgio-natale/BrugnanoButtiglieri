@@ -5,7 +5,7 @@ export const QueryKeys = {
     StationStatus: (stationId: number) => ["StationsConfig", stationId, "StationsStatus"]
   },
   Pricing: {
-    AllStationPricing: (stationId) => ["Pricing", stationId]
+    AllStationPricing: () => ["Pricing"]
   },
   Employee: {
     Employee: (employeeId: number) => ["Customer", employeeId]

@@ -6,8 +6,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faUnlockAlt} from "@fortawesome/free-solid-svg-icons";
 import {EmployeeApi, LoginRequest} from "../../generated";
 import {saveAuthInfo} from "../../api/ApiConfig";
+import {useNavigate} from "react-router-dom";
+import {WebRoutes} from "../../router/WebRoutes";
 
 export function LoginPage() {
+  const navigate = useNavigate();
 
   return (
     <Formik<LoginRequest>
@@ -17,13 +20,16 @@ export function LoginPage() {
       }}
       onSubmit={(values, {setErrors}) =>
         EmployeeApi.employeeLogin(values)
-          .then(res => saveAuthInfo({
-            token: res.token,
-            employeeId: res.employeeId,
-            employeeName: res.name,
-            employeeSurname: res.surname,
-            employeeEmailAddress: res.emailAddress
-          }))
+          .then(res => {
+            saveAuthInfo({
+              token: res.token,
+              employeeId: res.employeeId,
+              employeeName: res.name,
+              employeeSurname: res.surname,
+              employeeEmailAddress: res.emailAddress
+            });
+            navigate(WebRoutes.Stations.List.buildPath());
+          })
           .catch(e => {
               setErrors({
                 emailAddress: "",

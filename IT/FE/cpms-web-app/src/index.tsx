@@ -10,9 +10,10 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+configApiDefault();
+
 const queryClient = new QueryClient();
 const router = getRouter({queryClient});
-configApiDefault();
 
 root.render(
   <React.StrictMode>
