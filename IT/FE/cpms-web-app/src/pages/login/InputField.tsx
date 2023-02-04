@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const InputField = (props: Props) => {
-  const [field, meta, helpers] = useField(props);
+  const [field, meta] = useField(props);
 
   const {
     label,

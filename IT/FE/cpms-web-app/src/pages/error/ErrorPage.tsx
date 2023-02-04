@@ -12,9 +12,7 @@ export const ErrorPage = () => {
     <div className="page-centered">
       <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
         <h1 className="mt-5">
-          An
-          <span style={{color: "red", fontSize: "inherit", fontWeight: "bold"}}>error</span>
-          occured
+          An <span style={{color: "red", fontSize: "inherit", fontWeight: "bold"}}>error</span> occured
         </h1>
         <p className="lead">
           Oops! Apparently something went wrong.
@@ -29,7 +27,10 @@ export const ErrorPage = () => {
           <div className={styles.text}> or</div>
           <Button
             className={styles.secondaryBtn}
-            onClick={clearAuthInfo}
+            onClick={() => {
+              clearAuthInfo();
+              navigate(WebRoutes.Login.buildPath());
+            }}
           >
             do logout
           </Button>

@@ -8,6 +8,8 @@ import {ErrorPage} from "../pages/error/ErrorPage";
 import {LoginPage} from "../pages/login/LoginPage";
 import {StationListPage} from "../pages/station-list/StationListPage";
 import {StationStatusPage} from "../pages/station-status/StationStatusPage";
+import {chargingStationListQuery, pricingListQuery} from "../pages/station-list/StationListApi";
+import {chargingStationStatusQuery} from "../pages/station-status/StationStatusApi";
 
 export const getRouter = ({queryClient}: { queryClient: QueryClient }) => createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<PageRoot/>} errorElement={<ErrorPage/>}>
@@ -15,14 +17,18 @@ export const getRouter = ({queryClient}: { queryClient: QueryClient }) => create
     <Route
       path={WebRoutes.Stations.List.pathSchema}
       element={<StationListPage/>}
-      // TODO
-      loader={cachedOrFetchedDataLoader(queryClient, ({params}) => [])}
+      loader={cachedOrFetchedDataLoader(queryClient,
+        () => [chargingStationListQuery(), pricingListQuery()]
+      )}
     />
     <Route
       path={WebRoutes.Stations.Detail.pathSchema}
       element={<StationStatusPage/>}
-      // TODO
-      loader={cachedOrFetchedDataLoader(queryClient, ({params}) => [])}
+      loader={cachedOrFetchedDataLoader(queryClient,
+        ({params}) => [chargingStationListQuery(),
+          chargingStationStatusQuery(parseInt(params.stationId))
+        ]
+      )}
     />
   </Route>
 ));
