@@ -13,10 +13,6 @@ import {ChargingStationOverview} from "../../generated";
 
 const getSymbolForCurrency = (currency: string) => ({"EUR": "€", "USD": "$"})[currency];
 
-function formatPriceToTwoDecimals(num: number): string {
-  return Math.round(((num * 1000) / 10) / 100).toFixed(2);
-}
-
 export function FindStationScreen({navigation}: StationsStackScreenProps<"FindStation">) {
 
   const DEFAULT_MAP_INITIAL_COORDINATES = {
@@ -105,7 +101,7 @@ export function FindStationScreen({navigation}: StationsStackScreenProps<"FindSt
   );
 
   function getChargingStationOverviewTitle(selectedChargingStation: ChargingStationOverview) {
-    return `${selectedChargingStation.name}\n${formatPriceToTwoDecimals(selectedChargingStation.pricePerKWh.amount)} ${getSymbolForCurrency(selectedChargingStation.pricePerKWh.currency)}/kWh${selectedChargingStation.offerPercentage !== 0 ? ` (${selectedChargingStation.offerPercentage * 100}% discount)` : ""}`;
+    return `${selectedChargingStation.name}\n${(selectedChargingStation.pricePerKWh.amount).toFixed(2)} ${getSymbolForCurrency(selectedChargingStation.pricePerKWh.currency)}/kWh${selectedChargingStation.offerPercentage !== 0 ? ` (${selectedChargingStation.offerPercentage * 100}% discount)` : ""}`;
   }
 }
 

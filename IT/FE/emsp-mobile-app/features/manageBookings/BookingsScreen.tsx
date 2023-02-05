@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ScrollView} from "react-native";
+import {ScrollView, Text, View} from "react-native";
 import {BookingsStackScreenProps} from "../../navigation/types";
 import {allBookingsQuery, allBookingsStatusQuery} from "./BookingApi";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
@@ -76,9 +76,9 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
     }
   );
 
-  return <ScrollView>
-    {(bookingListQuery.status === "success" && bookingStatusListQuery.status === "success")
-      && bookingList.map(b => {
+  if(bookingListQuery.status === "success" && bookingStatusListQuery.status === "success" && bookingList.length > 0)
+    return <ScrollView>
+      {bookingList.map(b => {
         if(b && b.status)
           return (
             <BookingItem
@@ -89,5 +89,10 @@ export function BookingsScreen(props: BookingsStackScreenProps<"BookingsScreen">
             />
           )
       })}
-  </ScrollView>
+    </ScrollView>;
+  else if(bookingListQuery.status === "success" && bookingStatusListQuery.status === "success" && bookingList.length === 0)
+    return <View style={{padding: 20}}>
+      <Text style={{fontSize: 17, marginBottom: 7}}>You don't have any bookings.</Text>
+      <Text style={{fontSize: 17}}>Find a station and book yours!</Text>
+    </View>
 }

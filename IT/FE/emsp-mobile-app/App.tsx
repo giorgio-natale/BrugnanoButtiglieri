@@ -11,6 +11,7 @@ import {configApiDefault} from "./api/ApiConfig";
 import {NotificationsManager} from "./notifications/NotificationsManager";
 import {AuthenticationManager} from "./user-auth/AuthenticationManager";
 import {NavigationManager} from "./navigation/NavigationManager";
+import { LogBox } from 'react-native';
 
 const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
@@ -19,6 +20,8 @@ const {LightTheme, DarkTheme} = adaptNavigationTheme({
 
 const CombinedLightTheme = merge(MD3LightTheme, LightTheme);
 const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
+
+LogBox.ignoreAllLogs();
 
 const queryClient = new QueryClient();
 configApiDefault();
