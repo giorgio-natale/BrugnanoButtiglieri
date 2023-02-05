@@ -1,30 +1,21 @@
-.setupRow {
+.container {
   display: flex;
-  flex-direction: row;
-  gap: 5px;
-  align-items: baseline;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 
-  .text {
-    color: var(--dark-color);
-    font-size: 0.7rem;
-  }
+  .innerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  .secondaryBtn {
-    font-size: 0.7rem;
-    font-weight: 600;
-    border: none;
-    color: var(--dark-color);
-    background-color: transparent;
-    text-decoration: underline;
-    padding: 0;
-
-    &:hover, &:focus, &:active, &:visited {
-      background-color: transparent;
-      color: var(--light-color) !important;
-      padding: 0;
+    .setupRow {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      align-items: baseline;
+      margin-top: 20px;
     }
-
   }
-
 }

@@ -1,0 +1,15 @@
+.pageContainer {
+  padding: 50px 120px;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+
+    .loggedUser {
+      font-size: 17px;
+    }
+  }
+}

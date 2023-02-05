@@ -15,8 +15,8 @@ export function LoginPage() {
   return (
     <Formik<LoginRequest>
       initialValues={{
-        emailAddress: null,
-        password: null
+        emailAddress: "",
+        password: ""
       }}
       onSubmit={(values, {setErrors}) =>
         EmployeeApi.employeeLogin(values)
@@ -41,7 +41,7 @@ export function LoginPage() {
     >
       {({isSubmitting, submitForm, values}) => (
         <Form>
-          <main style={{height: `100vh`, position: "relative"}}>
+          <div style={{height: `100vh`, position: "relative"}}>
             <Card
               style={{
                 padding: "45px", position: "absolute", top: "50%", left: "50%", width: "550px",
@@ -81,12 +81,12 @@ export function LoginPage() {
                     </div>
                   }
                 />
-                <Button onClick={submitForm} disabled={isSubmitting || !values.emailAddress || !values.password}>
+                <Button onClick={submitForm} disabled={isSubmitting || values.emailAddress==="" || values.password===""}>
                   Login
                 </Button>
               </div>
             </Card>
-          </main>
+          </div>
         </Form>
       )}
     </Formik>
