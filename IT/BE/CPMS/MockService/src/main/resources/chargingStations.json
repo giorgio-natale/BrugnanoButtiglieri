@@ -1,5 +1,11 @@
 [
   {
+    "chargingStationId": 1,
+    "name": "Go Electric Station",
+    "address": "Via Vittorio Veneto, 8",
+    "city": "Milan",
+    "latitude": 45.475786,
+    "longitude": 9.202887,
     "chargingPointList": [
       {
         "chargingPointId": 10,
@@ -274,6 +280,12 @@
     ]
   },
   {
+    "chargingStationId": 2,
+    "name": "Hotel Baviera Mokinba",
+    "address": "Via Panfilo Castaldi, 7",
+    "city": "Milan",
+    "latitude": 45.478310,
+    "longitude": 9.199730,
     "chargingPointList": [
       {
         "chargingPointId": 20,
@@ -548,6 +560,12 @@
     ]
   },
   {
+    "chargingStationId": 3,
+    "name": "Garage Giangaleazzo Srl",
+    "address": "Via Giovanni Aurispa, 10",
+    "city": "Milan",
+    "latitude": 45.452990,
+    "longitude": 9.184320,
     "chargingPointList": [
       {
         "chargingPointId": 30,
@@ -822,6 +840,12 @@
     ]
   },
   {
+    "chargingStationId": 4,
+    "name": "Go Station",
+    "address": "Via Milazzo, 1",
+    "city": "Milan",
+    "latitude": 45.606990,
+    "longitude": 9.522300,
     "chargingPointList": [
       {
         "chargingPointId": 40,
@@ -1096,6 +1120,12 @@
     ]
   },
   {
+    "chargingStationId": 5,
+    "name": "BeCharge",
+    "address": "Via Benigno Crespi, 52",
+    "city": "Milan",
+    "latitude": 45.502680,
+    "longitude": 9.185120,
     "chargingPointList": [
       {
         "chargingPointId": 50,
@@ -1370,6 +1400,12 @@
     ]
   },
   {
+    "chargingStationId": 6,
+    "name": "Garage Velasca (Tesla)",
+    "address": "Via Pantano, 4",
+    "city": "Milan",
+    "latitude": 45.459921,
+    "longitude": 9.191376,
     "chargingPointList": [
       {
         "chargingPointId": 60,
@@ -1644,6 +1680,12 @@
     ]
   },
   {
+    "chargingStationId": 7,
+    "name": "Residence Zenale",
+    "address": "Via Bernardino Zenale, 3",
+    "city": "Milan",
+    "latitude": 45.465192,
+    "longitude": 9.170359,
     "chargingPointList": [
       {
         "chargingPointId": 70,
@@ -1918,6 +1960,12 @@
     ]
   },
   {
+    "chargingStationId": 8,
+    "name": "Il Gigante",
+    "address": "Via Sangallos, 33",
+    "city": "Milan",
+    "latitude": 45.470836,
+    "longitude": 9.229063,
     "chargingPointList": [
       {
         "chargingPointId": 80,
@@ -2192,6 +2240,12 @@
     ]
   },
   {
+    "chargingStationId": 9,
+    "name": "Val Paraiso Parking",
+    "address": "Via Giambellino, 31",
+    "city": "Milan",
+    "latitude": 45.450505,
+    "longitude": 9.149643,
     "chargingPointList": [
       {
         "chargingPointId": 90,
@@ -2466,6 +2520,12 @@
     ]
   },
   {
+    "chargingStationId": 10,
+    "name": "Charging Politecnico",
+    "address": "Piazza Leonardo da Vinci",
+    "city": "Milan",
+    "latitude": 45.479232,
+    "longitude": 9.225844,
     "chargingPointList": [
       {
         "chargingPointId": 100,
