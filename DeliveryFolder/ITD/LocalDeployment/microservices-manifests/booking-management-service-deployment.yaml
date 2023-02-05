@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-management-service
+  namespace: papaia
+spec:
+  selector:
+    app-component: booking-management-service
+  ports:
+    - port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-management-service
+  namespace: papaia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emsp
+      app-component: booking-management-service
+  template:
+    metadata:
+      labels:
+        app: emsp
+        app-component: booking-management-service
+    spec:
+      containers:
+        - name: booking-management-service
+          image: europe-central2-docker.pkg.dev/smg-genitorpino-project/papaia/booking-management-service:main-latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: staging
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-management-service-db
+  namespace: papaia
+spec:
+  selector:
+    app-component: booking-management-service-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: booking-management-service-db
+  namespace: papaia
+spec:
+  selector:
+    matchLabels:
+      app: emsp
+      app-component: booking-management-service-db
+  serviceName: booking-management-service-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: emsp
+        app-component: booking-management-service-db
+    spec:
+      containers:
+        - name: booking-management-service-db
+          image: postgres
+          env:
+            - name: POSTGRES_USER
+              value: root
+            - name: POSTGRES_PASSWORD
+              value: my-secret-password
+            - name: PGDATA
+              value: /var/lib/postgresql/data/db_data
+            - name: POSTGRES_DB
+              value: BookingManagement
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: vc
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: vc
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
