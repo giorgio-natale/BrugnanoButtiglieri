@@ -1,15 +1,10 @@
 [
   {
-    "chargingStationId": 1,
-    "name": "Go Electric Station",
-    "address": "Via Vittorio Veneto, 8",
-    "city": "Milan",
-    "latitude": 45.475786,
-    "longitude": 9.202887,
     "chargingPointList": [
       {
         "chargingPointId": 10,
-        "chargingPointCode": "VGU",
+        "chargingPointCode": "E0A",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 1,
@@ -24,28 +19,29 @@
           {
             "socketId": 3,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 4,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 11,
-        "chargingPointCode": "UEA",
+        "chargingPointCode": "PBC",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 5,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 6,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 7,
@@ -55,13 +51,14 @@
           {
             "socketId": 8,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 12,
-        "chargingPointCode": "RNC",
+        "chargingPointCode": "CGH",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 9,
@@ -71,7 +68,7 @@
           {
             "socketId": 10,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 11,
@@ -81,44 +78,46 @@
           {
             "socketId": 12,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 13,
-        "chargingPointCode": "KVP",
+        "chargingPointCode": "FGR",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 13,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 14,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 15,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 16,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 14,
-        "chargingPointCode": "NNR",
+        "chargingPointCode": "DUE",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 17,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 18,
@@ -128,7 +127,7 @@
           {
             "socketId": 19,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 20,
@@ -139,12 +138,13 @@
       },
       {
         "chargingPointId": 15,
-        "chargingPointCode": "RJG",
+        "chargingPointCode": "ZFI",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 21,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 22,
@@ -154,18 +154,19 @@
           {
             "socketId": 23,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 24,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 16,
-        "chargingPointCode": "BMK",
+        "chargingPointCode": "BVB",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 25,
@@ -175,23 +176,24 @@
           {
             "socketId": 26,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 27,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 28,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 17,
-        "chargingPointCode": "KBG",
+        "chargingPointCode": "BLB",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 29,
@@ -201,12 +203,12 @@
           {
             "socketId": 30,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 31,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 32,
@@ -217,7 +219,8 @@
       },
       {
         "chargingPointId": 18,
-        "chargingPointCode": "QEQ",
+        "chargingPointCode": "LGE",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 33,
@@ -227,23 +230,24 @@
           {
             "socketId": 34,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 35,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 36,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 19,
-        "chargingPointCode": "FHG",
+        "chargingPointCode": "GM0",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 37,
@@ -258,7 +262,7 @@
           {
             "socketId": 39,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 40,
@@ -270,21 +274,16 @@
     ]
   },
   {
-    "chargingStationId": 2,
-    "name": "Hotel Baviera Mokinba",
-    "address": "Via Panfilo Castaldi, 7",
-    "city": "Milan",
-    "latitude": 45.478310,
-    "longitude": 9.199730,
     "chargingPointList": [
       {
         "chargingPointId": 20,
-        "chargingPointCode": "VTL",
+        "chargingPointCode": "JFK",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 41,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 42,
@@ -294,44 +293,46 @@
           {
             "socketId": 43,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 44,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 21,
-        "chargingPointCode": "DBE",
+        "chargingPointCode": "UZM",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 45,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 46,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 47,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 48,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 22,
-        "chargingPointCode": "ZJL",
+        "chargingPointCode": "PHT",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 49,
@@ -346,59 +347,61 @@
           {
             "socketId": 51,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 52,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 23,
-        "chargingPointCode": "TNP",
+        "chargingPointCode": "QVN",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 53,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 54,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 55,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 56,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 24,
-        "chargingPointCode": "0BJ",
+        "chargingPointCode": "PMT",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 57,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 58,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 59,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 60,
@@ -409,12 +412,13 @@
       },
       {
         "chargingPointId": 25,
-        "chargingPointCode": "ET0",
+        "chargingPointCode": "HAL",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 61,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 62,
@@ -424,33 +428,34 @@
           {
             "socketId": 63,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 64,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 26,
-        "chargingPointCode": "RJL",
+        "chargingPointCode": "MU0",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 65,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 66,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 67,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 68,
@@ -461,7 +466,8 @@
       },
       {
         "chargingPointId": 27,
-        "chargingPointCode": "NFE",
+        "chargingPointCode": "HMS",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 69,
@@ -471,23 +477,24 @@
           {
             "socketId": 70,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 71,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 72,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 28,
-        "chargingPointCode": "LBK",
+        "chargingPointCode": "QVB",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 73,
@@ -507,28 +514,29 @@
           {
             "socketId": 76,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 29,
-        "chargingPointCode": "BDD",
+        "chargingPointCode": "INN",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 77,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 78,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 79,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 80,
@@ -540,16 +548,11 @@
     ]
   },
   {
-    "chargingStationId": 3,
-    "name": "Garage Giangaleazzo Srl",
-    "address": "Via Giovanni Aurispa, 10",
-    "city": "Milan",
-    "latitude": 45.452990,
-    "longitude": 9.184320,
     "chargingPointList": [
       {
         "chargingPointId": 30,
-        "chargingPointCode": "QR0",
+        "chargingPointCode": "VCT",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 81,
@@ -564,59 +567,61 @@
           {
             "socketId": 83,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 84,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 31,
-        "chargingPointCode": "LSV",
+        "chargingPointCode": "VCF",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 85,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 86,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 87,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 88,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 32,
-        "chargingPointCode": "JMN",
+        "chargingPointCode": "QRJ",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 89,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 90,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 91,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 92,
@@ -627,7 +632,8 @@
       },
       {
         "chargingPointId": 33,
-        "chargingPointCode": "VSM",
+        "chargingPointCode": "DJF",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 93,
@@ -637,12 +643,12 @@
           {
             "socketId": 94,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 95,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 96,
@@ -653,43 +659,45 @@
       },
       {
         "chargingPointId": 34,
-        "chargingPointCode": "0IT",
+        "chargingPointCode": "NAA",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 97,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 98,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 99,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 100,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 35,
-        "chargingPointCode": "AL0",
+        "chargingPointCode": "JRF",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 101,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 102,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 103,
@@ -699,39 +707,41 @@
           {
             "socketId": 104,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 36,
-        "chargingPointCode": "ZZJ",
+        "chargingPointCode": "GCS",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 105,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 106,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 107,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 108,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 37,
-        "chargingPointCode": "PJC",
+        "chargingPointCode": "KT0",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 109,
@@ -751,28 +761,29 @@
           {
             "socketId": 112,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 38,
-        "chargingPointCode": "QSK",
+        "chargingPointCode": "LAB",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 113,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 114,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 115,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 116,
@@ -783,22 +794,23 @@
       },
       {
         "chargingPointId": 39,
-        "chargingPointCode": "HGF",
+        "chargingPointCode": "KHP",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 117,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 118,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 119,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 120,
@@ -808,19 +820,13 @@
         ]
       }
     ]
-
   },
   {
-    "chargingStationId": 4,
-    "name": "Go Station",
-    "address": "Via Milazzo, 1",
-    "city": "Milan",
-    "latitude": 45.606990,
-    "longitude": 9.522300,
     "chargingPointList": [
       {
         "chargingPointId": 40,
-        "chargingPointCode": "RBH",
+        "chargingPointCode": "QRK",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 121,
@@ -835,80 +841,83 @@
           {
             "socketId": 123,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 124,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 41,
-        "chargingPointCode": "MPI",
+        "chargingPointCode": "JAU",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 125,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 126,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 127,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 128,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 42,
-        "chargingPointCode": "JET",
+        "chargingPointCode": "GGS",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 129,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 130,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 131,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 132,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 43,
-        "chargingPointCode": "PVG",
+        "chargingPointCode": "BCH",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 133,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 134,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 135,
@@ -918,39 +927,41 @@
           {
             "socketId": 136,
             "socketCode": 4,
-            "type": "RAPID"
-          }
-        ]
-      },
-      {
-        "chargingPointId": 44,
-        "chargingPointCode": "U0S",
-        "socketList": [
-          {
-            "socketId": 137,
-            "socketCode": 1,
-            "type": "RAPID"
-          },
-          {
-            "socketId": 138,
-            "socketCode": 2,
-            "type": "SLOW"
-          },
-          {
-            "socketId": 139,
-            "socketCode": 3,
-            "type": "SLOW"
-          },
-          {
-            "socketId": 140,
-            "socketCode": 4,
             "type": "FAST"
           }
         ]
       },
       {
+        "chargingPointId": 44,
+        "chargingPointCode": "SQG",
+        "mode": "ON_THE_FLY",
+        "socketList": [
+          {
+            "socketId": 137,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 138,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 139,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 140,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
         "chargingPointId": 45,
-        "chargingPointCode": "AIN",
+        "chargingPointCode": "NNA",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 141,
@@ -970,13 +981,14 @@
           {
             "socketId": 144,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 46,
-        "chargingPointCode": "SJR",
+        "chargingPointCode": "NEC",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 145,
@@ -986,7 +998,7 @@
           {
             "socketId": 146,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 147,
@@ -996,44 +1008,46 @@
           {
             "socketId": 148,
             "socketCode": 4,
-            "type": "FAST"
-          }
-        ]
-      },
-      {
-        "chargingPointId": 47,
-        "chargingPointCode": "AIR",
-        "socketList": [
-          {
-            "socketId": 149,
-            "socketCode": 1,
-            "type": "FAST"
-          },
-          {
-            "socketId": 150,
-            "socketCode": 2,
-            "type": "SLOW"
-          },
-          {
-            "socketId": 151,
-            "socketCode": 3,
-            "type": "FAST"
-          },
-          {
-            "socketId": 152,
-            "socketCode": 4,
             "type": "RAPID"
           }
         ]
       },
       {
+        "chargingPointId": 47,
+        "chargingPointCode": "SBE",
+        "mode": "ON_THE_FLY",
+        "socketList": [
+          {
+            "socketId": 149,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 150,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 151,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 152,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
         "chargingPointId": 48,
-        "chargingPointCode": "MTS",
+        "chargingPointCode": "IFN",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 153,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 154,
@@ -1043,7 +1057,7 @@
           {
             "socketId": 155,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 156,
@@ -1054,17 +1068,18 @@
       },
       {
         "chargingPointId": 49,
-        "chargingPointCode": "VZJ",
+        "chargingPointCode": "LRR",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 157,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 158,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 159,
@@ -1081,16 +1096,11 @@
     ]
   },
   {
-    "chargingStationId": 5,
-    "name": "BeCharge",
-    "address": "Via Benigno Crespi, 52",
-    "city": "Milan",
-    "latitude": 45.502680,
-    "longitude": 9.185120,
     "chargingPointList": [
       {
         "chargingPointId": 50,
-        "chargingPointCode": "SSC",
+        "chargingPointCode": "VNZ",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 161,
@@ -1100,38 +1110,39 @@
           {
             "socketId": 162,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 163,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 164,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 51,
-        "chargingPointCode": "ZJI",
+        "chargingPointCode": "DHN",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 165,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 166,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 167,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 168,
@@ -1142,17 +1153,18 @@
       },
       {
         "chargingPointId": 52,
-        "chargingPointCode": "LFZ",
+        "chargingPointCode": "DUR",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 169,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 170,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 171,
@@ -1162,13 +1174,14 @@
           {
             "socketId": 172,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 53,
-        "chargingPointCode": "MEQ",
+        "chargingPointCode": "S0D",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 173,
@@ -1178,23 +1191,24 @@
           {
             "socketId": 174,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 175,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 176,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 54,
-        "chargingPointCode": "PRP",
+        "chargingPointCode": "RVE",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 177,
@@ -1204,28 +1218,29 @@
           {
             "socketId": 178,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 179,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 180,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 55,
-        "chargingPointCode": "DEG",
+        "chargingPointCode": "UCM",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 181,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 182,
@@ -1235,18 +1250,19 @@
           {
             "socketId": 183,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 184,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 56,
-        "chargingPointCode": "MZ0",
+        "chargingPointCode": "GSS",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 185,
@@ -1256,12 +1272,12 @@
           {
             "socketId": 186,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 187,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 188,
@@ -1272,12 +1288,13 @@
       },
       {
         "chargingPointId": 57,
-        "chargingPointCode": "PTP",
+        "chargingPointCode": "RBB",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 189,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 190,
@@ -1287,44 +1304,46 @@
           {
             "socketId": 191,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 192,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 58,
-        "chargingPointCode": "VQD",
+        "chargingPointCode": "KVM",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 193,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 194,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 195,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 196,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 59,
-        "chargingPointCode": "PFA",
+        "chargingPointCode": "IRC",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 197,
@@ -1351,16 +1370,11 @@
     ]
   },
   {
-    "chargingStationId": 6,
-    "name": "Garage Velasca Tesla",
-    "address": "Via Pantano, 4",
-    "city": "Milan",
-    "latitude": 45.459921,
-    "longitude": 9.191376,
     "chargingPointList": [
       {
         "chargingPointId": 60,
-        "chargingPointCode": "MKK",
+        "chargingPointCode": "NSZ",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 201,
@@ -1370,12 +1384,12 @@
           {
             "socketId": 202,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 203,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 204,
@@ -1386,7 +1400,8 @@
       },
       {
         "chargingPointId": 61,
-        "chargingPointCode": "MIG",
+        "chargingPointCode": "CTZ",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 205,
@@ -1396,59 +1411,61 @@
           {
             "socketId": 206,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 207,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 208,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 62,
-        "chargingPointCode": "DJT",
+        "chargingPointCode": "FJB",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 209,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 210,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 211,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 212,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 63,
-        "chargingPointCode": "PGR",
+        "chargingPointCode": "NDR",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 213,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 214,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 215,
@@ -1464,17 +1481,18 @@
       },
       {
         "chargingPointId": 64,
-        "chargingPointCode": "KQE",
+        "chargingPointCode": "PIK",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 217,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 218,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 219,
@@ -1490,59 +1508,62 @@
       },
       {
         "chargingPointId": 65,
-        "chargingPointCode": "ZKQ",
+        "chargingPointCode": "SQZ",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 221,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 222,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 223,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 224,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 66,
-        "chargingPointCode": "EG0",
+        "chargingPointCode": "F00",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 225,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 226,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 227,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 228,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 67,
-        "chargingPointCode": "B0M",
+        "chargingPointCode": "BRZ",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 229,
@@ -1552,28 +1573,29 @@
           {
             "socketId": 230,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 231,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 232,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 68,
-        "chargingPointCode": "HME",
+        "chargingPointCode": "EED",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 233,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 234,
@@ -1594,7 +1616,8 @@
       },
       {
         "chargingPointId": 69,
-        "chargingPointCode": "GSK",
+        "chargingPointCode": "RZS",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 237,
@@ -1621,16 +1644,11 @@
     ]
   },
   {
-    "chargingStationId": 7,
-    "name": "Residence Zenale",
-    "address": "Via Bernardino Zenale, 3",
-    "city": "Milan",
-    "latitude": 45.465192,
-    "longitude": 9.170359,
     "chargingPointList": [
       {
         "chargingPointId": 70,
-        "chargingPointCode": "MUI",
+        "chargingPointCode": "ASM",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 241,
@@ -1645,49 +1663,51 @@
           {
             "socketId": 243,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 244,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 71,
-        "chargingPointCode": "QGU",
+        "chargingPointCode": "CFV",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 245,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 246,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 247,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 248,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 72,
-        "chargingPointCode": "ELL",
+        "chargingPointCode": "USS",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 249,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 250,
@@ -1697,28 +1717,29 @@
           {
             "socketId": 251,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 252,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 73,
-        "chargingPointCode": "AUL",
+        "chargingPointCode": "PII",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 253,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 254,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 255,
@@ -1728,18 +1749,19 @@
           {
             "socketId": 256,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 74,
-        "chargingPointCode": "AK0",
+        "chargingPointCode": "LMZ",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 257,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 258,
@@ -1749,44 +1771,46 @@
           {
             "socketId": 259,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 260,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 75,
-        "chargingPointCode": "0FJ",
+        "chargingPointCode": "JUU",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 261,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 262,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 263,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 264,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 76,
-        "chargingPointCode": "TKD",
+        "chargingPointCode": "GI0",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 265,
@@ -1801,44 +1825,46 @@
           {
             "socketId": 267,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 268,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 77,
-        "chargingPointCode": "GLP",
+        "chargingPointCode": "RRH",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 269,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 270,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 271,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 272,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 78,
-        "chargingPointCode": "VIC",
+        "chargingPointCode": "CUB",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 273,
@@ -1848,12 +1874,12 @@
           {
             "socketId": 274,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 275,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 276,
@@ -1864,17 +1890,18 @@
       },
       {
         "chargingPointId": 79,
-        "chargingPointCode": "GNR",
+        "chargingPointCode": "ZRJ",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 277,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 278,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 279,
@@ -1884,64 +1911,60 @@
           {
             "socketId": 280,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       }
     ]
   },
   {
-    "chargingStationId": 8,
-    "name": "TheF Charging",
-    "address": "Via Sangallos, 33",
-    "city": "Milan",
-    "latitude": 45.470836,
-    "longitude": 9.229063,
     "chargingPointList": [
       {
         "chargingPointId": 80,
-        "chargingPointCode": "VVT",
+        "chargingPointCode": "0HP",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 281,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 282,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 283,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 284,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 81,
-        "chargingPointCode": "CMP",
+        "chargingPointCode": "J0S",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 285,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 286,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 287,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 288,
@@ -1952,7 +1975,8 @@
       },
       {
         "chargingPointId": 82,
-        "chargingPointCode": "IAI",
+        "chargingPointCode": "EAP",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 289,
@@ -1962,7 +1986,7 @@
           {
             "socketId": 290,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 291,
@@ -1978,17 +2002,18 @@
       },
       {
         "chargingPointId": 83,
-        "chargingPointCode": "GVC",
+        "chargingPointCode": "HZL",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 293,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 294,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 295,
@@ -1998,13 +2023,14 @@
           {
             "socketId": 296,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 84,
-        "chargingPointCode": "MRS",
+        "chargingPointCode": "EMM",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 297,
@@ -2014,7 +2040,7 @@
           {
             "socketId": 298,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 299,
@@ -2024,28 +2050,29 @@
           {
             "socketId": 300,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 85,
-        "chargingPointCode": "LAQ",
+        "chargingPointCode": "KFQ",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 301,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 302,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 303,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 304,
@@ -2056,7 +2083,8 @@
       },
       {
         "chargingPointId": 86,
-        "chargingPointCode": "CTR",
+        "chargingPointCode": "LA0",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 305,
@@ -2082,7 +2110,8 @@
       },
       {
         "chargingPointId": 87,
-        "chargingPointCode": "SHL",
+        "chargingPointCode": "ZAL",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 309,
@@ -2092,28 +2121,29 @@
           {
             "socketId": 310,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 311,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 312,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 88,
-        "chargingPointCode": "VBD",
+        "chargingPointCode": "JHL",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 313,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 314,
@@ -2123,7 +2153,7 @@
           {
             "socketId": 315,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 316,
@@ -2134,53 +2164,49 @@
       },
       {
         "chargingPointId": 89,
-        "chargingPointCode": "HIL",
+        "chargingPointCode": "ZHR",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 317,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 318,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 319,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 320,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       }
     ]
   },
   {
-    "chargingStationId": 9,
-    "name": "Valparaiso Parking",
-    "address": "Via Giambellino, 31",
-    "city": "Milan",
-    "latitude": 45.450505,
-    "longitude": 9.149643,
     "chargingPointList": [
       {
         "chargingPointId": 90,
-        "chargingPointCode": "JAP",
+        "chargingPointCode": "DQI",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 321,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 322,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 323,
@@ -2190,18 +2216,19 @@
           {
             "socketId": 324,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 91,
-        "chargingPointCode": "INF",
+        "chargingPointCode": "NBJ",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 325,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 326,
@@ -2216,13 +2243,14 @@
           {
             "socketId": 328,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 92,
-        "chargingPointCode": "KS0",
+        "chargingPointCode": "FDS",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 329,
@@ -2232,7 +2260,7 @@
           {
             "socketId": 330,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 331,
@@ -2242,13 +2270,14 @@
           {
             "socketId": 332,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 93,
-        "chargingPointCode": "FBC",
+        "chargingPointCode": "IRM",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 333,
@@ -2258,38 +2287,39 @@
           {
             "socketId": 334,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 335,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 336,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "SLOW"
           }
         ]
       },
       {
         "chargingPointId": 94,
-        "chargingPointCode": "IEN",
+        "chargingPointCode": "IUP",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 337,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 338,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 339,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 340,
@@ -2300,7 +2330,8 @@
       },
       {
         "chargingPointId": 95,
-        "chargingPointCode": "JAR",
+        "chargingPointCode": "TRV",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 341,
@@ -2310,7 +2341,7 @@
           {
             "socketId": 342,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 343,
@@ -2320,18 +2351,19 @@
           {
             "socketId": 344,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 96,
-        "chargingPointCode": "DNH",
+        "chargingPointCode": "ZLT",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 345,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 346,
@@ -2341,7 +2373,7 @@
           {
             "socketId": 347,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 348,
@@ -2352,17 +2384,18 @@
       },
       {
         "chargingPointId": 97,
-        "chargingPointCode": "KTK",
+        "chargingPointCode": "FUV",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 349,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 350,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 351,
@@ -2378,17 +2411,18 @@
       },
       {
         "chargingPointId": 98,
-        "chargingPointCode": "FKD",
+        "chargingPointCode": "RBM",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 353,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 354,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 355,
@@ -2398,28 +2432,29 @@
           {
             "socketId": 356,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 99,
-        "chargingPointCode": "HHV",
+        "chargingPointCode": "VMB",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 357,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 358,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 359,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 360,
@@ -2431,16 +2466,11 @@
     ]
   },
   {
-    "chargingStationId": 10,
-    "name": "Garage Giangaleazzo Srl",
-    "address": "Piazza Leonardo da Vinci",
-    "city": "Milan",
-    "latitude": 45.479232,
-    "longitude": 9.225844,
     "chargingPointList": [
       {
         "chargingPointId": 100,
-        "chargingPointCode": "UIH",
+        "chargingPointCode": "0PI",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 361,
@@ -2450,12 +2480,12 @@
           {
             "socketId": 362,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 363,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 364,
@@ -2466,12 +2496,13 @@
       },
       {
         "chargingPointId": 101,
-        "chargingPointCode": "URD",
+        "chargingPointCode": "TLD",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 365,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 366,
@@ -2492,48 +2523,50 @@
       },
       {
         "chargingPointId": 102,
-        "chargingPointCode": "UF0",
+        "chargingPointCode": "CDB",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 369,
             "socketCode": 1,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 370,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 371,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 372,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 103,
-        "chargingPointCode": "PUD",
+        "chargingPointCode": "B0M",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 373,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 374,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 375,
             "socketCode": 3,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 376,
@@ -2544,43 +2577,45 @@
       },
       {
         "chargingPointId": 104,
-        "chargingPointCode": "0V0",
+        "chargingPointCode": "U0Q",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 377,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 378,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 379,
             "socketCode": 3,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 380,
             "socketCode": 4,
-            "type": "FAST"
+            "type": "RAPID"
           }
         ]
       },
       {
         "chargingPointId": 105,
-        "chargingPointCode": "CDE",
+        "chargingPointCode": "SAR",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 381,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 382,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "SLOW"
           },
           {
             "socketId": 383,
@@ -2596,33 +2631,35 @@
       },
       {
         "chargingPointId": 106,
-        "chargingPointCode": "EQH",
+        "chargingPointCode": "KCF",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 385,
             "socketCode": 1,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 386,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "FAST"
           },
           {
             "socketId": 387,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 388,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 107,
-        "chargingPointCode": "DTA",
+        "chargingPointCode": "PHG",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 389,
@@ -2632,7 +2669,7 @@
           {
             "socketId": 390,
             "socketCode": 2,
-            "type": "RAPID"
+            "type": "FAST"
           },
           {
             "socketId": 391,
@@ -2642,23 +2679,24 @@
           {
             "socketId": 392,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 108,
-        "chargingPointCode": "TVU",
+        "chargingPointCode": "JGG",
+        "mode": "ON_THE_FLY",
         "socketList": [
           {
             "socketId": 393,
             "socketCode": 1,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 394,
             "socketCode": 2,
-            "type": "SLOW"
+            "type": "RAPID"
           },
           {
             "socketId": 395,
@@ -2668,13 +2706,14 @@
           {
             "socketId": 396,
             "socketCode": 4,
-            "type": "SLOW"
+            "type": "FAST"
           }
         ]
       },
       {
         "chargingPointId": 109,
-        "chargingPointCode": "DKK",
+        "chargingPointCode": "KJS",
+        "mode": "IN_ADVANCE",
         "socketList": [
           {
             "socketId": 397,
@@ -2684,20 +2723,16 @@
           {
             "socketId": 398,
             "socketCode": 2,
-            "type": "FAST"
+            "type": "RAPID"
           },
           {
             "socketId": 399,
             "socketCode": 3,
-            "type": "RAPID"
+            "type": "SLOW"
           },
           {
             "socketId": 400,
             "socketCode": 4,
-            "type": "RAPID"
+            "type": "FAST"
           }
         ]
-      }
-    ]
-  }
-]
