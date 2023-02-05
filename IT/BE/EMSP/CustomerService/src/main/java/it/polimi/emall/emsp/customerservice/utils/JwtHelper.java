@@ -27,7 +27,7 @@ public class JwtHelper {
         return JWT.create()
                 .withClaim("key", key)
                 .withClaim("customerId", customerId)
-                .withExpiresAt(Instant.now().plus(2, ChronoUnit.CENTURIES))
+                .withExpiresAt(Instant.now().plus(2, ChronoUnit.YEARS))
                 .sign(Algorithm.HMAC256(secret));
     }
 
