@@ -1,0 +1,28 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .title {
+    font-size: 35px;
+    font-weight: 600;
+  }
+
+  .headerCell {
+    font-size: 15.5px;
+  }
+
+  .row {
+    cursor: pointer;
+
+    &:link, &:visited, &:hover, &:focus, &:active {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .cell {
+      padding: 12px 16px;
+      font-size: 15px;
+    }
+  }
+}
+

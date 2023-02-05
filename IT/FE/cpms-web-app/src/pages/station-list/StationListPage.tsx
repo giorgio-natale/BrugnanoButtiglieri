@@ -3,8 +3,15 @@ import {chargingStationListQuery, pricingListQuery} from "./StationListApi";
 import {ChargingStation, Pricing} from "../../generated";
 import React from "react";
 import {WebRoutes} from "../../router/WebRoutes";
-import {Button} from "@themesberg/react-bootstrap";
+import {Table} from "@themesberg/react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import styles from "./StationListPage.module.scss";
+
+const getSymbolForCurrency = (currency: string) => ({"EUR": "€", "USD": "$"})[currency];
+
+export function formatNumberToTwoDecimals(num: number): string {
+  return Math.round(((num * 1000) / 10) / 100).toFixed(2);
+}
 
 export function StationListPage() {
   const navigate = useNavigate();
@@ -22,20 +29,47 @@ export function StationListPage() {
       }
     });
 
-    console.log(chargingStationList)
-
     return (
-      <div>
-        STATION LIST PAGE
-        <div>
-          {chargingStationList.map(s => (
-            <Button
-              key={s.chargingStationId}
-              onClick={() => navigate(WebRoutes.Stations.Detail.buildPath(s.chargingStationId))}>
-              {s.name}
-            </Button>
-          ))}
+      <div className={styles.pageContainer}>
+        <div className={styles.title}>
+          Charging station list
         </div>
+        <Table>
+          <thead style={{backgroundColor: "rgba(1,170,232,0.69)"}}>
+          <tr>
+            <th className={styles.headerCell}>Charging station</th>
+            <th className={styles.headerCell}>Address</th>
+            <th className={styles.headerCell}>City</th>
+            <th className={styles.headerCell}>Current price</th>
+            <th className={styles.headerCell}>Current offer</th>
+          </tr>
+          </thead>
+          <tbody style={{backgroundColor: "#FFF"}}>
+          {chargingStationList.map(s => (
+            <tr
+              key={s.chargingStationId}
+              onClick={() => navigate(WebRoutes.Stations.Detail.buildPath(s.chargingStationId))}
+              className={styles.row}
+            >
+              <td className={styles.cell}>
+                <span>{s.name}</span>
+              </td>
+              <td className={styles.cell}>
+                <span>{s.address}</span>
+              </td>
+              <td className={styles.cell}>
+                <span>{s.city}</span>
+              </td>
+              <td className={styles.cell}>
+                <span>{`${getSymbolForCurrency(s.price.currency)} ${formatNumberToTwoDecimals(s.price.amount)}`}</span>
+              </td>
+              <td className={styles.cell}>
+                <span>{`${s.percentageOffer * 100}%`}</span>
+              </td>
+            </tr>
+          ))}
+          </tbody>
+        </Table>
       </div>
     );
   } else {

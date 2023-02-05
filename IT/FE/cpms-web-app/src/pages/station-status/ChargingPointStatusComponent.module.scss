@@ -1,0 +1,62 @@
+.card {
+  width: 410px;
+
+  .header {
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .body {
+    padding: 10px 20px;
+
+    .listGroup {
+
+      .listItem {
+        padding: 7px 14px;
+        border-bottom: solid 1px rgba(46, 54, 80, 0.125);
+
+        .row {
+          display: flex;
+          flex-direction: row;
+          gap: 20px;
+          align-items: center;
+
+          .socketCode {
+            font-weight: 800;
+            font-size: 18px;
+          }
+
+          .column {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+
+            .label {
+              font-size: 16px;
+            }
+          }
+
+          .available {
+            font-size: 16px;
+          }
+
+          .socketType {
+            font-size: 14px;
+            border-radius: 7px;
+            padding: 1px 5px;
+            margin-left: auto;
+            font-weight: 700;
+            background-color: rgba(1, 170, 232, 0.8);
+          }
+
+        }
+      }
+
+      .listItem:nth-last-child(1) {
+        border: none
+      }
+    }
+  }
+}

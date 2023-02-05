@@ -9,8 +9,8 @@ export const ErrorPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="page-centered">
-      <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+    <div className={styles.container}>
+      <div className={styles.innerContainer}>
         <h1 className="mt-5">
           An <span style={{color: "red", fontSize: "inherit", fontWeight: "bold"}}>error</span> occured
         </h1>
@@ -18,15 +18,15 @@ export const ErrorPage = () => {
           Oops! Apparently something went wrong.
         </p>
         <Button
-          className="stdButton mt-4"
+          variant="primary"
           onClick={() => navigate(WebRoutes.Stations.List.buildPath())}
         >
           Go to the Charging Station list page
         </Button>
         <div className={styles.setupRow}>
-          <div className={styles.text}> or</div>
+          <div>or</div>
           <Button
-            className={styles.secondaryBtn}
+            variant="outline-primary"
             onClick={() => {
               clearAuthInfo();
               navigate(WebRoutes.Login.buildPath());

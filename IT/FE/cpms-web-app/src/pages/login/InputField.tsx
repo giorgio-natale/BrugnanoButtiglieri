@@ -33,6 +33,7 @@ export const InputField = (props: Props) => {
         </Form.Label>
       <Form.Control
         className="input"
+        placeholder={placeholder}
         {...otherProps}
         {...field}
         isValid={showValid && meta.error === undefined && meta.touched}

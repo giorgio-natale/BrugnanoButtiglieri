@@ -6,10 +6,16 @@ import {AvailabilityOverview, ChargingPoint, ChargingStation, SocketForDashboard
 import {chargingStationStatusQuery} from "./StationStatusApi";
 import {Button} from "@themesberg/react-bootstrap";
 import {WebRoutes} from "../../router/WebRoutes";
+import styles from "./StationStatusPage.module.scss";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faLocationDot} from "@fortawesome/free-solid-svg-icons/faLocationDot";
+import {ChargingPointStatusComponent} from "./ChargingPointStatusComponent";
+import {CircularProgressbar} from "react-circular-progressbar";
+import 'react-circular-progressbar/dist/styles.css';
 
-type SocketStatusDetail = SocketForDashboard & { type: SocketType };
-type ChargingPointStatusDetail = Omit<ChargingPoint, "socketList"> & { socketList: Array<SocketStatusDetail> };
-type StationStatusDetail =
+export type SocketStatusDetail = SocketForDashboard & { type: SocketType };
+export type ChargingPointStatusDetail = Omit<ChargingPoint, "socketList"> & { socketList: Array<SocketStatusDetail> };
+export type StationStatusDetail =
   Omit<ChargingStation, "chargingPointList"> &
   { overview: AvailabilityOverview } &
   { chargingPointList: Array<ChargingPointStatusDetail> };
@@ -43,14 +49,82 @@ export function StationStatusPage() {
       }))
     };
 
-    console.log(station)
-
     return (
-      <div>
-        STATION STATUS PAGE
-        <Button onClick={() => navigate(WebRoutes.Stations.List.buildPath())}>
-          Go back to station list page
-        </Button>
+      <div className={styles.pageContainer}>
+        <div className={styles.header}>
+          <div className={styles.leftHeader}>
+            <Button variant="outline-primary" onClick={() => navigate(WebRoutes.Stations.List.buildPath())}>
+              Go back to station list page
+            </Button>
+            <div className={styles.title}>
+              <div className={styles.name}>
+                {station.name}
+              </div>
+              <div className={styles.address}>
+                <FontAwesomeIcon icon={faLocationDot} size="sm" style={{marginRight: "10px"}}/>
+                {station.address} - {station.city}
+              </div>
+            </div>
+          </div>
+          <div className={styles.rightHeader}>
+            <div className={styles.graphComponent}>
+              <div className={styles.graphSocketType}>
+                SLOW SOCKETS
+              </div>
+              <div className={styles.graphContainer}>
+                <SocketOccupationProgressBar
+                  key={"slow-socket-graph"}
+                  availableSocketNumber={station.overview.slow.availableSocketNumber}
+                  totalSocketNumber={station.overview.slow.totalSocketNumber}/>
+              </div>
+              <div className={styles.socketMinutesLeft}>
+                - {station.overview.slow.nearestExpectedMinutesLeft}' to free a socket
+              </div>
+            </div>
+            <div className={styles.graphComponent}>
+              <div className={styles.graphSocketType}>
+                FAST SOCKETS
+              </div>
+              <div className={styles.graphContainer}>
+                <SocketOccupationProgressBar
+                  key={"fast-socket-graph"}
+                  availableSocketNumber={station.overview.fast.availableSocketNumber}
+                  totalSocketNumber={station.overview.fast.totalSocketNumber}/>
+              </div>
+              <div className={styles.socketMinutesLeft}>
+                - {station.overview.fast.nearestExpectedMinutesLeft}' to free a socket
+              </div>
+            </div>
+            <div className={styles.graphComponent}>
+              <div className={styles.graphSocketType}>
+                RAPID SOCKETS
+              </div>
+              <div className={styles.graphContainer}>
+                <SocketOccupationProgressBar
+                key={"rapid-socket-graph"}
+                availableSocketNumber={station.overview.rapid.availableSocketNumber}
+                totalSocketNumber={station.overview.rapid.totalSocketNumber}/>
+            </div>
+              <div className={styles.socketMinutesLeft}>
+                - {station.overview.rapid.nearestExpectedMinutesLeft}' to free a socket
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.subtitle}>
+          Charging points in advance
+        </div>
+        <div className={styles.horizontalFlex}>
+          {station.chargingPointList.filter(cp => cp.mode === "IN_ADVANCE").map(cp => (
+            <ChargingPointStatusComponent chargingPoint={cp} key={cp.chargingPointId}/>
+          ))}
+        </div>
+        <div className={styles.subtitle}>
+          Charging points on the fly
+        </div>
+        {station.chargingPointList.filter(cp => cp.mode === "ON_THE_FLY").map(cp => (
+          <ChargingPointStatusComponent chargingPoint={cp} key={cp.chargingPointId}/>
+        ))}
       </div>
     );
   } else {
@@ -60,3 +134,13 @@ export function StationStatusPage() {
     );
   }
 }
+
+function SocketOccupationProgressBar({availableSocketNumber, totalSocketNumber}) {
+  return <CircularProgressbar
+    value={totalSocketNumber - availableSocketNumber}
+    minValue={0}
+    maxValue={totalSocketNumber}
+    text={`${Math.trunc((totalSocketNumber - availableSocketNumber)/totalSocketNumber*100)}%`}
+  />
+}
+

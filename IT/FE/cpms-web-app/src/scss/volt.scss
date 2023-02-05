@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800&display=swap');
+
+// Bootstrap mixins and functions
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/functions";
+
+// Change variables here
+@import "volt/variables";
+
+// Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+// Vendor
+@import "volt/vendor";
+
+// volt mixins & functions
+@import "volt/mixins";
+@import "volt/functions";
+
+// Utilities
+@import "volt/reboot";
+@import "volt/utilities";
+
+// Layout
+@import "volt/layout";
+
+// Components
+@import "volt/components";
+
+//@import "~react-dates/lib/css/_datepicker.css";
+div.SingleDatePicker_picker, div.DateRangePicker_picker {
+  position: sticky;
+}
+
+// Rotate chartist labels
+svg.ct-chart-bar, svg.ct-chart-line{
+  overflow: visible;
+}
+.ct-label.ct-label.ct-horizontal.ct-end {
+  position: relative;
+  justify-content: flex-end;
+  text-align: right;
+  transform-origin: 100% 0;
+  transform: translate(-100%) rotate(-45deg);
+  white-space:nowrap;
+}
+
+// Chartist colors
+$kpiColors:
+        #143C8C #019875 #F15A22 #A537FD
+        #F6C85F #CA472F #8DDDD0 #6F4E7C
+        #CCCCCC;
+@for $i from 1 through length($kpiColors) {
+  .kpi-#{$i} path, .kpi-#{$i} line {
+    stroke: nth($kpiColors, $i) !important;
+  }
+}

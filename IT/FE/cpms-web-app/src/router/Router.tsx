@@ -1,5 +1,5 @@
-import {createBrowserRouter, createRoutesFromElements, Route} from "react-router-dom";
-import React from "react";
+import {createBrowserRouter, createRoutesFromElements, Route, useNavigate} from "react-router-dom";
+import React, {useEffect} from "react";
 import {WebRoutes} from "./WebRoutes";
 import {QueryClient} from "@tanstack/react-query";
 import {cachedOrFetchedDataLoader} from "../api/PageDataLoaders";
@@ -13,6 +13,7 @@ import {chargingStationStatusQuery} from "../pages/station-status/StationStatusA
 
 export const getRouter = ({queryClient}: { queryClient: QueryClient }) => createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<PageRoot/>} errorElement={<ErrorPage/>}>
+    <Route index element={<Redirect url={WebRoutes.Stations.List.buildPath()}/>}/>
     <Route path={WebRoutes.Login.pathSchema} element={<LoginPage/>}/>
     <Route
       path={WebRoutes.Stations.List.pathSchema}
@@ -32,3 +33,13 @@ export const getRouter = ({queryClient}: { queryClient: QueryClient }) => create
     />
   </Route>
 ));
+
+function Redirect({url}) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(url);
+  }, []);
+
+  return (<></>);
+}
