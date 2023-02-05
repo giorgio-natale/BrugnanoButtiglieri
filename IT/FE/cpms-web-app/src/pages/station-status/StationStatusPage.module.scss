@@ -13,7 +13,9 @@
     .leftHeader {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 5px;
+      align-items: flex-start;
+      justify-content: flex-start;
     }
 
     .rightHeader {
@@ -39,8 +41,8 @@
         }
 
         .graphContainer {
-          width: 100px;
-          height: 100px;
+          width: 110px;
+          height: 110px;
         }
       }
 
@@ -73,5 +75,19 @@
     gap: 40px;
     flex-wrap: wrap;
     margin-bottom: 20px;
+  }
+}
+
+.progressBarTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: center;
+
+  .number {
+    font-size: 25px;
+    font-weight: bolder;
+    color: rgba(1, 170, 232, 0.8);
+    line-height: 0.6;
   }
 }

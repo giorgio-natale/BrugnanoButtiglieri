@@ -15,8 +15,6 @@ export const PageRoot = () => {
 
   useEffect(() => {
     if (!getAuthInfo().token)
-    //   navigate(WebRoutes.Stations.List.buildPath());
-    // else
       navigate(WebRoutes.Login.buildPath());
   }, [])
 
