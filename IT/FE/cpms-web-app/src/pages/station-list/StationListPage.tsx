@@ -9,10 +9,6 @@ import styles from "./StationListPage.module.scss";
 
 const getSymbolForCurrency = (currency: string) => ({"EUR": "€", "USD": "$"})[currency];
 
-export function formatNumberToTwoDecimals(num: number): string {
-  return Math.round(((num * 1000) / 10) / 100).toFixed(2);
-}
-
 export function StationListPage() {
   const navigate = useNavigate();
 
@@ -61,10 +57,10 @@ export function StationListPage() {
                 <span>{s.city}</span>
               </td>
               <td className={styles.cell}>
-                <span>{`${getSymbolForCurrency(s.price.currency)} ${formatNumberToTwoDecimals(s.price.amount)}`}</span>
+                <span>{`${getSymbolForCurrency(s.price.currency)} ${(s.price.amount).toFixed(2)}`}</span>
               </td>
               <td className={styles.cell}>
-                <span>{`${s.percentageOffer * 100}%`}</span>
+                <span>{s.percentageOffer > 0 ? `${s.percentageOffer * 100}%` : "-"}</span>
               </td>
             </tr>
           ))}

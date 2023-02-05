@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useContext, useEffect, useState} from 'react';
-import {Platform, StyleSheet, View} from "react-native";
+import {Platform, ScrollView, StyleSheet, View} from "react-native";
 import {BookChargeTabScreenProps} from "../../navigation/types";
 import {ActivityIndicator, Button, List, SegmentedButtons, Text, Text as TextPaper} from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -71,7 +71,7 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
       }}
     >
       {({handleChange, handleSubmit, values, setFieldValue, resetForm}) => (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <List.Item
             title={status === "success" ? data.name : ""}
             description={status === "success" ? `${data.address} - ${data.city}` : ""}
@@ -175,7 +175,7 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
               ]}
             />
           </View>
-          <View style={{marginTop: "auto", marginBottom: 20, width: "100%", height: 45}} pointerEvents={"box-none"}>
+          <View style={{marginTop: 20, marginBottom: 20, width: "100%", height: 45}} pointerEvents={"box-none"}>
             <View style={styles.submitBtn} pointerEvents={"none"}>
               <Text>Submit booking</Text>
               {postBookingMutation.isLoading &&
@@ -191,10 +191,15 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
             </Button>
           </View>
           <View
-            style={{alignItems: "flex-start", justifyContent: "center", height: 40, paddingLeft: 10, paddingRight: 10}}>
+            style={{alignItems: "flex-start", justifyContent: "center", height: 40, paddingLeft: 10, paddingRight: 10, marginBottom: 10}}>
             {(postBookingMutation.isError && canShowError) &&
               <Text style={{color: "#F00"}}>
-                Oops, an error occurred in the booking procedure. Please change your preferences and retry
+                {/*@ts-ignore*/}
+                {postBookingMutation.error.message === "Not Found" ?
+                  "Oops, this timeframe is already occupied. Please change your preferences and retry"
+                  :
+                  "Oops, an error occurred in the booking procedure"
+                }
               </Text>
             }
           </View>
@@ -208,7 +213,7 @@ export function BookInAdvanceScreen(props: BookChargeTabScreenProps<"BookInAdvan
             }}
             values={values}
           />
-        </View>
+        </ScrollView>
       )
       }
     </Formik>

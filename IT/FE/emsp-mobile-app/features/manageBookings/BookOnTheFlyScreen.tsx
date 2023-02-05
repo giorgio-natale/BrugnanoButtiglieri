@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useContext, useState} from 'react';
-import {StyleSheet, View} from "react-native";
+import {ScrollView, StyleSheet, View} from "react-native";
 import {BookChargeTabScreenProps} from "../../navigation/types";
 import {ActivityIndicator, Button, List, RadioButton, Text} from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -62,7 +62,7 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
       }}
     >
       {({handleSubmit, values, setFieldValue, resetForm}) => (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <List.Item
             title={status === "success" ? data.name : ""}
             description={status === "success" ? `${data.address} - ${data.city}` : ""}
@@ -94,7 +94,7 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
               />
             )
           })}
-          <View style={{marginTop: "auto", marginBottom: 20, width: "100%", height: 45}} pointerEvents={"box-none"}>
+          <View style={{marginTop: 20, marginBottom: 20, width: "100%", height: 45}} pointerEvents={"box-none"}>
             <View style={styles.submitBtn} pointerEvents={"none"}>
               <Text>Submit booking</Text>
               {postBookingMutation.isLoading &&
@@ -110,10 +110,15 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
             </Button>
           </View>
           <View
-            style={{alignItems: "flex-start", justifyContent: "center", height: 40, paddingLeft: 10, paddingRight: 10}}>
+            style={{alignItems: "flex-start", justifyContent: "center", height: 40, paddingLeft: 10, paddingRight: 10, marginBottom: 10}}>
             {(postBookingMutation.isError && canShowError) &&
               <Text style={{color: "#F00"}}>
-                Oops, an error occurred in the booking procedure. Please change your preferences and retry
+                {/*@ts-ignore*/}
+                {postBookingMutation.error.message === "Not Found" ?
+                  "Oops, this socket is already occupied. Please change your preferences and retry"
+                  :
+                  "Oops, an error occurred in the booking procedure"
+                }
               </Text>
             }
           </View>
@@ -127,7 +132,7 @@ export function BookOnTheFlyScreen(props: BookChargeTabScreenProps<"BookOnTheFly
             }}
             values={values}
           />
-        </View>
+        </ScrollView>
       )}
     </Formik>
   );
