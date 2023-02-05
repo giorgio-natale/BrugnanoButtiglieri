@@ -3,17 +3,80 @@
     "chargingStationId": 1,
     "price": {
       "currency": "EUR",
-      "amount": 1
+      "amount": 0.70
     },
     "percentageOffer": 0.1
   },
-
   {
     "chargingStationId": 2,
     "price": {
       "currency": "EUR",
-      "amount": 2
+      "amount": 0.75
+    },
+    "percentageOffer": 0
+  },
+  {
+    "chargingStationId": 3,
+    "price": {
+      "currency": "EUR",
+      "amount": 1.10
+    },
+    "percentageOffer": 0.15
+  },
+  {
+    "chargingStationId": 4,
+    "price": {
+      "currency": "EUR",
+      "amount": 1.25
+    },
+    "percentageOffer": 0.2
+  },
+  {
+    "chargingStationId": 5,
+    "price": {
+      "currency": "EUR",
+      "amount": 0.96
+    },
+    "percentageOffer": 0.3
+  },
+  {
+    "chargingStationId": 6,
+    "price": {
+      "currency": "EUR",
+      "amount": 1.35
+    },
+    "percentageOffer": 0.05
+  },
+  {
+    "chargingStationId": 7,
+    "price": {
+      "currency": "EUR",
+      "amount": 0.85
+    },
+    "percentageOffer": 0.0
+  },
+  {
+    "chargingStationId": 8,
+    "price": {
+      "currency": "EUR",
+      "amount": 0.75
+    },
+    "percentageOffer": 0.0
+  },
+  {
+    "chargingStationId": 9,
+    "price": {
+      "currency": "EUR",
+      "amount": 0.81
     },
     "percentageOffer": 0.1
+  },
+  {
+    "chargingStationId": 10,
+    "price": {
+      "currency": "EUR",
+      "amount": 0.95
+    },
+    "percentageOffer": 0.15
   }
 ]

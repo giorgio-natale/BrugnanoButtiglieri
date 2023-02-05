@@ -8,100 +8,2692 @@
     "longitude": 9.202887,
     "chargingPointList": [
       {
-        "chargingPointId": 1,
-        "chargingPointCode": "A",
-        "mode": "IN_ADVANCE",
+        "chargingPointId": 10,
+        "chargingPointCode": "VGU",
         "socketList": [
           {
             "socketId": 1,
-            "socketCode": "1",
-            "type": "SLOW"
+            "socketCode": 1,
+            "type": "RAPID"
           },
           {
             "socketId": 2,
-            "socketCode": "2",
-            "type": "FAST"
+            "socketCode": 2,
+            "type": "RAPID"
           },
           {
             "socketId": 3,
-            "socketCode": "3",
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 4,
+            "socketCode": 4,
             "type": "RAPID"
           }
         ]
       },
       {
-        "chargingPointId": 2,
-        "chargingPointCode": "B",
-        "mode": "ON_THE_FLY",
+        "chargingPointId": 11,
+        "chargingPointCode": "UEA",
         "socketList": [
           {
-            "socketId": 4,
-            "socketCode": "1",
-            "type": "SLOW"
-          },
-          {
             "socketId": 5,
-            "socketCode": "2",
+            "socketCode": 1,
             "type": "FAST"
           },
           {
             "socketId": 6,
-            "socketCode": "3",
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 7,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 8,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 12,
+        "chargingPointCode": "RNC",
+        "socketList": [
+          {
+            "socketId": 9,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 10,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 11,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 12,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 13,
+        "chargingPointCode": "KVP",
+        "socketList": [
+          {
+            "socketId": 13,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 14,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 15,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 16,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 14,
+        "chargingPointCode": "NNR",
+        "socketList": [
+          {
+            "socketId": 17,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 18,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 19,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 20,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 15,
+        "chargingPointCode": "RJG",
+        "socketList": [
+          {
+            "socketId": 21,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 22,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 23,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 24,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 16,
+        "chargingPointCode": "BMK",
+        "socketList": [
+          {
+            "socketId": 25,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 26,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 27,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 28,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 17,
+        "chargingPointCode": "KBG",
+        "socketList": [
+          {
+            "socketId": 29,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 30,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 31,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 32,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 18,
+        "chargingPointCode": "QEQ",
+        "socketList": [
+          {
+            "socketId": 33,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 34,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 35,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 36,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 19,
+        "chargingPointCode": "FHG",
+        "socketList": [
+          {
+            "socketId": 37,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 38,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 39,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 40,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "chargingStationId": 2,
+    "name": "Hotel Baviera Mokinba",
+    "address": "Via Panfilo Castaldi, 7",
+    "city": "Milan",
+    "latitude": 45.478310,
+    "longitude": 9.199730,
+    "chargingPointList": [
+      {
+        "chargingPointId": 20,
+        "chargingPointCode": "VTL",
+        "socketList": [
+          {
+            "socketId": 41,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 42,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 43,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 44,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 21,
+        "chargingPointCode": "DBE",
+        "socketList": [
+          {
+            "socketId": 45,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 46,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 47,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 48,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 22,
+        "chargingPointCode": "ZJL",
+        "socketList": [
+          {
+            "socketId": 49,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 50,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 51,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 52,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 23,
+        "chargingPointCode": "TNP",
+        "socketList": [
+          {
+            "socketId": 53,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 54,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 55,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 56,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 24,
+        "chargingPointCode": "0BJ",
+        "socketList": [
+          {
+            "socketId": 57,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 58,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 59,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 60,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 25,
+        "chargingPointCode": "ET0",
+        "socketList": [
+          {
+            "socketId": 61,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 62,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 63,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 64,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 26,
+        "chargingPointCode": "RJL",
+        "socketList": [
+          {
+            "socketId": 65,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 66,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 67,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 68,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 27,
+        "chargingPointCode": "NFE",
+        "socketList": [
+          {
+            "socketId": 69,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 70,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 71,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 72,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 28,
+        "chargingPointCode": "LBK",
+        "socketList": [
+          {
+            "socketId": 73,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 74,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 75,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 76,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 29,
+        "chargingPointCode": "BDD",
+        "socketList": [
+          {
+            "socketId": 77,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 78,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 79,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 80,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "chargingStationId": 3,
+    "name": "Garage Giangaleazzo Srl",
+    "address": "Via Giovanni Aurispa, 10",
+    "city": "Milan",
+    "latitude": 45.452990,
+    "longitude": 9.184320,
+    "chargingPointList": [
+      {
+        "chargingPointId": 30,
+        "chargingPointCode": "QR0",
+        "socketList": [
+          {
+            "socketId": 81,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 82,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 83,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 84,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 31,
+        "chargingPointCode": "LSV",
+        "socketList": [
+          {
+            "socketId": 85,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 86,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 87,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 88,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 32,
+        "chargingPointCode": "JMN",
+        "socketList": [
+          {
+            "socketId": 89,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 90,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 91,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 92,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 33,
+        "chargingPointCode": "VSM",
+        "socketList": [
+          {
+            "socketId": 93,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 94,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 95,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 96,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 34,
+        "chargingPointCode": "0IT",
+        "socketList": [
+          {
+            "socketId": 97,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 98,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 99,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 100,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 35,
+        "chargingPointCode": "AL0",
+        "socketList": [
+          {
+            "socketId": 101,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 102,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 103,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 104,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 36,
+        "chargingPointCode": "ZZJ",
+        "socketList": [
+          {
+            "socketId": 105,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 106,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 107,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 108,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 37,
+        "chargingPointCode": "PJC",
+        "socketList": [
+          {
+            "socketId": 109,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 110,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 111,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 112,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 38,
+        "chargingPointCode": "QSK",
+        "socketList": [
+          {
+            "socketId": 113,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 114,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 115,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 116,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 39,
+        "chargingPointCode": "HGF",
+        "socketList": [
+          {
+            "socketId": 117,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 118,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 119,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 120,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      }
+    ]
+
+  },
+  {
+    "chargingStationId": 4,
+    "name": "Go Station",
+    "address": "Via Milazzo, 1",
+    "city": "Milan",
+    "latitude": 45.606990,
+    "longitude": 9.522300,
+    "chargingPointList": [
+      {
+        "chargingPointId": 40,
+        "chargingPointCode": "RBH",
+        "socketList": [
+          {
+            "socketId": 121,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 122,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 123,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 124,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 41,
+        "chargingPointCode": "MPI",
+        "socketList": [
+          {
+            "socketId": 125,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 126,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 127,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 128,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 42,
+        "chargingPointCode": "JET",
+        "socketList": [
+          {
+            "socketId": 129,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 130,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 131,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 132,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 43,
+        "chargingPointCode": "PVG",
+        "socketList": [
+          {
+            "socketId": 133,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 134,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 135,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 136,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 44,
+        "chargingPointCode": "U0S",
+        "socketList": [
+          {
+            "socketId": 137,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 138,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 139,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 140,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 45,
+        "chargingPointCode": "AIN",
+        "socketList": [
+          {
+            "socketId": 141,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 142,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 143,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 144,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 46,
+        "chargingPointCode": "SJR",
+        "socketList": [
+          {
+            "socketId": 145,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 146,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 147,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 148,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 47,
+        "chargingPointCode": "AIR",
+        "socketList": [
+          {
+            "socketId": 149,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 150,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 151,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 152,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 48,
+        "chargingPointCode": "MTS",
+        "socketList": [
+          {
+            "socketId": 153,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 154,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 155,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 156,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 49,
+        "chargingPointCode": "VZJ",
+        "socketList": [
+          {
+            "socketId": 157,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 158,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 159,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 160,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "chargingStationId": 5,
+    "name": "BeCharge",
+    "address": "Via Benigno Crespi, 52",
+    "city": "Milan",
+    "latitude": 45.502680,
+    "longitude": 9.185120,
+    "chargingPointList": [
+      {
+        "chargingPointId": 50,
+        "chargingPointCode": "SSC",
+        "socketList": [
+          {
+            "socketId": 161,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 162,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 163,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 164,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 51,
+        "chargingPointCode": "ZJI",
+        "socketList": [
+          {
+            "socketId": 165,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 166,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 167,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 168,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 52,
+        "chargingPointCode": "LFZ",
+        "socketList": [
+          {
+            "socketId": 169,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 170,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 171,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 172,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 53,
+        "chargingPointCode": "MEQ",
+        "socketList": [
+          {
+            "socketId": 173,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 174,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 175,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 176,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 54,
+        "chargingPointCode": "PRP",
+        "socketList": [
+          {
+            "socketId": 177,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 178,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 179,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 180,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 55,
+        "chargingPointCode": "DEG",
+        "socketList": [
+          {
+            "socketId": 181,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 182,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 183,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 184,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 56,
+        "chargingPointCode": "MZ0",
+        "socketList": [
+          {
+            "socketId": 185,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 186,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 187,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 188,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 57,
+        "chargingPointCode": "PTP",
+        "socketList": [
+          {
+            "socketId": 189,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 190,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 191,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 192,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 58,
+        "chargingPointCode": "VQD",
+        "socketList": [
+          {
+            "socketId": 193,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 194,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 195,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 196,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 59,
+        "chargingPointCode": "PFA",
+        "socketList": [
+          {
+            "socketId": 197,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 198,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 199,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 200,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "chargingStationId": 6,
+    "name": "Garage Velasca Tesla",
+    "address": "Via Pantano, 4",
+    "city": "Milan",
+    "latitude": 45.459921,
+    "longitude": 9.191376,
+    "chargingPointList": [
+      {
+        "chargingPointId": 60,
+        "chargingPointCode": "MKK",
+        "socketList": [
+          {
+            "socketId": 201,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 202,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 203,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 204,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 61,
+        "chargingPointCode": "MIG",
+        "socketList": [
+          {
+            "socketId": 205,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 206,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 207,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 208,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 62,
+        "chargingPointCode": "DJT",
+        "socketList": [
+          {
+            "socketId": 209,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 210,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 211,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 212,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 63,
+        "chargingPointCode": "PGR",
+        "socketList": [
+          {
+            "socketId": 213,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 214,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 215,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 216,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 64,
+        "chargingPointCode": "KQE",
+        "socketList": [
+          {
+            "socketId": 217,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 218,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 219,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 220,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 65,
+        "chargingPointCode": "ZKQ",
+        "socketList": [
+          {
+            "socketId": 221,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 222,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 223,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 224,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 66,
+        "chargingPointCode": "EG0",
+        "socketList": [
+          {
+            "socketId": 225,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 226,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 227,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 228,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 67,
+        "chargingPointCode": "B0M",
+        "socketList": [
+          {
+            "socketId": 229,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 230,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 231,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 232,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 68,
+        "chargingPointCode": "HME",
+        "socketList": [
+          {
+            "socketId": 233,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 234,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 235,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 236,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 69,
+        "chargingPointCode": "GSK",
+        "socketList": [
+          {
+            "socketId": 237,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 238,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 239,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 240,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "chargingStationId": 7,
+    "name": "Residence Zenale",
+    "address": "Via Bernardino Zenale, 3",
+    "city": "Milan",
+    "latitude": 45.465192,
+    "longitude": 9.170359,
+    "chargingPointList": [
+      {
+        "chargingPointId": 70,
+        "chargingPointCode": "MUI",
+        "socketList": [
+          {
+            "socketId": 241,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 242,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 243,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 244,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 71,
+        "chargingPointCode": "QGU",
+        "socketList": [
+          {
+            "socketId": 245,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 246,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 247,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 248,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 72,
+        "chargingPointCode": "ELL",
+        "socketList": [
+          {
+            "socketId": 249,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 250,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 251,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 252,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 73,
+        "chargingPointCode": "AUL",
+        "socketList": [
+          {
+            "socketId": 253,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 254,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 255,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 256,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 74,
+        "chargingPointCode": "AK0",
+        "socketList": [
+          {
+            "socketId": 257,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 258,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 259,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 260,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 75,
+        "chargingPointCode": "0FJ",
+        "socketList": [
+          {
+            "socketId": 261,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 262,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 263,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 264,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 76,
+        "chargingPointCode": "TKD",
+        "socketList": [
+          {
+            "socketId": 265,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 266,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 267,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 268,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 77,
+        "chargingPointCode": "GLP",
+        "socketList": [
+          {
+            "socketId": 269,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 270,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 271,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 272,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 78,
+        "chargingPointCode": "VIC",
+        "socketList": [
+          {
+            "socketId": 273,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 274,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 275,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 276,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 79,
+        "chargingPointCode": "GNR",
+        "socketList": [
+          {
+            "socketId": 277,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 278,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 279,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 280,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "chargingStationId": 8,
+    "name": "TheF Charging",
+    "address": "Via Sangallos, 33",
+    "city": "Milan",
+    "latitude": 45.470836,
+    "longitude": 9.229063,
+    "chargingPointList": [
+      {
+        "chargingPointId": 80,
+        "chargingPointCode": "VVT",
+        "socketList": [
+          {
+            "socketId": 281,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 282,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 283,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 284,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 81,
+        "chargingPointCode": "CMP",
+        "socketList": [
+          {
+            "socketId": 285,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 286,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 287,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 288,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 82,
+        "chargingPointCode": "IAI",
+        "socketList": [
+          {
+            "socketId": 289,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 290,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 291,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 292,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 83,
+        "chargingPointCode": "GVC",
+        "socketList": [
+          {
+            "socketId": 293,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 294,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 295,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 296,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 84,
+        "chargingPointCode": "MRS",
+        "socketList": [
+          {
+            "socketId": 297,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 298,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 299,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 300,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 85,
+        "chargingPointCode": "LAQ",
+        "socketList": [
+          {
+            "socketId": 301,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 302,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 303,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 304,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 86,
+        "chargingPointCode": "CTR",
+        "socketList": [
+          {
+            "socketId": 305,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 306,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 307,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 308,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 87,
+        "chargingPointCode": "SHL",
+        "socketList": [
+          {
+            "socketId": 309,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 310,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 311,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 312,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 88,
+        "chargingPointCode": "VBD",
+        "socketList": [
+          {
+            "socketId": 313,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 314,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 315,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 316,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 89,
+        "chargingPointCode": "HIL",
+        "socketList": [
+          {
+            "socketId": 317,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 318,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 319,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 320,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "chargingStationId": 9,
+    "name": "Valparaiso Parking",
+    "address": "Via Giambellino, 31",
+    "city": "Milan",
+    "latitude": 45.450505,
+    "longitude": 9.149643,
+    "chargingPointList": [
+      {
+        "chargingPointId": 90,
+        "chargingPointCode": "JAP",
+        "socketList": [
+          {
+            "socketId": 321,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 322,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 323,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 324,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 91,
+        "chargingPointCode": "INF",
+        "socketList": [
+          {
+            "socketId": 325,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 326,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 327,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 328,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 92,
+        "chargingPointCode": "KS0",
+        "socketList": [
+          {
+            "socketId": 329,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 330,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 331,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 332,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 93,
+        "chargingPointCode": "FBC",
+        "socketList": [
+          {
+            "socketId": 333,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 334,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 335,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 336,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 94,
+        "chargingPointCode": "IEN",
+        "socketList": [
+          {
+            "socketId": 337,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 338,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 339,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 340,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 95,
+        "chargingPointCode": "JAR",
+        "socketList": [
+          {
+            "socketId": 341,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 342,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 343,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 344,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 96,
+        "chargingPointCode": "DNH",
+        "socketList": [
+          {
+            "socketId": 345,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 346,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 347,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 348,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 97,
+        "chargingPointCode": "KTK",
+        "socketList": [
+          {
+            "socketId": 349,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 350,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 351,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 352,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 98,
+        "chargingPointCode": "FKD",
+        "socketList": [
+          {
+            "socketId": 353,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 354,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 355,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 356,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 99,
+        "chargingPointCode": "HHV",
+        "socketList": [
+          {
+            "socketId": 357,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 358,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 359,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 360,
+            "socketCode": 4,
             "type": "RAPID"
           }
         ]
       }
     ]
   },
-
   {
-    "chargingStationId": 2,
-    "name": "stazione diversa",
-    "address": "Via diversa",
+    "chargingStationId": 10,
+    "name": "Garage Giangaleazzo Srl",
+    "address": "Piazza Leonardo da Vinci",
     "city": "Milan",
-    "latitude": 45.498615,
-    "longitude": 9.167541,
+    "latitude": 45.479232,
+    "longitude": 9.225844,
     "chargingPointList": [
       {
-        "chargingPointId": 3,
-        "chargingPointCode": "A",
-        "mode": "IN_ADVANCE",
+        "chargingPointId": 100,
+        "chargingPointCode": "UIH",
         "socketList": [
           {
-            "socketId": 7,
-            "socketCode": "1",
+            "socketId": 361,
+            "socketCode": 1,
             "type": "SLOW"
           },
           {
-            "socketId": 8,
-            "socketCode": "2",
+            "socketId": 362,
+            "socketCode": 2,
             "type": "FAST"
           },
           {
-            "socketId": 9,
-            "socketCode": "3",
+            "socketId": 363,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 364,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 101,
+        "chargingPointCode": "URD",
+        "socketList": [
+          {
+            "socketId": 365,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 366,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 367,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 368,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 102,
+        "chargingPointCode": "UF0",
+        "socketList": [
+          {
+            "socketId": 369,
+            "socketCode": 1,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 370,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 371,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 372,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 103,
+        "chargingPointCode": "PUD",
+        "socketList": [
+          {
+            "socketId": 373,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 374,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 375,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 376,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 104,
+        "chargingPointCode": "0V0",
+        "socketList": [
+          {
+            "socketId": 377,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 378,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 379,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 380,
+            "socketCode": 4,
+            "type": "FAST"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 105,
+        "chargingPointCode": "CDE",
+        "socketList": [
+          {
+            "socketId": 381,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 382,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 383,
+            "socketCode": 3,
+            "type": "FAST"
+          },
+          {
+            "socketId": 384,
+            "socketCode": 4,
             "type": "RAPID"
           }
         ]
       },
       {
-        "chargingPointId": 4,
-        "chargingPointCode": "B",
-        "mode": "ON_THE_FLY",
+        "chargingPointId": 106,
+        "chargingPointCode": "EQH",
         "socketList": [
           {
-            "socketId": 10,
-            "socketCode": "1",
+            "socketId": 385,
+            "socketCode": 1,
             "type": "SLOW"
           },
           {
-            "socketId": 11,
-            "socketCode": "2",
+            "socketId": 386,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 387,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 388,
+            "socketCode": 4,
+            "type": "RAPID"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 107,
+        "chargingPointCode": "DTA",
+        "socketList": [
+          {
+            "socketId": 389,
+            "socketCode": 1,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 390,
+            "socketCode": 2,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 391,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 392,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 108,
+        "chargingPointCode": "TVU",
+        "socketList": [
+          {
+            "socketId": 393,
+            "socketCode": 1,
             "type": "FAST"
           },
           {
-            "socketId": 12,
-            "socketCode": "3",
+            "socketId": 394,
+            "socketCode": 2,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 395,
+            "socketCode": 3,
+            "type": "SLOW"
+          },
+          {
+            "socketId": 396,
+            "socketCode": 4,
+            "type": "SLOW"
+          }
+        ]
+      },
+      {
+        "chargingPointId": 109,
+        "chargingPointCode": "DKK",
+        "socketList": [
+          {
+            "socketId": 397,
+            "socketCode": 1,
+            "type": "FAST"
+          },
+          {
+            "socketId": 398,
+            "socketCode": 2,
+            "type": "FAST"
+          },
+          {
+            "socketId": 399,
+            "socketCode": 3,
+            "type": "RAPID"
+          },
+          {
+            "socketId": 400,
+            "socketCode": 4,
             "type": "RAPID"
           }
         ]
