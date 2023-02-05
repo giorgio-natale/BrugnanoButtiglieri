@@ -1,4 +1,4 @@
-package it.polimi.cpms.bookingservice.model.booking;
+package it.polimi.emall.emsp.bookingmanagementservice.usecases;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -53,13 +53,13 @@ public class ShowChargingStationStatusUseCase {
 
         Map<SocketTypeClientDto, SocketTypeAvailabilityOverviewDto> overviewInformation =
                 new HashMap<>(Map.of(
-                        SocketTypeClientDto.SLOW, new SocketTypeAvailabilityOverviewDto(0, 0, 0),
-                        SocketTypeClientDto.FAST, new SocketTypeAvailabilityOverviewDto(0, 0, 0),
-                        SocketTypeClientDto.RAPID, new SocketTypeAvailabilityOverviewDto(0, 0, 0)
+                        SocketTypeClientDto.SLOW, new SocketTypeAvailabilityOverviewDto(0, 0, Integer.MAX_VALUE),
+                        SocketTypeClientDto.FAST, new SocketTypeAvailabilityOverviewDto(0, 0, Integer.MAX_VALUE),
+                        SocketTypeClientDto.RAPID, new SocketTypeAvailabilityOverviewDto(0, 0, Integer.MAX_VALUE)
                 ));
 
         socketCurrentStatuses.forEach(socketCurrentStatus -> {
-            Optional<Booking> associatedBooking = Optional.ofNullable(bookings.get(socketCurrentStatus.getChargingPointId()));
+            Optional<Booking> associatedBooking = Optional.ofNullable(bookings.get(socketCurrentStatus.getId()));
             var oldAvailability = overviewInformation.get(socketCurrentStatus.getSocketType());
             oldAvailability.setTotalSocketNumber(oldAvailability.getTotalSocketNumber() + 1);
             associatedBooking.ifPresentOrElse(

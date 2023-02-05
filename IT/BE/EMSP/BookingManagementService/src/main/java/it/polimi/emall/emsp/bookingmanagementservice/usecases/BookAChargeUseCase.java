@@ -12,6 +12,7 @@ import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingManage
 import it.polimi.emall.emsp.bookingmanagementservice.model.booking.BookingStatus;
 import it.polimi.emall.emsp.bookingmanagementservice.model.cpocatalog.CpoManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,13 @@ public class BookAChargeUseCase {
 
     public BookingDto createBooking(BookingRequestDto bookingRequestDto){
         BookingRequestClientDto bookingRequestClientDto = BookingDtoMapper.buildBookingRequestClientDto(bookingRequestDto);
-        BookingClientDto receivedBookingDto = bookingApi.postBooking(bookingRequestClientDto).block();
+        BookingClientDto receivedBookingDto =
+                bookingApi.postBookingWithResponseSpec(bookingRequestClientDto)
+                    .onStatus(HttpStatusCode::is4xxClientError, e -> {
+                            throw new NoAvailableSocketException("The booking you requested is not available. Try another one");
+                    })
+                    .bodyToMono(BookingClientDto.class)
+                    .block();
         BookingDto bookingDto = BookingDtoMapper.buildBookingDto(receivedBookingDto);
         return transactionTemplate.execute(status -> {
             Booking booking = bookingManager.createNewAndUpdate(bookingDto.getBookingId(), bookingDto);
