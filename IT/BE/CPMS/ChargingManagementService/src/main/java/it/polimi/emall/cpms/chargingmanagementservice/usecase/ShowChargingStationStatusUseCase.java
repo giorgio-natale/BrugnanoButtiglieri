@@ -59,7 +59,7 @@ public class ShowChargingStationStatusUseCase {
                 ));
 
         socketCurrentStatuses.forEach(socketCurrentStatus -> {
-            Optional<Booking> associatedBooking = Optional.ofNullable(bookings.get(socketCurrentStatus.getChargingPointId()));
+            Optional<Booking> associatedBooking = Optional.ofNullable(bookings.get(socketCurrentStatus.getId()));
             var oldAvailability = overviewInformation.get(socketCurrentStatus.getSocketType());
             oldAvailability.setTotalSocketNumber(oldAvailability.getTotalSocketNumber() + 1);
             associatedBooking.ifPresentOrElse(
