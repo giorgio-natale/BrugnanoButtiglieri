@@ -7,6 +7,9 @@ import it.polimi.emall.cpms.employeeservice.model.EmployeeTokenDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
 @Component
 public class JwtHelper {
     private final String secret;
@@ -24,6 +27,7 @@ public class JwtHelper {
         return JWT.create()
                 .withClaim("key", key)
                 .withClaim("employeeId", employeeId)
+                .withExpiresAt(Instant.now().plus(2, ChronoUnit.CENTURIES))
                 .sign(Algorithm.HMAC256(secret));
     }
 
