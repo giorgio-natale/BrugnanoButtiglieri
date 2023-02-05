@@ -22,7 +22,11 @@ public class PeriodicUpdateOfSocketMocks {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                simulateChargingPointUseCase.simulateChargingPoints();
+                try {
+                    simulateChargingPointUseCase.simulateChargingPoints();
+                }catch (RuntimeException e){
+                    e.printStackTrace();
+                }
             }
         }, 1000, 3000);
     }
